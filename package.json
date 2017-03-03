@@ -8,7 +8,7 @@
     "start": "node_modules/.bin/webpack-dev-server --progress --colors"
   },
   "keywords": [],
-  "author": "Edinson Nuñez More, Javier Garcia",
+  "author": "Edinson Nuñez More, Javier Galarza",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.22.2",

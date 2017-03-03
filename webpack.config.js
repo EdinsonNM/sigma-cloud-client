@@ -40,17 +40,18 @@ module.exports={
   externals: {
 		"jquery": "jQuery"
 	},
-  plugins:[
-    new HtmlWebpackPlugin({
+	plugins:[
+		new HtmlWebpackPlugin({
 			template: path.resolve(__dirname, 'public/index.html'),
 			hash: true,
 			filename: 'index.html',
 			inject: 'body'
 		}),
-    new CopyWebpackPlugin([
+		new CopyWebpackPlugin([
 			{from: 'public/css', to: 'css' },
 			{from: 'public/images', to: 'images' },
 			{from: 'public/js', to: 'js' }
 		])
-  ]
+	],
+	devtool: "source-map"
 };
