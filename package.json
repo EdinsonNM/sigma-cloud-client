@@ -5,8 +5,7 @@
   "main": "app.js",
   "scripts": {
     "build": "webpack --watch --colors",
-    "start": "node_modules/.bin/webpack-dev-server --progress --colors",
-    "start-win": "./node_modules/.bin/webpack-dev-server --progress --colors"
+    "start": "node_modules/.bin/webpack-dev-server --progress --colors"
   },
   "keywords": [],
   "author": "Edinson Nuñez More, Javier Galarza",
