@@ -1,6 +1,6 @@
 export default `
 <div id="myapp">
-<paper-button>Hi</paper-button>
+<paper-button raised>Hi</paper-button>
 <paper-button>Hola</paper-button>
 <div id="view">MIS VISTA</div>
 <a href="#/login" is="rebel-back-a">Login</a>
