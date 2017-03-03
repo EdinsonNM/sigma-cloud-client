@@ -1,4 +1,4 @@
-import template from './main.template';
+import template from './main.html';
 
 export default class AppMain extends HTMLElement{
     constructor(){

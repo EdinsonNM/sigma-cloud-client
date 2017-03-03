@@ -1,4 +1,4 @@
-import template from './login.template';
+import template from './login.html';
 
 export default class AppLogin extends HTMLElement{
     constructor(){
