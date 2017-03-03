@@ -32,7 +32,7 @@ module.exports={
         query:babelSettings
       },
       {
-        test: /\.html$/,
+        test: /(\.html|\.css)$/,
         use: 'raw-loader'
       }
     ]

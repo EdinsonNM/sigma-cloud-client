@@ -1,4 +1,6 @@
-import template from './paper-button.html'
+import html from './paper-button.html'
+import css from './paper-button.css'
+let template = createTemplate(html,css);
 export default class PaperButton extends HTMLElement {
 	constructor(){
 		super();
