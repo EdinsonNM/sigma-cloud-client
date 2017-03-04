@@ -1,13 +1,19 @@
-<div id="myapp">
-    <h1>Soy APP</h1>
-    <paper-button raised>Hi</paper-button>
-    <paper-button>Hola</paper-button>
-    <div id="view">MIS VISTA</div>
-    <a href="#/login" is="rebel-back-a">Login</a>
-    <a href="#/main" is="rebel-back-a">Main</a>
-    <rebel-router animation="false" shadow="false">
-        <rebel-route path="/login" component="app-login"></rebel-route>
-        <rebel-route path="/main" component="app-main"></rebel-route>
-        <rebel-default component="app-login"></rebel-default>
-    </rebel-router>
-</div>
+<custom-style>
+	<style>
+        :host{
+            width: 100%;
+            height: 100%;
+        }
+        #app{
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</custom-style>
+<div id="app">
+<app-router mode="hash">
+      <app-route path="/splash"  element="app-splash"></app-route>
+      <app-route path="/login"  element="app-login"></app-route>
+      <app-route path="/main"  element="app-main"></app-route>
+</app-router>
+</diV>

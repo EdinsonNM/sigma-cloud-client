@@ -23,6 +23,5 @@
     "webpack-dev-server": "^2.4.1"
   },
   "dependencies": {
-    "rebel-router": "^0.7.0"
   }
 }
