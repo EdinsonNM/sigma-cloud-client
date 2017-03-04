@@ -1,4 +1,6 @@
-import template from './main.html';
+import html from './main.html';
+import css from './main.css';
+let template = createTemplate(html,css);
 
 export default class AppMain extends HTMLElement{
     constructor(){
