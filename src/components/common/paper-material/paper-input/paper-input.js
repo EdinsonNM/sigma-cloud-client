@@ -25,6 +25,7 @@ export default class PaperInput extends HTMLElement {
 		 this.color = this.getAttribute('color');
          this.floatingLabel = this.getAttribute('floating-label');
          this.value=this.getAttribute('value');
+         this.type=this.getAttribute('type');
 	}
     set color(val) {
 		if (val){
@@ -59,6 +60,17 @@ export default class PaperInput extends HTMLElement {
 	}
 	get value() {
 		return this.getAttribute('value');
+	}
+    set type(val) {
+		if (val){
+            this.setAttribute('type', val);
+            this.$input.type=val;
+            
+        }else
+            this.removeAttribute('type');
+	}
+	get type() {
+		return this.getAttribute('type');
 	}
 	
 
