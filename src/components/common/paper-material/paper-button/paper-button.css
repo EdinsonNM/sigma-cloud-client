@@ -21,6 +21,7 @@
     @apply --paper-font-common-base;
     contain: content;
     opacity: 0.7;
+    text-align: center;
 }
 :host(:hover){
     opacity:1;

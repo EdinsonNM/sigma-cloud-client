@@ -29,7 +29,11 @@ iron-icon:nth-of-type(1) {
         fill: white;
     }
 }
-
+:root{
+    --input-text-color:{
+        color:red;
+    }
+}
 
 h1{
     font-family: 'Advent Pro', sans-serif;
@@ -55,4 +59,8 @@ h5{
     font-family: Roboto;
     font-weight: 100;
     text-align: center;
+}
+
+#container{
+    max-width: 300px;
 }
