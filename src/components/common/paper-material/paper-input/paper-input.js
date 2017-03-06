@@ -1,11 +1,12 @@
+import Template from '../../../../libs/template';
 import html from './paper-input.html'
 import css from './paper-input.css'
-let template = createTemplate(html,css);
+let templateObj = new Template(css,html);
 export default class PaperInput extends HTMLElement {
 	constructor(){
 		super();
 		this._shadowRoot = this.attachShadow({mode: 'open'});
-		this._shadowRoot.innerHTML = template;
+		this._shadowRoot.innerHTML = templateObj.template;
 		this.initDOMRefs();
         this.addListeners();
         

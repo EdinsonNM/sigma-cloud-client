@@ -1,7 +1,7 @@
-import html from './splash.html'
-import css from './splash.css'
-let template = createTemplate(html,css);
-
+import Template from '../../../libs/template';
+import html from './splash.html';
+import css from './splash.css';
+let templateObj = new Template(css,html);
 export default class AppSplash extends HTMLElement{
     constructor(){
         super();

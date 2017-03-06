@@ -1,11 +1,12 @@
+import Template from '../../../../libs/template';
 import html from './paper-button.html'
 import css from './paper-button.css'
-let template = createTemplate(html,css);
+let templateObj = new Template(css,html);
 export default class PaperButton extends HTMLElement {
 	constructor(){
 		super();
 		this._shadowRoot = this.attachShadow({mode: 'open'});
-		this._shadowRoot.innerHTML = template;
+		this._shadowRoot.innerHTML = templateObj.template;
 		
 		this.addListeners();
 		this.initDOMRefs()

@@ -1,11 +1,12 @@
-import html from './paper-chip.html'
-import css from './paper-chip.css'
-let template = createTemplate2(html,css);
+import Template from '../../../../libs/template';
+import html from './paper-chip.html';
+import css from './paper-chip.css';
+let templateObj = new Template(css,html);
 export default class PaperChip extends HTMLElement {
 	constructor(){
 		super();
 		this._shadowRoot = this.attachShadow({mode: 'open'});
-		this._shadowRoot.innerHTML = template;
+		this._shadowRoot.innerHTML = templateObj.template;
 		this.initDOMRefs();
         this.addListeners();
         

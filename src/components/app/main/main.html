@@ -1,10 +1,14 @@
-<custom-style>
-	<style></style>
-</custom-style>
 <img id="logo" src="/images/logo.svg">
 <h1>SIGMA</h1>
 <h3>CLOUD</h3>
 <h5>MAIN</h5>
-<paper-chip label="Inventario"></paper-chip>
-<paper-chip label="Padron"></paper-chip>
-<paper-chip label="PCR"></paper-chip>
+<div id="chip-container" ref="#template-chips">
+</div>
+
+<script id="template-chips" type="text/template">
+	<div>
+	<% _.each(data, function(item){ %>
+		<paper-chip label="<%= item.name%>"></paper-chip>
+	<% }); %>
+	</div>
+</script>

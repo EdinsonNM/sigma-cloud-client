@@ -1,5 +1,5 @@
-import {appRouter} from '../common/app-router';
-import PaperButtton from '../common/paper-material/paper-button/paper-button';
+import {appRouter} from '../common/app-router/app-router';
+import PaperMaterial from '../common/paper-material';
 import Splash from './splash/splash';
 import Login from './login/login';
 import Main from './main/main';

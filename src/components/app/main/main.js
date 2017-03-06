@@ -1,15 +1,31 @@
-import '../../common/paper-material/paper-chip/paper-chip';
-
+import Template from '../../../libs/template';
 import html from './main.html';
 import css from './main.css';
-let template = createTemplate(html,css);
-
+let templateObj = new Template(css,html);
 export default class AppMain extends HTMLElement{
 		constructor(){
 				super();
 				let shadowRoot = this.attachShadow({mode: 'open'});
-		shadowRoot.innerHTML = template;
+				shadowRoot.innerHTML = templateObj.template;
+				this.data ={
+						modules:[
+							{
+								name:'Padron'
+							},
+							{
+								name:'Inventario'
+							}
+						]
+				}
+				this.initDOMRefs();
 
+		}
+		initDOMRefs(){
+			this.$chipsContainer = this.shadowRoot.querySelector("#chip-container");
+			this.$chipsTemplate = this.shadowRoot.querySelector(this.$chipsContainer.getAttribute('ref'));
+		}
+		connectedCallback(){
+			this.$chipsContainer.innerHTML = Template.render(this.$chipsTemplate.innerHTML,this.data.modules);
 		}
 
 }

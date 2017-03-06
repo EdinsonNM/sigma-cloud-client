@@ -1,15 +1,15 @@
-import PaperInput from '../../common/paper-material/paper-input/paper-input'
-
+import Template from '../../../libs/template';
 import html from './login.html';
 import css from './login.css';
-let template = createTemplate(html,css);
+
+let templateObj = new Template(css,html);
 
 export default class AppLogin extends HTMLElement {
 
 		constructor(){
 			super();
 			this._shadowRoot = this.attachShadow({mode: 'open'});
-			this._shadowRoot.innerHTML = template;
+			this._shadowRoot.innerHTML = templateObj.template;
 			this.initDOMRefs();
 			this.addListeners();
 		}
@@ -34,6 +34,10 @@ export default class AppLogin extends HTMLElement {
 			//alert("Hola Mundo");
 			document.location.hash="#/main";
 			console.log(user,password);
+		}
+
+		render(){
+			this._shadowRoot.innerHTML = template.render(this.data);
 		}
 
 }
