@@ -2,6 +2,7 @@ import Template from '../../../libs/template';
 import html from './index.html';
 import css from './main.css';
 import NiceLink from '../../common/nice-link';
+import NiceSteper from '../../common/nice-stepper/nice-stepper';
 import _ from 'underscore';
 let templateObj = new Template(css,html);
 
