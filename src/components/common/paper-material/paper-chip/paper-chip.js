@@ -3,39 +3,43 @@ import html from './paper-chip.html';
 import css from './paper-chip.css';
 let templateObj = new Template(css,html);
 export default class PaperChip extends HTMLElement {
+	
 	constructor(){
 		super();
 		this._shadowRoot = this.attachShadow({mode: 'open'});
 		this._shadowRoot.innerHTML = templateObj.template;
 		this.initDOMRefs();
-        this.addListeners();
-        
+		this.addListeners();
 	}
-    initDOMRefs(){
-        this.$label = this._shadowRoot.querySelector('.md-chip-text');
-    }
-    addListeners(){
-        
-    }
-    connectedCallback() {
-		 this.label = this.getAttribute('label');
+
+	initDOMRefs(){
+			this.$label = this._shadowRoot.querySelector('.md-chip-text');
 	}
-    set label(val){
-        if(val){
-            this.setAttribute('label',val);
-            this.$label.innerHTML = val;
-        }else{
-            this.removeAttribute('label');
-        }
-    }
-    get label(){
-        return this.getAttribute('label');
-    }
 
+	addListeners(){
 
+	}
+
+	connectedCallback() {
+		this.label = this.getAttribute('label');
+	}
+
+	set label(val){
+		if(val){
+			this.setAttribute('label',val);
+			this.$label.innerHTML = val;
+		}else{
+			this.removeAttribute('label');
+		}
+	}
+
+	get label(){
+		return this.getAttribute('label');
+	}
 }
+
 try{
-customElements.define('paper-chip',PaperChip,{extends:'input'});
+	customElements.define('paper-chip', PaperChip, {extends:'input'});
 }catch(e){
-    console.log("paper-chip was registered");
+	console.log("paper-chip was registered");
 }
