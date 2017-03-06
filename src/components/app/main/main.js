@@ -1,3 +1,5 @@
+import '../../common/paper-material/paper-chip/paper-chip';
+
 import html from './main.html';
 import css from './main.css';
 let template = createTemplate(html,css);

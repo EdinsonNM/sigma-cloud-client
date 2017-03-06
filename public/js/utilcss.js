@@ -8,5 +8,18 @@ var setDocumentVariable = function(propertyName, value) {
 
 
 var createTemplate = function(html,css){
-  return html.replace("<style></style>", `<style>${css}</style>`);
+  return html.replace("<style></style>", `<style  is="custom-style" include="layout-style">${css}</style>`);
+}
+
+var createTemplate2 = function(html,css){
+  var template=html
+ if(css){
+   template= `<custom-style>
+                <style>
+                  ${css}
+                </style>
+              </custom-style>
+              ${html}`;
+ }
+ return template;
 }

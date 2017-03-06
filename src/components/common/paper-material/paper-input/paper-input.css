@@ -16,29 +16,31 @@
 }
 
 input 				{
-  font-size:18px;
-  padding:10px 10px 10px 5px;
+  font-size:14px;
+  padding:5px;
   display:block;
   width:100%;
   border:none;
   border-bottom:1px solid #757575;
   background-color: transparent;
-  color: black
+  color: black;
+  @apply --paper-font-common-base;
 }
 input:focus 		{ outline:none; }
 
 /* LABEL ======================================= */
 label 				 {
   color:#999; 
-  font-size:18px;
+  font-size:14px;
   font-weight:normal;
   position:absolute;
   pointer-events:none;
   left:5px;
-  top:10px;
+  top:5px;
   transition:0.2s ease all; 
   -moz-transition:0.2s ease all; 
   -webkit-transition:0.2s ease all;
+   @apply --paper-font-common-base;
 }
 
 /* active state */
