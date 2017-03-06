@@ -1,9 +1,8 @@
+import Template from '../../../../libs/template';
 import html from './paper-icon.html'
 import css from './paper-icon.css'
 import _ from 'underscore';
-let template = createTemplate(html,css);
-
-
+let templateObj = new Template(css,html);
 
 /**
  * PaperIcon class
@@ -17,8 +16,17 @@ export default class PaperIcon extends HTMLElement {
 
 	constructor(){
 		super();
-		this._shadowRoot = this.attachShadow({mode: 'open'});
-		let preTemplate = _.template(template);
+		let shadowRoot = this.attachShadow({mode: 'open'});
+		shadowRoot.innerHTML = templateObj.template;
+		this.initDOMRefs();
+	}
+
+	initDOMRefs(){
+		this.$iconContainer = this.shadowRoot.querySelector("#icon-container");
+		this.$iconTemplate = this.shadowRoot.querySelector(this.$iconContainer.getAttribute('ref'));
+	}
+
+	connectedCallback(){
 		let iconName = this.innerHTML;
 		let iconSizeClass = null;
 		let iconStyle = "";
@@ -41,17 +49,14 @@ export default class PaperIcon extends HTMLElement {
 		}
 
 		let data = {
-			data: {
-				iconSizeClass: iconSizeClass,
-				iconName: iconName,
-				iconStyle: iconStyle
-			}
+			iconSizeClass: iconSizeClass,
+			iconName: iconName,
+			iconStyle: iconStyle
 		}
-		this._shadowRoot.innerHTML =  preTemplate(data);
-	}
-
-	initDOMRefs(){
-		this.icon = this.shadowRoot.querySelector(".material-icons")[0];
+		this.$iconContainer.innerHTML = Template.render(
+			this.$iconTemplate.innerHTML,
+			data
+		);
 	}
 }
 

@@ -1,29 +1,26 @@
 import Template from '../../../libs/template';
 import html from './index.html';
 import css from './main.css';
-import NiceLink from '../../common/nice-link';
 import NiceSteper from '../../common/nice-stepper/nice-stepper';
-import _ from 'underscore';
 let templateObj = new Template(css,html);
 
 export default class AppProfile extends HTMLElement{
 
-		constructor(){
-			super();
-			let shadowRoot = this.attachShadow({mode: 'open'});
-			var preTemplate = _.template(templateObj.template);
-			var _links = [
-				{
-					id: 1,
-					name: 'test'
-				},
-				{
-					id: 2,
-					name: 'test2'
-				}
-			]
-			shadowRoot.innerHTML =  preTemplate({data: _links});
-		}
+	constructor(){
+		super();
+		let shadowRoot = this.attachShadow({mode: 'open'});
+		shadowRoot.innerHTML = templateObj.template;
+		this.initDOMRefs();
+	}
+
+	initDOMRefs(){
+		// this.$chipsContainer = this.shadowRoot.querySelector("#chip-container");
+		// this.$chipsTemplate = this.shadowRoot.querySelector(this.$chipsContainer.getAttribute('ref'));
+	}
+
+	connectedCallback(){
+		// this.$chipsContainer.innerHTML = Template.render(this.$chipsTemplate.innerHTML,this.data.modules);
+	}
 
 }
 const nameWebComponent="app-profile";

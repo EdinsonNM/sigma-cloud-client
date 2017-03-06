@@ -7,3 +7,7 @@
 	/*padding: 0 40px 0px 40px;*/
 	font-family: 'Advent Pro', sans-serif;
 }
+
+.stepper-container{
+	display: inherit;
+}
