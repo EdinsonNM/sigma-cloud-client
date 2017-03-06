@@ -3,6 +3,7 @@ import PaperButtton from '../common/paper-material/paper-button/paper-button';
 import Splash from './splash/splash';
 import Login from './login/login';
 import Main from './main/main';
+import Profile from './profile';
 import template from "./app.html";
 
 export default class App extends HTMLElement{
@@ -10,9 +11,9 @@ export default class App extends HTMLElement{
 		super();
 		let shadowRoot = this.attachShadow({mode: 'open'});
 		shadowRoot.innerHTML = template;
-		
+
 	}
-	 
+
 }
 
 customElements.define('my-app',App);
