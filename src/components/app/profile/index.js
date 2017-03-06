@@ -1,15 +1,16 @@
+import Template from '../../../libs/template';
 import html from './index.html';
 import css from './main.css';
 import NiceLink from '../../common/nice-link';
 import _ from 'underscore';
-let template = createTemplate(html,css);
+let templateObj = new Template(css,html);
 
 export default class AppProfile extends HTMLElement{
 
 		constructor(){
 			super();
 			let shadowRoot = this.attachShadow({mode: 'open'});
-			var preTemplate = _.template(template);
+			var preTemplate = _.template(templateObj.template);
 			var _links = [
 				{
 					id: 1,

@@ -6,7 +6,7 @@ export default class AppSplash extends HTMLElement{
     constructor(){
         super();
         let shadowRoot = this.attachShadow({mode: 'open'});
-		shadowRoot.innerHTML = template;
+		shadowRoot.innerHTML = templateObj.template;
 
     }
     connectedCallback() {
