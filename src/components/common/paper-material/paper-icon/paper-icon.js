@@ -19,44 +19,51 @@ export default class PaperIcon extends HTMLElement {
 		let shadowRoot = this.attachShadow({mode: 'open'});
 		shadowRoot.innerHTML = templateObj.template;
 		this.initDOMRefs();
+		this.collectDataAttributes();
 	}
 
-	initDOMRefs(){
-		this.$iconContainer = this.shadowRoot.querySelector("#icon-container");
-		this.$iconTemplate = this.shadowRoot.querySelector(this.$iconContainer.getAttribute('ref'));
-	}
-
-	connectedCallback(){
-		let iconName = this.innerHTML;
-		let iconSizeClass = null;
-		let iconStyle = "";
+	collectDataAttributes(){
+		this.iconClass = null;
+		this.iconSize  = null;
+		this.iconColor  = null;
 
 		if ( this.attributes['data-class'] ) {
-			 iconSizeClass = this.attributes['data-class'].nodeValue
+			 this.iconClass = this.attributes['data-class'].nodeValue
 		}
 
 		if ( this.attributes['data-size'] ) {
-			iconStyle += (
-				" font-size:" + this.attributes['data-size'].nodeValue + " !important;"
-			);
-			if ( iconSizeClass && iconSizeClass.length) {
-				iconSizeClass = null;
-			}
+			 this.iconSize = this.attributes['data-size'].nodeValue
 		}
 
 		if ( this.attributes['data-color'] ) {
-			iconStyle += " color:" + this.attributes['data-color'].nodeValue;
+			 this.iconColor = this.attributes['data-color'].nodeValue
 		}
 
-		let data = {
-			iconSizeClass: iconSizeClass,
-			iconName: iconName,
-			iconStyle: iconStyle
+	}
+
+	initDOMRefs(){
+		this.$icon = this.shadowRoot.querySelector('#icon');
+	}
+
+	connectedCallback(){
+		// SET MATERIAL ICON TYPE
+		this.$icon.innerHTML = this.innerHTML;
+
+		//SET CLASS
+		if ( this.iconClass ) {
+			this.$icon.className += " " + this.iconClass;
 		}
-		this.$iconContainer.innerHTML = Template.render(
-			this.$iconTemplate.innerHTML,
-			data
-		);
+
+		//SET SIZE
+		if ( this.iconSize ) {
+			this.$icon.style['font-size'] = this.iconSize;
+		}
+
+		//SET COLOR
+		if ( this.iconColor ) {
+			this.$icon.style['color'] = this.iconColor;
+		}
+
 	}
 }
 
