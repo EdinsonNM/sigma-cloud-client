@@ -1,5 +1,5 @@
 :host{
-
+	display: inline-block;
 }
 
 @font-face {
@@ -37,4 +37,3 @@
 .medium{
 	font-size: 4rem;
 }
- 

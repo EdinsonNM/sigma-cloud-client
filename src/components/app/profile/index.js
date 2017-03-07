@@ -1,7 +1,8 @@
 import Template from '../../../libs/template';
 import html from './index.html';
 import css from './main.css';
-import NiceSteper from '../../common/nice-stepper/nice-stepper';
+import NiceStep from '../../common/nice-step/nice-step';
+import NiceStepper from '../../common/nice-stepper/nice-stepper';
 let templateObj = new Template(css,html);
 
 export default class AppProfile extends HTMLElement{

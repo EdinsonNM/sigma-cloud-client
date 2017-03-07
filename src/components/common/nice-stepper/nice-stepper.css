@@ -1,13 +1,27 @@
 :host{
-	@apply --layout-center-center;
+	/*@apply --layout-center-center;
 	@apply --layout-vertical;
- 	@apply --background-app;
+ 	@apply --background-app;*/
 	/*height: 100%;*/
 	color:white;
 	/*padding: 0 40px 0px 40px;*/
 	font-family: 'Advent Pro', sans-serif;
 }
 
-.stepper-container{
+#step-label-container{
 	display: inherit;
+}
+
+#step-label-container{
+	text-align: center;
+	margin-top: 10px;
+}
+
+#stepper-container span {
+	display: inherit;
+	text-align: center;
+}
+
+.hide{
+	display: none;
 }

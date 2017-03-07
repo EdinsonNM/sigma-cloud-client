@@ -24,6 +24,7 @@ export default class AppMain extends HTMLElement{
 			this.$chipsContainer = this.shadowRoot.querySelector("#chip-container");
 			this.$chipsTemplate = this.shadowRoot.querySelector(this.$chipsContainer.getAttribute('ref'));
 		}
+
 		connectedCallback(){
 			this.$chipsContainer.innerHTML = Template.render(this.$chipsTemplate.innerHTML,this.data.modules);
 		}
