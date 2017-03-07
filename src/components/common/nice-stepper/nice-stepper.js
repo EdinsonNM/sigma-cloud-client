@@ -19,11 +19,17 @@ export default class Stepper extends HTMLElement {
 		shadowRoot.innerHTML = templateObj.template;
 		this.initDOMRefs();
 		this.collectDataAttributes();
+
+		//COUNT THE NUMBERS OF STEPS INSIDE THE STEPPER
 		this.stepsCount = (this.innerHTML.match(/<nice-step>/g) || []).length;
+
+		//SAVE THE CONTENT BEFORE BUILD THE TEMPLATE
 		this.content = this.innerHTML;
+
 		if ( this.stepsCount < 0 ) {
 			throw new Error('The stepper components needs steps');
 		}
+		
 		this.currentStep = 1;
 		this.addListeners();
 	}
@@ -41,67 +47,100 @@ export default class Stepper extends HTMLElement {
 		this.$stepButton.addEventListener("click", this.nextStep.bind(this));
 	}
 
+
+	/**
+	 * nextStep - Move on to the next step
+	 *
+	 * @param  {Object} e Event Object
+	 */
 	nextStep(e){
-		let lastStep = this.shadowRoot.querySelector(
-			"nice-step[data-index='" + this.currentStep + "']"
-		);
-
-		lastStep.classList.add('hide');
-
-		this.currentStep += 1;
-
-		let newStep = this.shadowRoot.querySelector(
-			"nice-step[data-index='" + this.currentStep + "']"
-		);
-
-		newStep.classList.remove('hide');
-
-		let label = LABEL.replace('__CURRENT__', this.currentStep);
-		label = label.replace('__TOTAL__', this.stepsCount);
-		this.$label.innerHTML = label;
-
-		let stepLabels = this.shadowRoot.querySelectorAll("paper-icon");
-		stepLabels.forEach((stepLabel, index) => {
-			if ( index + 1 != this.currentStep ) {
-				stepLabel.setAttribute('data-color', '');
-			} else{
-				stepLabel.setAttribute('data-color', this.selectedColor);
-			}
-		});
-
-		if ( this.currentStep == this.stepsCount ) {
+		let previousStep = this.currentStep;
+		if ( previousStep + 1 <= this.stepsCount ) {
+			this.currentStep += 1;
+			this.setStep(this.currentStep);
 			this.$stepButton.innerText = FINAL_BUTTON_LABEL;
+			let result = {
+				detail: {
+					'currentStep': this.currentStep,
+					'previouStep': previousStep
+				}
+			};
+			let event = new CustomEvent('stepper_changed', result);
+			window.dispatchEvent(event);
+		} else {
 			this.$stepButton.setAttribute('disabled', 'disabled');
 		}
-
-		let event = new CustomEvent('stepper_changed', { detail: {'state':1} });
-		window.dispatchEvent(event);
 	}
 
-	getStepContent( index ) {
-		if ( index && isNaN(index) ){
-			throw new Error( 'Index should be a valid integer number');
-		} else {
-			if ( index < this.stepsCount ){
-				return this.shadowRoot.querySelector(
-					"nice-step[data-index='" + index + "']"
-				);
-			}
-			return null;
-		}
-	}
 
+
+	/**
+	 * collectDataAttributes - Collect all the "data-" attributes
+	 *
+	 * @return {type}  description
+	 */
 	collectDataAttributes(){
-		this.label = LABEL;
+		this.label_template = LABEL;
 		this.selectedColor = SELECTED_COLOR;
 
 		if ( this.attributes['data-label'] ) {
-			 this.label = this.attributes['data-label'].nodeValue;
+			 this.label_template = this.attributes['data-label'].nodeValue;
 		}
 
 		if ( this.attributes['data-selected-color'] ) {
 			 this.selectedColor = this.attributes['data-selected-color'].nodeValue;
 		}
+	}
+
+
+	/**
+	 * setStep - Set step in the UI
+	 *
+	 * @param  {type} stepIndex Step Index
+	 */
+	setStep(stepIndex){
+		if ( !stepIndex && isNaN(stepIndex)) {
+			throw new Error('Invalid step index')
+		}
+
+		if ( stepIndex <= this.stepsCount ) {
+			this.setLabel(stepIndex);
+
+			if ( stepIndex > 1 ) {
+				let lastStep = this.shadowRoot.querySelector(
+					"nice-step[data-index='" + (stepIndex - 1) + "']"
+				);
+
+				lastStep.classList.add('hide');
+			}
+
+			let newStep = this.shadowRoot.querySelector(
+				"nice-step[data-index='" + stepIndex + "']"
+			);
+
+			newStep.classList.remove('hide');
+		}
+	}
+
+
+	/**
+	 * setLabel - Set label for stepper component base on label template
+	 *
+	 * @param  {integer} stepIndex Step Index
+	 */
+	setLabel(stepIndex){
+		let label = this.label_template.replace('__CURRENT__', stepIndex);
+		label = label.replace('__TOTAL__', this.stepsCount);
+		this.$label.innerHTML = label;
+
+		let stepLabels = this.shadowRoot.querySelectorAll("paper-icon");
+		stepLabels.forEach((stepLabel, index) => {
+			if ( index + 1 != stepIndex ) {
+				stepLabel.setAttribute('data-color', '');
+			} else{
+				stepLabel.setAttribute('data-color', this.selectedColor);
+			}
+		});
 	}
 
 	connectedCallback(){
@@ -113,17 +152,10 @@ export default class Stepper extends HTMLElement {
 			arr
 		);
 
-		//SET LABEL
-		this.label = this.label.replace('__CURRENT__', this.currentStep);
-		this.label = this.label.replace('__TOTAL__', this.stepsCount);
-		this.$label.innerHTML = this.label;
-
-		//SET CURRENT STEP LABEL
-		let current = this.shadowRoot.querySelector("paper-icon[data-index='1']");
-		current.setAttribute('data-color', this.selectedColor);
-
-		//SET CURRENT STEP CONTENT
+		//SET HTML FROM TEMPLATE
 		this.$stepperStepContainer.innerHTML = this.content;
+
+		//SET INITIAL DATA TO NICE-STEPS
 		let stepContents = this.shadowRoot.querySelectorAll("nice-step");
 		stepContents.forEach((step, index) => {
 			step.setAttribute('data-index', index +1 );
@@ -132,6 +164,8 @@ export default class Stepper extends HTMLElement {
 			}
 		});
 
+		//SET STEP
+		this.setStep(this.currentStep);
 	}
 }
 
