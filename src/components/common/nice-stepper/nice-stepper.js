@@ -9,6 +9,8 @@ const LABEL = "Paso __CURRENT__ de __TOTAL__";
 
 const SELECTED_COLOR = 'black';
 
+const FINAL_BUTTON_LABEL = 'Finalizar';
+
 export default class Stepper extends HTMLElement {
 
 	constructor(){
@@ -41,6 +43,7 @@ export default class Stepper extends HTMLElement {
 
 	nextStep(e){
 		this.currentStep += 1;
+
 		let stepContents = this.shadowRoot.querySelectorAll("nice-step");
 		stepContents.forEach((step, index) => {
 			step.classList.toggle('hide');
@@ -54,6 +57,11 @@ export default class Stepper extends HTMLElement {
 				stepLabel.setAttribute('data-color', this.selectedColor);
 			}
 		});
+
+		if ( this.currentStep == this.stepsCount ) {
+			this.$stepButton.innerText = FINAL_BUTTON_LABEL;
+			this.$stepButton.setAttribute('disabled', 'disabled')
+		}
 
 		let event = new CustomEvent('stepper_changed', { detail: {'state':1} });
 		window.dispatchEvent(event);
