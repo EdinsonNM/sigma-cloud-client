@@ -42,12 +42,23 @@ export default class Stepper extends HTMLElement {
 	}
 
 	nextStep(e){
+		let lastStep = this.shadowRoot.querySelector(
+			"nice-step[data-index='" + this.currentStep + "']"
+		);
+
+		lastStep.classList.add('hide');
+
 		this.currentStep += 1;
 
-		let stepContents = this.shadowRoot.querySelectorAll("nice-step");
-		stepContents.forEach((step, index) => {
-			step.classList.toggle('hide');
-		});
+		let newStep = this.shadowRoot.querySelector(
+			"nice-step[data-index='" + this.currentStep + "']"
+		);
+
+		newStep.classList.remove('hide');
+
+		let label = LABEL.replace('__CURRENT__', this.currentStep);
+		label = label.replace('__TOTAL__', this.stepsCount);
+		this.$label.innerHTML = label;
 
 		let stepLabels = this.shadowRoot.querySelectorAll("paper-icon");
 		stepLabels.forEach((stepLabel, index) => {
@@ -60,7 +71,7 @@ export default class Stepper extends HTMLElement {
 
 		if ( this.currentStep == this.stepsCount ) {
 			this.$stepButton.innerText = FINAL_BUTTON_LABEL;
-			this.$stepButton.setAttribute('disabled', 'disabled')
+			this.$stepButton.setAttribute('disabled', 'disabled');
 		}
 
 		let event = new CustomEvent('stepper_changed', { detail: {'state':1} });
