@@ -23,6 +23,7 @@ export default class Stepper extends HTMLElement {
 			throw new Error('The stepper components needs steps');
 		}
 		this.currentStep = 1;
+		this.addListeners();
 	}
 
 	initDOMRefs(){
@@ -31,6 +32,44 @@ export default class Stepper extends HTMLElement {
 		this.$stepperStepContainer = this.shadowRoot.querySelector("#step-container");
 		this.$stepsLabelTemplate = this.shadowRoot.querySelector("#steps-label-template");
 		this.$label = this.shadowRoot.querySelector("#label");
+		this.$stepButton = this.shadowRoot.querySelector("#btnStep");
+	}
+
+	addListeners(){
+		this.$stepButton.addEventListener("click", this.nextStep.bind(this));
+	}
+
+	nextStep(e){
+		this.currentStep += 1;
+		let stepContents = this.shadowRoot.querySelectorAll("nice-step");
+		stepContents.forEach((step, index) => {
+			step.classList.toggle('hide');
+		});
+
+		let stepLabels = this.shadowRoot.querySelectorAll("paper-icon");
+		stepLabels.forEach((stepLabel, index) => {
+			if ( index + 1 != this.currentStep ) {
+				stepLabel.setAttribute('data-color', '');
+			} else{
+				stepLabel.setAttribute('data-color', this.selectedColor);
+			}
+		});
+
+		let event = new CustomEvent('stepper_changed', { detail: {'state':1} });
+		window.dispatchEvent(event);
+	}
+
+	getStepContent( index ) {
+		if ( index && isNaN(index) ){
+			throw new Error( 'Index should be a valid integer number');
+		} else {
+			if ( index < this.stepsCount ){
+				return this.shadowRoot.querySelector(
+					"nice-step[data-index='" + index + "']"
+				);
+			}
+			return null;
+		}
 	}
 
 	collectDataAttributes(){
