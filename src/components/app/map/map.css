@@ -1,0 +1,15 @@
+:host{
+	@apply --layout-center-center;
+	@apply --layout-vertical;
+ 	@apply --background-app;
+	height: 100%;
+	color:white;
+	padding: 0 40px 0px 40px;
+	font-family: 'Advent Pro', sans-serif;
+}
+
+
+.map {
+	height: 300px;
+	width: 300px;
+}

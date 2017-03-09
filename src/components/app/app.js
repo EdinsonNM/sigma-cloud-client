@@ -3,6 +3,7 @@ import PaperMaterial from '../common/paper-material';
 import Splash from './splash/splash';
 import Login from './login/login';
 import Main from './main/main';
+import Map from './map/map';
 import Profile from './profile';
 import template from "./app.html";
 
