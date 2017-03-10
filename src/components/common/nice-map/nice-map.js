@@ -34,7 +34,7 @@ export default class Map extends HTMLElement {
 	connectedCallback(){
 		var self = this;
 		var container = this.shadowRoot.querySelector('#map-container');
-		google.maps.event.addDomListener(window, "load", function(){
+		//google.maps.event.addDomListener(window, "load", function(){
 			var map = new google.maps.Map(
 				container,
 				{
@@ -42,7 +42,7 @@ export default class Map extends HTMLElement {
 			 		zoom: 8
 				}
 			);
-		});
+		//});
 	}
 }
 

@@ -14,7 +14,7 @@ export default class AppMain extends HTMLElement{
 							{
 								name:'Padron',
 								width:'125px',
-								icon:'menu'
+								icon:'face'
 								
 							},
 							{
@@ -24,19 +24,23 @@ export default class AppMain extends HTMLElement{
 							},
 							{
 								name:'PCR',
-								width:'110px'
+								width:'110px',
+								icon:'local_florist'
 							},
 							{
 								name:'PDA',
-								width:'110px'
+								width:'110px',
+								icon:'texture'
 							},
 							{
 								name:'Tarifas',
-								width:'130px'
+								width:'130px',
+								icon:'attach_money'
 							},
 							{
 								name:'Hidrometria',
-								width:'160px'
+								width:'160px',
+								icon:'timeline'
 							}
 						]
 				}
@@ -53,7 +57,8 @@ export default class AppMain extends HTMLElement{
 		connectedCallback(){
 			let self=this;
 			this.$chipsContainer.innerHTML = Template.render(this.$chipsTemplate.innerHTML,this.data.modules);
-			document.addEventListener('DOMContentLoaded', function () {
+			//document.addEventListener('DOMContentLoaded', function () {
+				console.log('loaded carousel');
 				var multiSlides = self.shadowRoot.querySelector('.js_multislides');
 				lory(multiSlides, {
 					rewind:true,
@@ -61,7 +66,7 @@ export default class AppMain extends HTMLElement{
 					infinite: 4,
 					slidesToScroll: 1
 				});
-			});
+			//});
 			
 
 		}

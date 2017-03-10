@@ -37,17 +37,20 @@ input:focus{
     right: 20px;
     background-color: white;
     @apply  --shadow-elevation-2dp;
+    padding: 5px;
 }
+
 
 #input-container > div > div > input{
     width: 100%;
     border:0;
     padding: 10px;
+    font-size: 14px;
 }
 
 #chip-container{
     position: absolute;
-    top: 70px;
+    top: 75px;
 }
 
 #carousel-container{
