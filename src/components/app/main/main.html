@@ -1,27 +1,25 @@
-<img id="logo" src="/images/logo.svg">
-<h1>SIGMA</h1>
-<h3>CLOUD</h3>
-<h5>MAIN</h5>
+<nice-map></nice-map>
+<div id="input-container">
+	<div class="row">
+		<div>
+			<paper-icon>menu</paper-icon>
+		</div>
+		<div class="flexchild">
+			<input type="text" placeholder="Busca un predio"/>
+			</div>
+		<div>
+			<paper-icon>more_vert</paper-icon>
+		</div>
+	</div>
+	
+</div>
 <div id="chip-container" ref="#template-chips"  style="width:100%">
 </div>
-<div class="row"  style="width:100%">
-	<div class="flex-2">1</div>
-	<div class="flex-1">1</div>
-	<div>1</div>
-	<div>1</div>
-	<div>1</div>
-	<div>1</div>
-	<div>1</div>
-	<div>1</div>
-	<div>1</div>
-	<div>1</div>
-	<div>1</div>
-	<div>1</div>
-</div>
+
 <script id="template-chips" type="text/template">
-	<div class="layout horizontal">
+	<div class="row">
 	<% _.each(data, function(item){ %>
-		<div class="flex">
+		<div>
 			<paper-chip label="<%= item.name%>"></paper-chip>
 		</div>
 	<% }); %>

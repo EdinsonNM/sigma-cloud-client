@@ -1,5 +1,8 @@
 :host{
 	display: inline-block;
+	padding: 4px;
+	display: flex;
+	@apply  --layout-center-center;
 }
 
 @font-face {
