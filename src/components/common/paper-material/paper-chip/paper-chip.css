@@ -1,5 +1,6 @@
 :host{
         @apply --paper-font-common-base;
+        font-size: 11px;
 }
 .md-chip {
   display: inline-block;

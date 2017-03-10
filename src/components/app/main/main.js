@@ -12,16 +12,29 @@ export default class AppMain extends HTMLElement{
 				this.data ={
 						modules:[
 							{
-								name:'Padron'
+								name:'Padron',
+								width:'160px'
+								
 							},
 							{
-								name:'Inventario'
+								name:'Inventario',
+								width:'200px'
 							},
 							{
-								name:'PCR'
+								name:'PCR',
+								width:'140px'
 							},
 							{
-								name:'PDA'
+								name:'PDA',
+								width:'140px'
+							},
+							{
+								name:'Tarifas',
+								width:'140px'
+							},
+							{
+								name:'Hidrometria',
+								width:'200px'
 							}
 						]
 				}
@@ -40,10 +53,12 @@ export default class AppMain extends HTMLElement{
 			this.$chipsContainer.innerHTML = Template.render(this.$chipsTemplate.innerHTML,this.data.modules);
 			document.addEventListener('DOMContentLoaded', function () {
 				var multiSlides = self.shadowRoot.querySelector('.js_multislides');
-			lory(multiSlides, {
-				infinite: 4,
-				slidesToScroll: 4
-			});
+				lory(multiSlides, {
+					rewind:true,
+					enableMouseEvents:true,
+					infinite: 4,
+					slidesToScroll: 1
+				});
 			});
 			
 
