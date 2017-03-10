@@ -44,11 +44,9 @@ export default class PaperIcon extends HTMLElement {
 	initDOMRefs(){
 		this.$icon = this.shadowRoot.querySelector('#icon');
 	}
+	
 
 	connectedCallback(){
-		// SET MATERIAL ICON TYPE
-		this.$icon.innerHTML = this.innerHTML;
-
 		//SET CLASS
 		if ( this.iconClass ) {
 			this.$icon.className += " " + this.iconClass;

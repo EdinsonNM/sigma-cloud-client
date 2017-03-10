@@ -14,6 +14,9 @@ export default class PaperChip extends HTMLElement {
 
 	initDOMRefs(){
 			this.$label = this._shadowRoot.querySelector('.md-chip-text');
+			this.$chip = this._shadowRoot.querySelector('.md-chip');
+			this.$circle = this._shadowRoot.querySelector('.md-chip-text');
+			this.$icon = this._shadowRoot.querySelector('#icon');
 	}
 
 	addListeners(){
@@ -22,6 +25,7 @@ export default class PaperChip extends HTMLElement {
 
 	connectedCallback() {
 		this.label = this.getAttribute('label');
+		this.icon = this.getAttribute('icon');
 	}
 
 	set label(val){
@@ -35,6 +39,16 @@ export default class PaperChip extends HTMLElement {
 
 	get label(){
 		return this.getAttribute('label');
+	}
+
+	set icon(val){
+		if(val){
+			this.setAttribute('icon',val);
+			this.$icon.innerHTML = val;
+		}
+	}
+	get icon(){
+		return this.getAttribute('icon')
 	}
 }
 

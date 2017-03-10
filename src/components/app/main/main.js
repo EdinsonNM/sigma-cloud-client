@@ -13,28 +13,30 @@ export default class AppMain extends HTMLElement{
 						modules:[
 							{
 								name:'Padron',
-								width:'160px'
+								width:'125px',
+								icon:'menu'
 								
 							},
 							{
 								name:'Inventario',
-								width:'200px'
+								width:'150px',
+								icon:'device_hub'
 							},
 							{
 								name:'PCR',
-								width:'140px'
+								width:'110px'
 							},
 							{
 								name:'PDA',
-								width:'140px'
+								width:'110px'
 							},
 							{
 								name:'Tarifas',
-								width:'140px'
+								width:'130px'
 							},
 							{
 								name:'Hidrometria',
-								width:'200px'
+								width:'160px'
 							}
 						]
 				}
