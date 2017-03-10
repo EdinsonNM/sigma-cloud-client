@@ -1,11 +1,10 @@
 import Template from '../../../libs/template';
-import html from './index.html';
-import css from './main.css';
-import NiceStep from '../../common/nice-step/nice-step';
-import NiceStepper from '../../common/nice-stepper/nice-stepper';
+import css from './map.css';
+import html from './map.html';
+import NiceMap from '../../common/nice-map/nice-map';
 let templateObj = new Template(css,html);
 
-export default class AppProfile extends HTMLElement{
+export default class AppMap extends HTMLElement{
 
 	constructor(){
 		super();
@@ -24,9 +23,9 @@ export default class AppProfile extends HTMLElement{
 	}
 
 }
-const nameWebComponent="app-profile";
+const nameWebComponent="app-map";
 
-const component=AppProfile;
+const component=AppMap;
 
 customElements.define(nameWebComponent,component);
 customElements.whenDefined(nameWebComponent).then(() => {

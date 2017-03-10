@@ -4,8 +4,8 @@ export default class Template{
         this._css = css;
         this._html = html;
         this.createTemplate();
-        
-    }   
+
+    }
     createTemplate(){
         this._template="";
         if(this._css!=""){
@@ -23,8 +23,8 @@ export default class Template{
     }
 
 
-    static render(template,data={}){
+    static render(template, data={}){
         var preTemplate = _.template(template);
-        return preTemplate({data: data});            
+        return preTemplate({data: data});
     }
 }

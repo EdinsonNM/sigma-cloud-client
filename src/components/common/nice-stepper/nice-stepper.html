@@ -1,8 +1,21 @@
-<div class="stepper-container">
-	<paper-icon data-class="tiny">
-		brightness_1
-	</paper-icon>
-	<paper-icon data-class="tiny" data-color="red">
-		brightness_1
-	</paper-icon>
+<div id="stepper-container">
+	<span id="label"></span>
+	<div id="step-label-container">
+	</div>
+	<div id="step-container">
+		body
+	</div>
+	<paper-button
+		id="btnStep" raised fullwidth="true"
+		bgcolor="#2196f3">
+		Siguiente
+	</paper-button>
 </div>
+
+<script id="steps-label-template" type="text/template">
+	<% _.each(data, function(elem, index){ %>
+		<paper-icon data-class="tiny" data-index="<%=(index +1) %>">
+			brightness_1
+		</paper-icon>
+	<% }); %>
+</script>

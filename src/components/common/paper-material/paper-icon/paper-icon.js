@@ -9,7 +9,7 @@ let templateObj = new Template(css,html);
  * Icon web component base on material desing icons
  * @attributes:
  * 		data-class : Aditional defined class to the icon element (tiny, small, medium, large)
- * 		data-size  : Icon's Size (12px, 12rem .. etc) overwrite data-class
+ * 		data-size	: Icon's Size (12px, 12rem .. etc) overwrite data-class
  * 		data-color : Icon's color ( red, #FFF... etc)
  */
 export default class PaperIcon extends HTMLElement {
@@ -24,8 +24,8 @@ export default class PaperIcon extends HTMLElement {
 
 	collectDataAttributes(){
 		this.iconClass = null;
-		this.iconSize  = null;
-		this.iconColor  = null;
+		this.iconSize	= null;
+		this.iconColor	= null;
 
 		if ( this.attributes['data-class'] ) {
 			 this.iconClass = this.attributes['data-class'].nodeValue
@@ -63,8 +63,18 @@ export default class PaperIcon extends HTMLElement {
 		if ( this.iconColor ) {
 			this.$icon.style['color'] = this.iconColor;
 		}
-
 	}
+
+	attributeChangedCallback(attr, oldValue, newValue) {
+		if (attr == 'data-color') {
+			this.$icon.style['color'] = newValue;
+		}
+	}
+
+	static get observedAttributes() {
+		return ['data-color'];
+	}
+
 }
 
 customElements.define('paper-icon', PaperIcon);
