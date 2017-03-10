@@ -11,7 +11,9 @@
     width:200px;
     height:200px;
 }
-
+.row{
+    @apply --layout-horizontal;
+}
 iron-icon {
     height: 200px;
     width: 200px;

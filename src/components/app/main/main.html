@@ -2,13 +2,28 @@
 <h1>SIGMA</h1>
 <h3>CLOUD</h3>
 <h5>MAIN</h5>
-<div id="chip-container" ref="#template-chips">
+<div id="chip-container" ref="#template-chips"  style="width:100%">
 </div>
-
+<div class="row"  style="width:100%">
+	<div class="flex-2">1</div>
+	<div class="flex-1">1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+	<div>1</div>
+</div>
 <script id="template-chips" type="text/template">
-	<div>
+	<div class="layout horizontal">
 	<% _.each(data, function(item){ %>
-		<paper-chip label="<%= item.name%>"></paper-chip>
+		<div class="flex">
+			<paper-chip label="<%= item.name%>"></paper-chip>
+		</div>
 	<% }); %>
 	</div>
 </script>

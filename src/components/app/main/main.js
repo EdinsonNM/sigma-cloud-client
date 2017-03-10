@@ -14,6 +14,12 @@ export default class AppMain extends HTMLElement{
 							},
 							{
 								name:'Inventario'
+							},
+							{
+								name:'PCR'
+							},
+							{
+								name:'PDA'
 							}
 						]
 				}
