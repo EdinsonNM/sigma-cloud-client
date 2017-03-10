@@ -24,6 +24,7 @@
     "webpack-dev-server": "^2.4.1"
   },
   "dependencies": {
+    "lory.js": "^2.2.1",
     "underscore": "^1.8.3"
   }
 }

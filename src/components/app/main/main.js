@@ -1,3 +1,5 @@
+import {lory} from 'lory.js';
+ 
 import Template from '../../../libs/template';
 import html from './main.html';
 import css from './main.css';
@@ -25,6 +27,8 @@ export default class AppMain extends HTMLElement{
 				}
 				this.initDOMRefs();
 
+				
+
 		}
 		initDOMRefs(){
 			this.$chipsContainer = this.shadowRoot.querySelector("#chip-container");
@@ -32,7 +36,17 @@ export default class AppMain extends HTMLElement{
 		}
 
 		connectedCallback(){
+			let self=this;
 			this.$chipsContainer.innerHTML = Template.render(this.$chipsTemplate.innerHTML,this.data.modules);
+			document.addEventListener('DOMContentLoaded', function () {
+				var multiSlides = self.shadowRoot.querySelector('.js_multislides');
+			lory(multiSlides, {
+				infinite: 4,
+				slidesToScroll: 4
+			});
+			});
+			
+
 		}
 
 }
