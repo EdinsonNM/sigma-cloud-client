@@ -1,0 +1,46 @@
+.slider {
+    position: relative;
+    width: 100%;
+    max-width: 790px;
+    margin: 0 auto 40px;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: -moz-none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.frame,
+.events_log {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.frame li {
+    position: relative;
+    display: inline-block;
+    font-family: 'Source Sans Pro', sans-serif;
+    text-align: center;
+    font-size: 15px;
+    line-height: 30px;
+
+    color: #fff;
+}
+
+.slides {
+    display: inline-block;
+}
+
+.simple > .frame li,
+.rewind > .frame li,
+.events > .frame li {
+    width: 270px;
+    margin-right: 10px;
+}
+
+

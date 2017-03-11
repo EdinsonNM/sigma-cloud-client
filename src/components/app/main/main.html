@@ -1,5 +1,5 @@
 <nice-map></nice-map>
-<div id="input-container">
+<div class="input-container">
 	<div class="row">
 		<div>
 			<paper-icon>menu</paper-icon>
@@ -13,25 +13,13 @@
 	</div>
 	
 </div>
-<div id="chip-container" ref="#template-chips"  style="width:100%">
-</div>
-<div id="carousel-container">
-
-           
+<div class="chip-container"  style="width:100%">
+		<app-carousel-chips></app-carousel-chips>
 </div>
 
-<script id="template-chips" type="text/template">
-			<div class="slider js_multislides multislides">
-                <div class="frame js_frame">
-                    <ul class="slides js_slides">
-						<% _.each(data, function(item){ %>
-							<li class="js_slide" style="width:<%=item.width%>">
-								<paper-chip label="<%=item.name%>" icon="<%=item.icon%>"></paper-chip>
-							</li>
-						<% }); %>
-					</ul>
-                </div>
-             
-            </div>
-
-</script>
+<div class="footer-container">
+	<div class="footer-logo"></div>
+	<div class="footer-title"></div>
+	<div class="footer-description"></div>
+		
+</div>

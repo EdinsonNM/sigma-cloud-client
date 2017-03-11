@@ -11,6 +11,9 @@ export default class PaperChip extends HTMLElement {
 		this.initDOMRefs();
 		this.addListeners();
 	}
+	static get observedAttributes() {
+		return ['active'];
+	}
 
 	initDOMRefs(){
 			this.$label = this._shadowRoot.querySelector('.md-chip-text');
@@ -26,6 +29,21 @@ export default class PaperChip extends HTMLElement {
 	connectedCallback() {
 		this.label = this.getAttribute('label');
 		this.icon = this.getAttribute('icon');
+		this.activeColor=this.getAttribute('activeColor')||'purple';
+		this.defaultColor = this.getAttribute('defaultColor')||'white';
+		this.$chip.classList.add(this.defaultColor);
+		this.active=this.hasAttribute('active');
+		this.render();
+	}
+	render(){
+		if(this.active)
+			this.$chip.classList.add(this.activeColor);
+		else
+			this.$chip.classList.remove(this.activeColor);
+	}
+
+	attributeChangedCallback() {
+		this.render();
 	}
 
 	set label(val){
@@ -50,6 +68,37 @@ export default class PaperChip extends HTMLElement {
 	get icon(){
 		return this.getAttribute('icon')
 	}
+
+	set defaultColor(val){
+		if(val){
+			this.setAttribute('defaultColor',val);
+		}
+	}
+	get defaultColor(){
+		return this.getAttribute('defaultColor');
+	}
+	set activeColor(val){
+		if(val){
+			this.setAttribute('activeColor',val);
+			
+		}
+	}
+	get activeColor(){
+		return this.getAttribute('activeColor');
+	}
+
+	set active(val){
+		if(val){
+			this.setAttribute('active','');
+		}else{
+			this.removeAttribute('active');
+		}
+		
+	}
+	get active(){
+		return this.hasAttribute('active');
+	}
+
 }
 
 try{

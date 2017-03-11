@@ -1,5 +1,4 @@
-import {lory} from 'lory.js';
- 
+import AppCarouselChips from '../app-carousel-chips/app-carousel-chips';
 import Template from '../../../libs/template';
 import html from './main.html';
 import css from './main.css';
@@ -9,66 +8,32 @@ export default class AppMain extends HTMLElement{
 				super();
 				let shadowRoot = this.attachShadow({mode: 'open'});
 				shadowRoot.innerHTML = templateObj.template;
-				this.data ={
-						modules:[
-							{
-								name:'Padron',
-								width:'125px',
-								icon:'face'
-								
-							},
-							{
-								name:'Inventario',
-								width:'150px',
-								icon:'device_hub'
-							},
-							{
-								name:'PCR',
-								width:'110px',
-								icon:'local_florist'
-							},
-							{
-								name:'PDA',
-								width:'110px',
-								icon:'texture'
-							},
-							{
-								name:'Tarifas',
-								width:'130px',
-								icon:'attach_money'
-							},
-							{
-								name:'Hidrometria',
-								width:'160px',
-								icon:'timeline'
-							}
-						]
-				}
-				this.initDOMRefs();
-
-				
+				this.initDOMRefs();	
+				this.addListerners();		
 
 		}
 		initDOMRefs(){
-			this.$chipsContainer = this.shadowRoot.querySelector("#chip-container");
-			this.$chipsTemplate = this.shadowRoot.querySelector(this.$chipsContainer.getAttribute('ref'));
+			this.$chips = this.shadowRoot.querySelector('app-carousel-chips');
+			this.$footer = this.shadowRoot.querySelector('.footer-container');
+			this.$footerTitle = this.shadowRoot.querySelector('.footer-title');
+			this.$footerDescription = this.shadowRoot.querySelector('.footer-description');
+		}
+		addListerners(){
+			this.$chips.addEventListener('changed-chip',(e)=>{
+				console.log("chnaged-chip",e);
+				this.footerTitle=e.detail.data.title;
+				this.footerDescription=e.detail.data.description;
+				this.render()
+			});
 		}
 
-		connectedCallback(){
-			let self=this;
-			this.$chipsContainer.innerHTML = Template.render(this.$chipsTemplate.innerHTML,this.data.modules);
-			//document.addEventListener('DOMContentLoaded', function () {
-				console.log('loaded carousel');
-				var multiSlides = self.shadowRoot.querySelector('.js_multislides');
-				lory(multiSlides, {
-					rewind:true,
-					enableMouseEvents:true,
-					infinite: 4,
-					slidesToScroll: 1
-				});
-			//});
-			
 
+		connectedCallback(){
+
+		}
+		render(){
+			this.$footerTitle.innerHTML=this.footerTitle;
+			this.$footerDescription.innerHTML=this.footerDescription;
 		}
 
 }
