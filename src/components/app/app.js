@@ -6,6 +6,8 @@ import Main from './main/main';
 import Map from './map/map';
 import Profile from './profile';
 import template from "./app.html";
+import Loader from '../common/loader/loader';
+
 
 export default class App extends HTMLElement{
 	constructor(){
