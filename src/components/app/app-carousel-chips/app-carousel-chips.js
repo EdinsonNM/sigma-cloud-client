@@ -19,27 +19,27 @@ export default class AppCarouselChips extends HTMLElement{
             },
             pad:{
                 title:'Padron de Usuarios y Predios Agrícolas',
-                description:'Realiza operaciones osbre el inventario de canales y drenes',
+                description:'Realiza consultas y operaciones sobre los usuarios y predios agrícolas denrto del ambito de la junta de usuarios',
                 logo:'logo.jpg'
             },
             pcr:{
-                title:'Plan de CUltivo y Riego',
-                description:'Realiza operaciones osbre el inventario de canales y drenes',
+                title:'Plan de Cultivo y Riego',
+                description:'Realiza consultas sobre la campaña agrícola, cultivos y declaraciones de intensión de siembra',
                 logo:'logo.jpg'
             },
             pda:{
                 title:'Plan de Distribución del Agua',
-                description:'Realiza operaciones osbre el inventario de canales y drenes',
+                description:'Consulta el plan de distribución de agua por periodo',
                 logo:'logo.jpg'
             },
             tar:{
                 title:'Administración de la tarifa',
-                description:'Realiza operaciones osbre el inventario de canales y drenes',
+                description:'Consulta deudas atrasadas, deudas extraordinarias y pagos realizados por los usuarios',
                 logo:'logo.jpg'
             },
             hid:{
                 title:'Hidrometria',
-                description:'Realiza operaciones osbre el inventario de canales y drenes',
+                description:'Realiza el registro de las mediciones de...',
                 logo:'logo.jpg'
             }
 

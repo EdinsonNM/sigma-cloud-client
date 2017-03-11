@@ -20,7 +20,12 @@ export default class AppMain extends HTMLElement{
 		}
 		addListerners(){
 			this.$chips.addEventListener('changed-chip',(e)=>{
-				console.log("chnaged-chip",e);
+				console.log("changed-chip",e);
+				if(e.detail.active){
+					this.$footer.classList.remove('hidden');
+				}else{
+					this.$footer.classList.add('hidden');
+				}
 				this.footerTitle=e.detail.data.title;
 				this.footerDescription=e.detail.data.description;
 				this.render()

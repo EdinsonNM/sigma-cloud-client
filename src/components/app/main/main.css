@@ -14,6 +14,7 @@ input:focus{
     @apply --layout-center-center;
     @apply --layout-vertical;
    	@apply --background-app;
+    @apply --paper-font-common-base;
     height: 100%;
     color:black;
     padding: 0 ;
@@ -54,18 +55,21 @@ input:focus{
 }
 .footer-container{
     width: 100%;
-   
+    bottom: 0;
     height: 120px;
     background-color: white;
     visibility: visible;
     @apply --layout-center;
     @apply --layout-vertical;
     @apply --layout-fixed-bottom;
-    padding-left: 10px;
-    padding-right: 10px;
+
+    transition:all 1s ease-in-out;
 }
 .footer-container.hidden{
-    visibility: hidden;
+    visibility:hidden;
+    opacity:0;
+    bottom: -120px;
+    transition:all 1s ease-in-out;
 }
 
 .footer-container .footer-title{
@@ -75,9 +79,11 @@ input:focus{
     display: block;
 }
 .footer-container .footer-description{
-    font-size: 12px;
+    font-size: 13px;
     display: block;
     text-align: justify;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 .footer-container .footer-logo{

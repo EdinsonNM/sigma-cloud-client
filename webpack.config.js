@@ -50,7 +50,8 @@ module.exports={
 		new CopyWebpackPlugin([
 			{from: 'public/css', to: 'css' },
 			{from: 'public/images', to: 'images' },
-			{from: 'public/js', to: 'js' }
+			{from: 'public/js', to: 'js' },
+      {from: 'public/manifest.json', to: 'manifest.json' }
 		])
 	],
 	devtool: "source-map"
