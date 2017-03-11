@@ -58,18 +58,15 @@ input:focus{
     bottom: 0;
     height: 120px;
     background-color: white;
-    visibility: visible;
     @apply --layout-center;
     @apply --layout-vertical;
     @apply --layout-fixed-bottom;
 
-    transition:all 1s ease-in-out;
+    transition:all 0.3s ease-in-out;
 }
 .footer-container.hidden{
-    visibility:hidden;
-    opacity:0;
-    bottom: -120px;
-    transition:all 1s ease-in-out;
+    bottom: -160px;
+    transition:all 0.3s ease-in-out;
 }
 
 .footer-container .footer-title{
