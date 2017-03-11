@@ -2091,6 +2091,7 @@ var AppMain = function (_CustomElement2) {
 			this.$chips = this.shadowRoot.querySelector('app-carousel-chips');
 			this.$footer = this.shadowRoot.querySelector('.footer-container');
 			this.$footerTitle = this.shadowRoot.querySelector('.footer-title');
+			this.$footerLogo = this.shadowRoot.querySelector('.footer-logo');
 			this.$footerDescription = this.shadowRoot.querySelector('.footer-description');
 		}
 	}, {
@@ -2102,12 +2103,21 @@ var AppMain = function (_CustomElement2) {
 				console.log("changed-chip", e);
 				if (e.detail.active) {
 					_this2.$footer.classList.remove('hidden');
+
+					animate(_this2.$footerLogo, 'animated', 'zoomIn');
 				} else {
 					_this2.$footer.classList.add('hidden');
+
+					animate(_this2.$footerLogo, 'animated', 'zoomOut');
 				}
 				_this2.footerTitle = e.detail.data.title;
 				_this2.footerDescription = e.detail.data.description;
+
 				_this2.render();
+			});
+
+			this.$footerLogo.addEventListener('click', function () {
+				alert("Hola Sebas..el rey de los videojuegos XD");
 			});
 		}
 	}, {
@@ -5417,13 +5427,13 @@ module.exports = "<img id=\"logo\" src=\"./images/logo.svg\">\r\n<h1>SIGMA</h1>\
 /* 26 */
 /***/ (function(module, exports) {
 
-module.exports = "nice-map{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\npaper-chip{\r\n    opacity:0.8;\r\n}\r\n\r\ninput:focus{\r\n    outline: none;\r\n}\r\n\r\n:host{\r\n    @apply --layout-center-center;\r\n    @apply --layout-vertical;\r\n   \t@apply --background-app;\r\n    @apply --paper-font-common-base;\r\n    height: 100%;\r\n    color:black;\r\n    padding: 0 ;\r\n    font-family: 'Advent Pro', sans-serif;\r\n}\r\n\r\n\r\n.row{\r\n    @apply --layout-horizontal;\r\n}\r\n .flexchild {\r\n      @apply --layout-flex;\r\n}\r\n\r\n\r\n.input-container{\r\n\tposition: absolute;\r\n\tmargin: auto;\r\n    top: 20px;\r\n    left:20px;\r\n    right: 20px;\r\n    background-color: white;\r\n    @apply  --shadow-elevation-2dp;\r\n    padding: 5px;\r\n}\r\n\r\n\r\n.input-container > div > div > input{\r\n    width: 100%;\r\n    border:0;\r\n    padding: 10px;\r\n    font-size: 14px;\r\n}\r\n\r\n.chip-container{\r\n    position: absolute;\r\n    top: 75px;\r\n}\r\n.footer-container{\r\n    width: 100%;\r\n    bottom: 0;\r\n    height: 120px;\r\n    background-color: white;\r\n    visibility: visible;\r\n    @apply --layout-center;\r\n    @apply --layout-vertical;\r\n    @apply --layout-fixed-bottom;\r\n\r\n    transition:all 1s ease-in-out;\r\n}\r\n.footer-container.hidden{\r\n    visibility:hidden;\r\n    opacity:0;\r\n    bottom: -120px;\r\n    transition:all 1s ease-in-out;\r\n}\r\n\r\n.footer-container .footer-title{\r\n    font-size: 20px;\r\n    @apply --layout-center-center;\r\n    @apply --paper-font-common-base;\r\n    display: block;\r\n}\r\n.footer-container .footer-description{\r\n    font-size: 13px;\r\n    display: block;\r\n    text-align: justify;\r\n    margin-left: 10px;\r\n    margin-right: 10px;\r\n}\r\n\r\n.footer-container .footer-logo{\r\n    height: 80px;\r\n    width: 80px;\r\n    background-color: green;\r\n    border-radius: 40px;\r\n    margin-top: -40px;\r\n}"
+module.exports = "nice-map{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\npaper-chip{\r\n    opacity:0.8;\r\n}\r\n\r\ninput:focus{\r\n    outline: none;\r\n}\r\n\r\n:host{\r\n    @apply --layout-center-center;\r\n    @apply --layout-vertical;\r\n   \t@apply --background-app;\r\n    @apply --paper-font-common-base;\r\n    height: 100%;\r\n    color:black;\r\n    padding: 0 ;\r\n    font-family: 'Advent Pro', sans-serif;\r\n}\r\n\r\n\r\n.row{\r\n    @apply --layout-horizontal;\r\n}\r\n .flexchild {\r\n      @apply --layout-flex;\r\n}\r\n\r\n\r\n.input-container{\r\n\tposition: absolute;\r\n\tmargin: auto;\r\n    top: 20px;\r\n    left:20px;\r\n    right: 20px;\r\n    background-color: white;\r\n    @apply  --shadow-elevation-2dp;\r\n    padding: 5px;\r\n}\r\n\r\n\r\n.input-container > div > div > input{\r\n    width: 100%;\r\n    border:0;\r\n    padding: 10px;\r\n    font-size: 14px;\r\n}\r\n\r\n.chip-container{\r\n    position: absolute;\r\n    top: 75px;\r\n}\r\n.footer-container{\r\n    width: 100%;\r\n    bottom: 0;\r\n    height: 120px;\r\n    background-color: white;\r\n    @apply --layout-center;\r\n    @apply --layout-vertical;\r\n    @apply --layout-fixed-bottom;\r\n\r\n    transition:all 0.3s ease-in-out;\r\n}\r\n.footer-container.hidden{\r\n    bottom: -160px;\r\n    transition:all 0.3s ease-in-out;\r\n}\r\n\r\n.footer-container .footer-title{\r\n    font-size: 20px;\r\n    @apply --layout-center-center;\r\n    @apply --paper-font-common-base;\r\n    display: block;\r\n}\r\n.footer-container .footer-description{\r\n    font-size: 13px;\r\n    display: block;\r\n    text-align: justify;\r\n    margin-left: 10px;\r\n    margin-right: 10px;\r\n}\r\n\r\n.footer-container .footer-logo{\r\n    height: 80px;\r\n    width: 80px;\r\n    background-color: green;\r\n    border-radius: 40px;\r\n    margin-top: -40px;\r\n}"
 
 /***/ }),
 /* 27 */
 /***/ (function(module, exports) {
 
-module.exports = "<nice-loader api-key=\"AIzaSyBLF11XmoFl4VedETvlRVo5hJBkICgzTIc\"></nice-loader>\r\n<nice-map api-key=\"AIzaSyBLF11XmoFl4VedETvlRVo5hJBkICgzTIc\"></nice-map>\r\n<div class=\"input-container\">\r\n\t<div class=\"row\">\r\n\t\t<div>\r\n\t\t\t<paper-icon>menu</paper-icon>\r\n\t\t</div>\r\n\t\t<div class=\"flexchild\">\r\n\t\t\t<input type=\"text\" placeholder=\"Busca un predio\"/>\r\n\t\t\t</div>\r\n\t\t<div>\r\n\t\t\t<paper-icon>more_vert</paper-icon>\r\n\t\t</div>\r\n\t</div>\r\n\r\n</div>\r\n<div class=\"chip-container\"  style=\"width:100%\">\r\n\t\t<app-carousel-chips></app-carousel-chips>\r\n</div>\r\n\r\n<div class=\"footer-container hidden\">\r\n\t<div class=\"footer-logo\"></div>\r\n\t<div class=\"footer-title\"></div>\r\n\t<div class=\"footer-description\"></div>\r\n\t\t\r\n</div>"
+module.exports = "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css\">\r\n<nice-loader api-key=\"AIzaSyBLF11XmoFl4VedETvlRVo5hJBkICgzTIc\"></nice-loader>\r\n<nice-map api-key=\"AIzaSyBLF11XmoFl4VedETvlRVo5hJBkICgzTIc\"></nice-map>\r\n<div class=\"input-container\">\r\n\t<div class=\"row\">\r\n\t\t<div>\r\n\t\t\t<paper-icon>menu</paper-icon>\r\n\t\t</div>\r\n\t\t<div class=\"flexchild\">\r\n\t\t\t<input type=\"text\" placeholder=\"Busca un predio\"/>\r\n\t\t\t</div>\r\n\t\t<div>\r\n\t\t\t<paper-icon>more_vert</paper-icon>\r\n\t\t</div>\r\n\t</div>\r\n\r\n</div>\r\n<div class=\"chip-container\"  style=\"width:100%\">\r\n\t\t<app-carousel-chips></app-carousel-chips>\r\n</div>\r\n\r\n<div class=\"footer-container hidden\">\r\n\t<div class=\"footer-logo\"></div>\r\n\t<div class=\"footer-title\"></div>\r\n\t<div class=\"footer-description\"></div>\r\n\t\t\r\n</div>"
 
 /***/ }),
 /* 28 */
