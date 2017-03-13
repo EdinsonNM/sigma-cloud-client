@@ -86,7 +86,20 @@ input:focus{
 .footer-container .footer-logo{
     height: 80px;
     width: 80px;
-    background-color: green;
+    background-color: #9C27B0;
     border-radius: 40px;
     margin-top: -40px;
+  
+}
+
+
+.img-round{
+    height: 74px;
+    width: 74px;
+    border: 0;
+    padding: 0;
+    margin: 3px;
+    border-radius: 37px;
+    overflow: hidden;
+    @apply --layout-center-center;
 }

@@ -7,9 +7,16 @@ export default class AppSplash extends HTMLElement{
         super();
         let shadowRoot = this.attachShadow({mode: 'open'});
 		shadowRoot.innerHTML = templateObj.template;
-
+        this.initDOMRefs();
+    }
+    initDOMRefs(){
+        this.$logo = this.shadowRoot.querySelector('#logo');
     }
     connectedCallback() {
+        setTimeout(()=>{
+            animate(this.$logo,'animated','flipInX');
+        },2000)
+        
         setTimeout(function() {
             document.location.hash="#/login";
         }, 4000);

@@ -15,32 +15,32 @@ export default class AppCarouselChips extends HTMLElement{
             inv:{
                 title:'Inventario de Riego',
                 description:'Realiza consultas y operaciones sobre el inventario de canales, drenes, tramos, estructuras,etc.',
-                logo:'logo.jpg'
+                logo:'./images/modules/module_inv.png'
             },
             pad:{
                 title:'Padron de Usuarios y Predios Agrícolas',
                 description:'Realiza consultas y operaciones sobre los usuarios y predios agrícolas denrto del ambito de la junta de usuarios',
-                logo:'logo.jpg'
+                logo:'./images/modules/module_pad.png'
             },
             pcr:{
                 title:'Plan de Cultivo y Riego',
                 description:'Realiza consultas sobre la campaña agrícola, cultivos y declaraciones de intensión de siembra',
-                logo:'logo.jpg'
+                logo:'./images/modules/module_pcr.png'
             },
             pda:{
                 title:'Plan de Distribución del Agua',
                 description:'Consulta el plan de distribución de agua por periodo',
-                logo:'logo.jpg'
+                logo:'./images/modules/module_pda.png'
             },
             tar:{
                 title:'Administración de la tarifa',
                 description:'Consulta deudas atrasadas, deudas extraordinarias y pagos realizados por los usuarios',
-                logo:'logo.jpg'
+                logo:'./images/modules/module_tar.png'
             },
             hid:{
                 title:'Hidrometria',
                 description:'Realiza el registro de las mediciones de...',
-                logo:'logo.jpg'
+                logo:'./images/modules/module_hid.png'
             }
 
         }

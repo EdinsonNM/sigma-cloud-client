@@ -18,6 +18,7 @@ export default class AppMain extends HTMLElement{
 			this.$footerTitle = this.shadowRoot.querySelector('.footer-title');
 			this.$footerLogo = this.shadowRoot.querySelector('.footer-logo');
 			this.$footerDescription = this.shadowRoot.querySelector('.footer-description');
+			this.$footerImg = this.shadowRoot.querySelector('#footer-img');
 		}
 		
 		addListerners(){
@@ -35,7 +36,7 @@ export default class AppMain extends HTMLElement{
 				}
 				this.footerTitle=e.detail.data.title;
 				this.footerDescription=e.detail.data.description;
-				
+				this.$footerImg.setAttribute("src",e.detail.data.logo);
 				this.render();
 			});
 
