@@ -3,13 +3,17 @@ import Template from '../../../libs/template';
 import html from './main.html';
 import css from './main.css';
 let templateObj = new Template(css,html);
+
+import ModulePad from '../module-pad/module-pad';
+import ModuleInv from '../module-inv/module-inv';
 export default class AppMain extends HTMLElement{
 		constructor(){
 				super();
 				let shadowRoot = this.attachShadow({mode: 'open'});
 				shadowRoot.innerHTML = templateObj.template;
 				this.initDOMRefs();	
-				this.addListerners();		
+				this.addListerners();	
+				this.showSubView=false;	
 
 		}
 		initDOMRefs(){
@@ -19,35 +23,63 @@ export default class AppMain extends HTMLElement{
 			this.$footerLogo = this.shadowRoot.querySelector('.footer-logo');
 			this.$footerDescription = this.shadowRoot.querySelector('.footer-description');
 			this.$footerImg = this.shadowRoot.querySelector('#footer-img');
+			this.$inputContainer = this.shadowRoot.querySelector('.input-container');
+			this.$subviewContent = this.shadowRoot.querySelector('.subview-content');
 		}
 		
 		addListerners(){
-			this.$chips.addEventListener('changed-chip',(e)=>{
-				console.log("changed-chip",e);
-				if(e.detail.active){
-					this.$footer.classList.remove('hidden');
+			this.$chips.addEventListener('changed-chip',this.showFooter.bind(this));
+			this.$footerLogo.addEventListener('click',this.showSubView.bind(this));
+		}
+		showFooter(e){
+			console.log("changed-chip",e);
+			if(e.detail.active){
+				this.$footer.classList.remove('hidden');
+			
+				animate(this.$footerLogo,'animated','zoomIn');
+
+			}else{
+				this.$footer.classList.add('hidden');
 				
-					animate(this.$footerLogo,'animated','zoomIn');
-
-				}else{
-					this.$footer.classList.add('hidden');
-					
-					animate(this.$footerLogo,'animated','zoomOut');
-				}
-				this.footerTitle=e.detail.data.title;
-				this.footerDescription=e.detail.data.description;
-				this.$footerImg.setAttribute("src",e.detail.data.logo);
-				this.render();
-			});
-
-			this.$footerLogo.addEventListener('click',()=>{
-				alert("Hola Sebas..el rey de los videojuegos XD");
-			});
+				animate(this.$footerLogo,'animated','zoomOut');
+			}
+			this.footerTitle=e.detail.data.title;
+			this.footerDescription=e.detail.data.description;
+			this.$footerImg.setAttribute("src",e.detail.data.logo);
+			this.moduleName=e.detail.data.module;
+			this.render();
+		}
+		showMainElements(val){
+			if(!val){
+				this.$chips.style.visibility='hidden';
+				this.$inputContainer.style.visibility='hidden';
+			}else{
+				this.$chips.style.visibility='visible';
+				this.$inputContainer.style.visibility='visible';
+			}
 		}
 
-
+		showSubView(){
+			//document.location.hash="/main/padron"
+			this.showSubView=!this.showSubView;
+			if(this.showSubView){
+				this.$footer.classList.add('showAll');
+				this.showMainElements(false);
+				this.$subviewContent.classList.remove('hidden');
+				animate(this.$footerLogo,'animated','rubberBand');
+				let module = document.createElement(this.moduleName);
+				this.$subviewContent.innerHTML='';
+				this.$subviewContent.appendChild(module);
+			}else{
+				this.$footer.classList.remove('showAll');
+				this.showMainElements(true);
+				animate(this.$footerLogo,'animated','rubberBand');
+				this.$subviewContent.classList.add('hidden');
+			}
+			
+		}
 		connectedCallback(){
-
+				
 		}
 		render(){
 			this.$footerTitle.innerHTML=this.footerTitle;

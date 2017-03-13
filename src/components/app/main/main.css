@@ -16,6 +16,8 @@ input:focus{
    	@apply --background-app;
     @apply --paper-font-common-base;
     height: 100%;
+    width: 100%;
+    overflow: hidden;
     color:black;
     padding: 0 ;
     font-family: 'Advent Pro', sans-serif;
@@ -69,13 +71,13 @@ input:focus{
     transition:all 0.3s ease-in-out;
 }
 
-.footer-container .footer-title{
+.footer-container .subview-header .footer-title{
     font-size: 20px;
     @apply --layout-center-center;
     @apply --paper-font-common-base;
     display: block;
 }
-.footer-container .footer-description{
+.footer-container .subview-header .footer-description{
     font-size: 13px;
     display: block;
     text-align: justify;
@@ -83,12 +85,14 @@ input:focus{
     margin-right: 10px;
 }
 
-.footer-container .footer-logo{
+.footer-container .subview-header .footer-logo{
     height: 80px;
     width: 80px;
     background-color: #9C27B0;
     border-radius: 40px;
     margin-top: -40px;
+    cursor: pointer; 
+    cursor: hand; 
   
 }
 
@@ -102,4 +106,36 @@ input:focus{
     border-radius: 37px;
     overflow: hidden;
     @apply --layout-center-center;
+    cursor: pointer; 
+    cursor: hand; 
+}
+
+.subview-header{
+    width: 100%;
+    bottom: 0;
+    height: 120px;
+    background-color: white;
+    @apply --layout-center;
+    @apply --layout-vertical;
+}
+
+.footer-container.showAll{
+    height: calc(100% - 50px);
+    transition:all 0.5s ease-in-out;
+}
+
+.subview-content{
+    width: 100%;
+    visibility: visible;
+    height:100%;
+    position: relative;
+}
+.subview-content.hidden{
+    visibility: hidden;
+    height: 0;
+    display: none;
+}
+
+module-pad{
+    width: 100%;
 }
