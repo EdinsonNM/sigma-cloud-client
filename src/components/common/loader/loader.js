@@ -5,6 +5,9 @@ import Template from '../../../libs/template';
 let templateObj = new Template(css, html);
 
 
+/**
+ * Helper class for Loader
+ */
 const LoaderMap = {
 	apiMap: {}, // { hash -> Loader }
 	/**
@@ -42,7 +45,6 @@ var _Loader = function(name, url, callbackName) {
 
 	this.callbackName = callbackName;
 	window[this.callbackName] = this.success.bind(this);
-	console.log('===>', url);
 	this.addScript(url);
 };
 
@@ -51,7 +53,6 @@ _Loader.prototype = {
 	loaded: false,
 
 	addScript: function(src) {
-		console.log('===>', src);
 		var script = document.createElement('script');
 		script.src = src;
 		script.onerror = this.handleError.bind(this);
@@ -100,6 +101,10 @@ _Loader.prototype = {
 	}
 }
 
+
+/**
+ * Load Class charge on load file on async way
+ */
 export default class Loader extends HTMLElement {
 
 	constructor(){
@@ -109,6 +114,7 @@ export default class Loader extends HTMLElement {
 		this.initDOMRefs();
 		this.addListeners();
 		this.collectDataAttributes();
+
 	}
 
 	initDOMRefs(){
@@ -124,17 +130,17 @@ export default class Loader extends HTMLElement {
 		}
 	}
 
+	_fireLoadedEvent(){
+		document.dispatchEvent(new CustomEvent('loadedComplete',{}));
+	}
+
 	_libraryLoadCallback(err, result) {
 		 if (err) {
-			//  this._setLibraryErrorMessage(err.message);
+			//TODO HANDLE ERROR WHEN THERE IS SOMETHING WRONG WITH THE LOADED
 			console.error(err);
 		 }
 		 else {
-			 console.log(result);
-			//  this._setLibraryErrorMessage(null);
-			//  this._setLibraryLoaded(true);
-			//  if (this.notifyEvent)
-			// 	 this.fire(this.notifyEvent, result);
+			 this._fireLoadedEvent();
 		 }
 	 }
 

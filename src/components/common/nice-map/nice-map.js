@@ -4,14 +4,17 @@ import Template from '../../../libs/template';
 
 let templateObj = new Template(css,html);
 
+const URL = 'https://maps.googleapis.com/maps/api/js?callback=%%callback%%';
+
+const VERSION = '3.exp';
+
 export default class Map extends HTMLElement {
 
 	constructor(){
 		super();
 		let shadowRoot = this.attachShadow({mode: 'open'});
 		shadowRoot.innerHTML = templateObj.template;
-		this._URL = 'https://maps.googleapis.com/maps/api/js?callback=%%callback%%';
-		this._version = '3.exp';
+		this._map = null;
 		this.initDOMRefs();
 		this.collectDataAttributes();
 		this.addListeners();
@@ -53,6 +56,18 @@ export default class Map extends HTMLElement {
 
 	}
 
+
+	/**
+	 * computeUrl - Build the URL with all the arguments
+	 *
+	 * @param  {string} mapsUrl
+	 * @param  {string} version
+	 * @param  {string} apiKey
+	 * @param  {string} clientId
+	 * @param  {string} language
+	 * @param  {string} signedIn
+	 * @return {string}
+	 */
 	computeUrl(mapsUrl, version, apiKey, clientId, language, signedIn) {
 		var url = mapsUrl + '&v=' + version;
 		// Always load all Maps API libraries.
@@ -80,27 +95,27 @@ export default class Map extends HTMLElement {
 	}
 
 	connectedCallback(){
-		var self = this;
-		var url = this.computeUrl(
-			this._URL,
-			this._version,
+		let self = this;
+		let container = this.shadowRoot.querySelector('#map-container');
+		let url = this.computeUrl(
+			URL,
+			VERSION,
 			this.apikey,
 			this.clientId,
 			this.language,
 			this.signed_in,
 		);
 		this.$loaderContainer.setAttribute('url', url);
-
-		var container = this.shadowRoot.querySelector('#map-container');
-		setTimeout(function(){
-			var map = new google.maps.Map(
+		//EVENT WHEN THE LOADER GET THE LIBRARY , GOOGLE MAPS AVAILABLE
+		document.addEventListener("loadedComplete", function(e) {
+			self.map = new google.maps.Map(
 				container,
 				{
 			 		center: {lat: -34.397, lng: 150.644},
 			 		zoom: 8
 				}
 			);
-		}, 1000);
+		});
 	}
 }
 
