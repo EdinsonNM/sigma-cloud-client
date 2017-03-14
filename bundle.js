@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 51);
+/******/ 	return __webpack_require__(__webpack_require__.s = 70);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -79,7 +79,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _underscore = __webpack_require__(1);
+var _underscore = __webpack_require__(3);
 
 var _underscore2 = _interopRequireDefault(_underscore);
 
@@ -127,6 +127,175 @@ exports.default = Template;
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _lory = __webpack_require__(27);
+
+var _template = __webpack_require__(0);
+
+var _template2 = _interopRequireDefault(_template);
+
+var _appCarouselChips = __webpack_require__(29);
+
+var _appCarouselChips2 = _interopRequireDefault(_appCarouselChips);
+
+var _appCarouselChips3 = __webpack_require__(28);
+
+var _appCarouselChips4 = _interopRequireDefault(_appCarouselChips3);
+
+var _customEvent = __webpack_require__(26);
+
+var _customEvent2 = _interopRequireDefault(_customEvent);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _CustomElement() {
+    return Reflect.construct(HTMLElement, [], this.__proto__.constructor);
+}
+
+;
+Object.setPrototypeOf(_CustomElement.prototype, HTMLElement.prototype);
+Object.setPrototypeOf(_CustomElement, HTMLElement);
+
+var templateObj = new _template2.default(_appCarouselChips4.default, _appCarouselChips2.default);
+
+var AppCarouselChips = function (_CustomElement2) {
+    _inherits(AppCarouselChips, _CustomElement2);
+
+    function AppCarouselChips() {
+        _classCallCheck(this, AppCarouselChips);
+
+        var _this = _possibleConstructorReturn(this, (AppCarouselChips.__proto__ || Object.getPrototypeOf(AppCarouselChips)).call(this));
+
+        _this._shadowRoot = _this.attachShadow({ mode: 'open' });
+        _this._shadowRoot.innerHTML = templateObj.template;
+        _this.initDOMRefs();
+        _this.addListeners();
+        _this.modules = {
+            inv: {
+                title: 'Inventario de Riego',
+                description: 'Realiza consultas y operaciones sobre el inventario de canales, drenes, tramos, estructuras,etc.',
+                logo: './images/modules/module_inv.png',
+                module: 'module-inv'
+            },
+            pad: {
+                title: 'Padron de Usuarios y Predios Agrícolas',
+                description: 'Realiza consultas y operaciones sobre los usuarios y predios agrícolas denrto del ambito de la junta de usuarios',
+                logo: './images/modules/module_pad.png',
+                module: 'module-pad'
+            },
+            pcr: {
+                title: 'Plan de Cultivo y Riego',
+                description: 'Realiza consultas sobre la campaña agrícola, cultivos y declaraciones de intensión de siembra',
+                logo: './images/modules/module_pcr.png',
+                module: 'module-pcr'
+            },
+            pda: {
+                title: 'Plan de Distribución del Agua',
+                description: 'Consulta el plan de distribución de agua por periodo',
+                logo: './images/modules/module_pda.png'
+            },
+            tar: {
+                title: 'Administración de la tarifa',
+                description: 'Consulta deudas atrasadas, deudas extraordinarias y pagos realizados por los usuarios',
+                logo: './images/modules/module_tar.png'
+            },
+            hid: {
+                title: 'Hidrometria',
+                description: 'Realiza el registro de las mediciones de...',
+                logo: './images/modules/module_hid.png'
+            }
+
+        };
+        return _this;
+    }
+
+    _createClass(AppCarouselChips, [{
+        key: 'initDOMRefs',
+        value: function initDOMRefs() {}
+    }, {
+        key: 'addListeners',
+        value: function addListeners() {
+            var paperChips = this._shadowRoot.querySelectorAll("paper-chip");
+            paperChips.forEach(function (chip) {
+                var _this2 = this;
+
+                chip.addEventListener('click', function (e) {
+                    var active = e.currentTarget.active;
+                    paperChips.forEach(function (chip) {
+                        chip.active = false;
+                    });
+                    e.currentTarget.active = !active;
+                    var name = e.currentTarget.id;
+                    _this2.dispatchEvent(new _customEvent2.default('changed-chip', {
+                        detail: {
+                            name: name,
+                            active: e.currentTarget.active,
+                            data: _this2.modules[name]
+                        }
+                    }));
+                });
+            }, this);
+        }
+    }, {
+        key: 'connectedCallback',
+        value: function connectedCallback() {
+
+            console.log('loaded carousel chips');
+            var multiSlides = this.shadowRoot.querySelector('.js_multislides');
+            (0, _lory.lory)(multiSlides, {
+                rewind: true,
+                enableMouseEvents: true,
+                //infinite: 4,
+                slidesToScroll: 1
+            });
+        }
+    }]);
+
+    return AppCarouselChips;
+}(_CustomElement);
+
+exports.default = AppCarouselChips;
+
+
+var nameWebComponent = "app-carousel-chips";
+var component = AppCarouselChips;
+
+customElements.define(nameWebComponent, component);
+customElements.whenDefined(nameWebComponent).then(function () {
+    console.log('registered ' + nameWebComponent);
+});
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(25);
+
+__webpack_require__(24);
+
+__webpack_require__(23);
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -1681,7 +1850,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscor
 
 
 /***/ }),
-/* 2 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1691,37 +1860,37 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _appRouter = __webpack_require__(9);
+var _appRouter = __webpack_require__(13);
 
-var _paperMaterial = __webpack_require__(14);
+var _paperMaterial = __webpack_require__(18);
 
 var _paperMaterial2 = _interopRequireDefault(_paperMaterial);
 
-var _splash = __webpack_require__(8);
+var _splash = __webpack_require__(12);
 
 var _splash2 = _interopRequireDefault(_splash);
 
-var _login = __webpack_require__(4);
+var _login = __webpack_require__(5);
 
 var _login2 = _interopRequireDefault(_login);
 
-var _main = __webpack_require__(5);
+var _main = __webpack_require__(6);
 
 var _main2 = _interopRequireDefault(_main);
 
-var _map = __webpack_require__(6);
+var _map = __webpack_require__(7);
 
 var _map2 = _interopRequireDefault(_map);
 
-var _profile = __webpack_require__(7);
+var _profile = __webpack_require__(11);
 
 var _profile2 = _interopRequireDefault(_profile);
 
-var _app = __webpack_require__(23);
+var _app = __webpack_require__(30);
 
 var _app2 = _interopRequireDefault(_app);
 
-var _loader = __webpack_require__(10);
+var _loader = __webpack_require__(14);
 
 var _loader2 = _interopRequireDefault(_loader);
 
@@ -1767,160 +1936,7 @@ customElements.whenDefined('my-app').then(function () {
 });
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _lory = __webpack_require__(20);
-
-var _template = __webpack_require__(0);
-
-var _template2 = _interopRequireDefault(_template);
-
-var _appCarouselChips = __webpack_require__(22);
-
-var _appCarouselChips2 = _interopRequireDefault(_appCarouselChips);
-
-var _appCarouselChips3 = __webpack_require__(21);
-
-var _appCarouselChips4 = _interopRequireDefault(_appCarouselChips3);
-
-var _customEvent = __webpack_require__(19);
-
-var _customEvent2 = _interopRequireDefault(_customEvent);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-function _CustomElement() {
-    return Reflect.construct(HTMLElement, [], this.__proto__.constructor);
-}
-
-;
-Object.setPrototypeOf(_CustomElement.prototype, HTMLElement.prototype);
-Object.setPrototypeOf(_CustomElement, HTMLElement);
-
-var templateObj = new _template2.default(_appCarouselChips4.default, _appCarouselChips2.default);
-
-var AppCarouselChips = function (_CustomElement2) {
-    _inherits(AppCarouselChips, _CustomElement2);
-
-    function AppCarouselChips() {
-        _classCallCheck(this, AppCarouselChips);
-
-        var _this = _possibleConstructorReturn(this, (AppCarouselChips.__proto__ || Object.getPrototypeOf(AppCarouselChips)).call(this));
-
-        _this._shadowRoot = _this.attachShadow({ mode: 'open' });
-        _this._shadowRoot.innerHTML = templateObj.template;
-        _this.initDOMRefs();
-        _this.addListeners();
-        _this.modules = {
-            inv: {
-                title: 'Inventario de Riego',
-                description: 'Realiza consultas y operaciones sobre el inventario de canales, drenes, tramos, estructuras,etc.',
-                logo: 'logo.jpg'
-            },
-            pad: {
-                title: 'Padron de Usuarios y Predios Agrícolas',
-                description: 'Realiza consultas y operaciones sobre los usuarios y predios agrícolas denrto del ambito de la junta de usuarios',
-                logo: 'logo.jpg'
-            },
-            pcr: {
-                title: 'Plan de Cultivo y Riego',
-                description: 'Realiza consultas sobre la campaña agrícola, cultivos y declaraciones de intensión de siembra',
-                logo: 'logo.jpg'
-            },
-            pda: {
-                title: 'Plan de Distribución del Agua',
-                description: 'Consulta el plan de distribución de agua por periodo',
-                logo: 'logo.jpg'
-            },
-            tar: {
-                title: 'Administración de la tarifa',
-                description: 'Consulta deudas atrasadas, deudas extraordinarias y pagos realizados por los usuarios',
-                logo: 'logo.jpg'
-            },
-            hid: {
-                title: 'Hidrometria',
-                description: 'Realiza el registro de las mediciones de...',
-                logo: 'logo.jpg'
-            }
-
-        };
-        return _this;
-    }
-
-    _createClass(AppCarouselChips, [{
-        key: 'initDOMRefs',
-        value: function initDOMRefs() {}
-    }, {
-        key: 'addListeners',
-        value: function addListeners() {
-            var paperChips = this._shadowRoot.querySelectorAll("paper-chip");
-            paperChips.forEach(function (chip) {
-                var _this2 = this;
-
-                chip.addEventListener('click', function (e) {
-                    var active = e.currentTarget.active;
-                    paperChips.forEach(function (chip) {
-                        chip.active = false;
-                    });
-                    e.currentTarget.active = !active;
-                    var name = e.currentTarget.id;
-                    _this2.dispatchEvent(new _customEvent2.default('changed-chip', {
-                        detail: {
-                            name: name,
-                            active: e.currentTarget.active,
-                            data: _this2.modules[name]
-                        }
-                    }));
-                });
-            }, this);
-        }
-    }, {
-        key: 'connectedCallback',
-        value: function connectedCallback() {
-
-            console.log('loaded carousel chips');
-            var multiSlides = this.shadowRoot.querySelector('.js_multislides');
-            (0, _lory.lory)(multiSlides, {
-                rewind: true,
-                enableMouseEvents: true,
-                //infinite: 4,
-                slidesToScroll: 1
-            });
-        }
-    }]);
-
-    return AppCarouselChips;
-}(_CustomElement);
-
-exports.default = AppCarouselChips;
-
-
-var nameWebComponent = "app-carousel-chips";
-var component = AppCarouselChips;
-
-customElements.define(nameWebComponent, component);
-customElements.whenDefined(nameWebComponent).then(function () {
-    console.log('registered ' + nameWebComponent);
-});
-
-/***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1936,11 +1952,11 @@ var _template = __webpack_require__(0);
 
 var _template2 = _interopRequireDefault(_template);
 
-var _login = __webpack_require__(25);
+var _login = __webpack_require__(32);
 
 var _login2 = _interopRequireDefault(_login);
 
-var _login3 = __webpack_require__(24);
+var _login3 = __webpack_require__(31);
 
 var _login4 = _interopRequireDefault(_login3);
 
@@ -2023,7 +2039,7 @@ customElements.whenDefined(nameWebComponent).then(function () {
 });
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2035,7 +2051,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _appCarouselChips = __webpack_require__(3);
+var _appCarouselChips = __webpack_require__(1);
 
 var _appCarouselChips2 = _interopRequireDefault(_appCarouselChips);
 
@@ -2043,13 +2059,19 @@ var _template = __webpack_require__(0);
 
 var _template2 = _interopRequireDefault(_template);
 
-var _main = __webpack_require__(27);
+var _main = __webpack_require__(34);
 
 var _main2 = _interopRequireDefault(_main);
 
-var _main3 = __webpack_require__(26);
+var _main3 = __webpack_require__(33);
 
 var _main4 = _interopRequireDefault(_main3);
+
+__webpack_require__(9);
+
+__webpack_require__(8);
+
+__webpack_require__(10);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2081,6 +2103,7 @@ var AppMain = function (_CustomElement2) {
 		shadowRoot.innerHTML = templateObj.template;
 		_this.initDOMRefs();
 		_this.addListerners();
+		_this.showSubView = false;
 
 		return _this;
 	}
@@ -2093,36 +2116,84 @@ var AppMain = function (_CustomElement2) {
 			this.$footerTitle = this.shadowRoot.querySelector('.footer-title');
 			this.$footerLogo = this.shadowRoot.querySelector('.footer-logo');
 			this.$footerDescription = this.shadowRoot.querySelector('.footer-description');
+			this.$footerImg = this.shadowRoot.querySelector('#footer-img');
+			this.$inputContainer = this.shadowRoot.querySelector('.input-container');
+			this.$subviewContent = this.shadowRoot.querySelector('.subview-content');
+			this.$map = this.shadowRoot.querySelector('#main-map');
 		}
 	}, {
 		key: 'addListerners',
 		value: function addListerners() {
-			var _this2 = this;
 
-			this.$chips.addEventListener('changed-chip', function (e) {
-				console.log("changed-chip", e);
-				if (e.detail.active) {
-					_this2.$footer.classList.remove('hidden');
+			this.$chips.addEventListener('changed-chip', this.showFooter.bind(this));
+			this.$footerLogo.addEventListener('click', this.showSubView.bind(this));
+		}
+	}, {
+		key: 'showFooter',
+		value: function showFooter(e) {
+			console.log("changed-chip", e);
+			if (e.detail.active) {
+				this.$footer.classList.remove('hidden');
 
-					animate(_this2.$footerLogo, 'animated', 'zoomIn');
-				} else {
-					_this2.$footer.classList.add('hidden');
+				animate(this.$footerLogo, 'animated', 'zoomIn');
+			} else {
+				this.$footer.classList.add('hidden');
 
-					animate(_this2.$footerLogo, 'animated', 'zoomOut');
-				}
-				_this2.footerTitle = e.detail.data.title;
-				_this2.footerDescription = e.detail.data.description;
-
-				_this2.render();
-			});
-
-			this.$footerLogo.addEventListener('click', function () {
-				alert("Hola Sebas..el rey de los videojuegos XD");
-			});
+				animate(this.$footerLogo, 'animated', 'zoomOut');
+			}
+			this.footerTitle = e.detail.data.title;
+			this.footerDescription = e.detail.data.description;
+			this.$footerImg.setAttribute("src", e.detail.data.logo);
+			this.moduleName = e.detail.data.module;
+			this.render();
+		}
+	}, {
+		key: 'showMainElements',
+		value: function showMainElements(val) {
+			if (!val) {
+				this.$chips.style.visibility = 'hidden';
+				this.$inputContainer.style.visibility = 'hidden';
+			} else {
+				this.$chips.style.visibility = 'visible';
+				this.$inputContainer.style.visibility = 'visible';
+			}
+		}
+	}, {
+		key: 'showSubView',
+		value: function showSubView() {
+			//document.location.hash="/main/padron"
+			this.showSubView = !this.showSubView;
+			if (this.showSubView) {
+				this.$footer.classList.add('showAll');
+				this.showMainElements(false);
+				this.$subviewContent.classList.remove('hidden');
+				animate(this.$footerLogo, 'animated', 'rubberBand');
+				var module = document.createElement(this.moduleName);
+				this.$subviewContent.innerHTML = '';
+				this.$subviewContent.appendChild(module);
+			} else {
+				this.$footer.classList.remove('showAll');
+				this.showMainElements(true);
+				animate(this.$footerLogo, 'animated', 'rubberBand');
+				this.$subviewContent.classList.add('hidden');
+			}
 		}
 	}, {
 		key: 'connectedCallback',
-		value: function connectedCallback() {}
+		value: function connectedCallback() {
+			var self = this;
+			document.addEventListener("mapReady", function (e) {
+				self.$map.addMarker({
+					lat: -12.1417,
+					lng: -77.0167
+				});
+
+				self.$map.addMarker({
+					lat: -12.117880,
+					lng: -77.033043
+				});
+			});
+		}
 	}, {
 		key: 'render',
 		value: function render() {
@@ -2146,7 +2217,7 @@ customElements.whenDefined(nameWebComponent).then(function () {
 });
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2162,15 +2233,15 @@ var _template = __webpack_require__(0);
 
 var _template2 = _interopRequireDefault(_template);
 
-var _map = __webpack_require__(28);
+var _map = __webpack_require__(35);
 
 var _map2 = _interopRequireDefault(_map);
 
-var _map3 = __webpack_require__(29);
+var _map3 = __webpack_require__(36);
 
 var _map4 = _interopRequireDefault(_map3);
 
-var _niceMap = __webpack_require__(11);
+var _niceMap = __webpack_require__(15);
 
 var _niceMap2 = _interopRequireDefault(_niceMap);
 
@@ -2234,7 +2305,284 @@ customElements.whenDefined(nameWebComponent).then(function () {
 });
 
 /***/ }),
-/* 7 */
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+		value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _appCarouselChips = __webpack_require__(1);
+
+var _appCarouselChips2 = _interopRequireDefault(_appCarouselChips);
+
+var _template = __webpack_require__(0);
+
+var _template2 = _interopRequireDefault(_template);
+
+var _moduleInv = __webpack_require__(38);
+
+var _moduleInv2 = _interopRequireDefault(_moduleInv);
+
+var _moduleInv3 = __webpack_require__(37);
+
+var _moduleInv4 = _interopRequireDefault(_moduleInv3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _CustomElement() {
+		return Reflect.construct(HTMLElement, [], this.__proto__.constructor);
+}
+
+;
+Object.setPrototypeOf(_CustomElement.prototype, HTMLElement.prototype);
+Object.setPrototypeOf(_CustomElement, HTMLElement);
+
+var templateObj = new _template2.default(_moduleInv4.default, _moduleInv2.default);
+
+var ModuleInv = function (_CustomElement2) {
+		_inherits(ModuleInv, _CustomElement2);
+
+		function ModuleInv() {
+				_classCallCheck(this, ModuleInv);
+
+				var _this = _possibleConstructorReturn(this, (ModuleInv.__proto__ || Object.getPrototypeOf(ModuleInv)).call(this));
+
+				var shadowRoot = _this.attachShadow({ mode: 'open' });
+				shadowRoot.innerHTML = templateObj.template;
+				_this.initDOMRefs();
+				_this.addListerners();
+
+				return _this;
+		}
+
+		_createClass(ModuleInv, [{
+				key: 'initDOMRefs',
+				value: function initDOMRefs() {}
+		}, {
+				key: 'addListerners',
+				value: function addListerners() {}
+		}, {
+				key: 'connectedCallback',
+				value: function connectedCallback() {}
+		}, {
+				key: 'render',
+				value: function render() {}
+		}]);
+
+		return ModuleInv;
+}(_CustomElement);
+
+exports.default = ModuleInv;
+
+
+var nameWebComponent = "module-inv";
+var component = ModuleInv;
+
+customElements.define(nameWebComponent, component);
+customElements.whenDefined(nameWebComponent).then(function () {
+		console.log('registered ' + nameWebComponent);
+});
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+		value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _appCarouselChips = __webpack_require__(1);
+
+var _appCarouselChips2 = _interopRequireDefault(_appCarouselChips);
+
+__webpack_require__(2);
+
+var _template = __webpack_require__(0);
+
+var _template2 = _interopRequireDefault(_template);
+
+var _modulePad = __webpack_require__(40);
+
+var _modulePad2 = _interopRequireDefault(_modulePad);
+
+var _modulePad3 = __webpack_require__(39);
+
+var _modulePad4 = _interopRequireDefault(_modulePad3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _CustomElement() {
+		return Reflect.construct(HTMLElement, [], this.__proto__.constructor);
+}
+
+;
+Object.setPrototypeOf(_CustomElement.prototype, HTMLElement.prototype);
+Object.setPrototypeOf(_CustomElement, HTMLElement);
+
+var templateObj = new _template2.default(_modulePad4.default, _modulePad2.default);
+
+var ModulePad = function (_CustomElement2) {
+		_inherits(ModulePad, _CustomElement2);
+
+		function ModulePad() {
+				_classCallCheck(this, ModulePad);
+
+				var _this = _possibleConstructorReturn(this, (ModulePad.__proto__ || Object.getPrototypeOf(ModulePad)).call(this));
+
+				var shadowRoot = _this.attachShadow({ mode: 'open' });
+				shadowRoot.innerHTML = templateObj.template;
+				_this.initDOMRefs();
+				_this.addListerners();
+
+				return _this;
+		}
+
+		_createClass(ModulePad, [{
+				key: 'initDOMRefs',
+				value: function initDOMRefs() {}
+		}, {
+				key: 'addListerners',
+				value: function addListerners() {}
+		}, {
+				key: 'connectedCallback',
+				value: function connectedCallback() {}
+		}, {
+				key: 'render',
+				value: function render() {}
+		}]);
+
+		return ModulePad;
+}(_CustomElement);
+
+exports.default = ModulePad;
+
+
+var nameWebComponent = "module-pad";
+var component = ModulePad;
+
+customElements.define(nameWebComponent, component);
+customElements.whenDefined(nameWebComponent).then(function () {
+		console.log('registered ' + nameWebComponent);
+});
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+		value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _appCarouselChips = __webpack_require__(1);
+
+var _appCarouselChips2 = _interopRequireDefault(_appCarouselChips);
+
+__webpack_require__(2);
+
+var _template = __webpack_require__(0);
+
+var _template2 = _interopRequireDefault(_template);
+
+var _modulePcr = __webpack_require__(42);
+
+var _modulePcr2 = _interopRequireDefault(_modulePcr);
+
+var _modulePcr3 = __webpack_require__(41);
+
+var _modulePcr4 = _interopRequireDefault(_modulePcr3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _CustomElement() {
+		return Reflect.construct(HTMLElement, [], this.__proto__.constructor);
+}
+
+;
+Object.setPrototypeOf(_CustomElement.prototype, HTMLElement.prototype);
+Object.setPrototypeOf(_CustomElement, HTMLElement);
+
+var templateObj = new _template2.default(_modulePcr4.default, _modulePcr2.default);
+
+var ModulePcr = function (_CustomElement2) {
+		_inherits(ModulePcr, _CustomElement2);
+
+		function ModulePcr() {
+				_classCallCheck(this, ModulePcr);
+
+				var _this = _possibleConstructorReturn(this, (ModulePcr.__proto__ || Object.getPrototypeOf(ModulePcr)).call(this));
+
+				var shadowRoot = _this.attachShadow({ mode: 'open' });
+				shadowRoot.innerHTML = templateObj.template;
+				_this.initDOMRefs();
+				_this.addListerners();
+
+				return _this;
+		}
+
+		_createClass(ModulePcr, [{
+				key: 'initDOMRefs',
+				value: function initDOMRefs() {}
+		}, {
+				key: 'addListerners',
+				value: function addListerners() {}
+		}, {
+				key: 'connectedCallback',
+				value: function connectedCallback() {}
+		}, {
+				key: 'render',
+				value: function render() {}
+		}]);
+
+		return ModulePcr;
+}(_CustomElement);
+
+exports.default = ModulePcr;
+
+
+var nameWebComponent = "module-pcr";
+var component = ModulePcr;
+
+customElements.define(nameWebComponent, component);
+customElements.whenDefined(nameWebComponent).then(function () {
+		console.log('registered ' + nameWebComponent);
+});
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2250,19 +2598,19 @@ var _template = __webpack_require__(0);
 
 var _template2 = _interopRequireDefault(_template);
 
-var _index = __webpack_require__(30);
+var _index = __webpack_require__(43);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _main = __webpack_require__(31);
+var _main = __webpack_require__(44);
 
 var _main2 = _interopRequireDefault(_main);
 
-var _niceStep = __webpack_require__(12);
+var _niceStep = __webpack_require__(16);
 
 var _niceStep2 = _interopRequireDefault(_niceStep);
 
-var _niceStepper = __webpack_require__(13);
+var _niceStepper = __webpack_require__(17);
 
 var _niceStepper2 = _interopRequireDefault(_niceStepper);
 
@@ -2326,7 +2674,7 @@ customElements.whenDefined(nameWebComponent).then(function () {
 });
 
 /***/ }),
-/* 8 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2342,11 +2690,11 @@ var _template = __webpack_require__(0);
 
 var _template2 = _interopRequireDefault(_template);
 
-var _splash = __webpack_require__(33);
+var _splash = __webpack_require__(46);
 
 var _splash2 = _interopRequireDefault(_splash);
 
-var _splash3 = __webpack_require__(32);
+var _splash3 = __webpack_require__(45);
 
 var _splash4 = _interopRequireDefault(_splash3);
 
@@ -2378,13 +2726,24 @@ var AppSplash = function (_CustomElement2) {
 
         var shadowRoot = _this.attachShadow({ mode: 'open' });
         shadowRoot.innerHTML = templateObj.template;
-
+        _this.initDOMRefs();
         return _this;
     }
 
     _createClass(AppSplash, [{
+        key: 'initDOMRefs',
+        value: function initDOMRefs() {
+            this.$logo = this.shadowRoot.querySelector('#logo');
+        }
+    }, {
         key: 'connectedCallback',
         value: function connectedCallback() {
+            var _this2 = this;
+
+            setTimeout(function () {
+                animate(_this2.$logo, 'animated', 'flipInX');
+            }, 2000);
+
             setTimeout(function () {
                 document.location.hash = "#/login";
             }, 4000);
@@ -2405,7 +2764,7 @@ customElements.whenDefined(nameWebComponent).then(function () {
 });
 
 /***/ }),
-/* 9 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3140,7 +3499,7 @@ customElements.whenDefined(nameWebComponent).then(function () {
 })(window, document);
 
 /***/ }),
-/* 10 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3152,11 +3511,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _loader = __webpack_require__(35);
+var _loader = __webpack_require__(48);
 
 var _loader2 = _interopRequireDefault(_loader);
 
-var _loader3 = __webpack_require__(34);
+var _loader3 = __webpack_require__(47);
 
 var _loader4 = _interopRequireDefault(_loader3);
 
@@ -3183,6 +3542,9 @@ Object.setPrototypeOf(_CustomElement, HTMLElement);
 
 var templateObj = new _template2.default(_loader4.default, _loader2.default);
 
+/**
+ * Helper class for Loader
+ */
 var LoaderMap = {
 	apiMap: {}, // { hash -> Loader }
 	/**
@@ -3218,7 +3580,6 @@ var _Loader = function _Loader(name, url, callbackName) {
 
 	this.callbackName = callbackName;
 	window[this.callbackName] = this.success.bind(this);
-	console.log('===>', url);
 	this.addScript(url);
 };
 
@@ -3227,7 +3588,6 @@ _Loader.prototype = {
 	loaded: false,
 
 	addScript: function addScript(src) {
-		console.log('===>', src);
 		var script = document.createElement('script');
 		script.src = src;
 		script.onerror = this.handleError.bind(this);
@@ -3276,6 +3636,10 @@ _Loader.prototype = {
 	}
 };
 
+/**
+ * Load Class charge on load file on async way
+ */
+
 var Loader = function (_CustomElement2) {
 	_inherits(Loader, _CustomElement2);
 
@@ -3289,6 +3653,7 @@ var Loader = function (_CustomElement2) {
 		_this.initDOMRefs();
 		_this.addListeners();
 		_this.collectDataAttributes();
+
 		return _this;
 	}
 
@@ -3308,17 +3673,18 @@ var Loader = function (_CustomElement2) {
 			}
 		}
 	}, {
+		key: '_fireLoadedEvent',
+		value: function _fireLoadedEvent() {
+			document.dispatchEvent(new CustomEvent('loadedComplete', {}));
+		}
+	}, {
 		key: '_libraryLoadCallback',
 		value: function _libraryLoadCallback(err, result) {
 			if (err) {
-				//  this._setLibraryErrorMessage(err.message);
+				//TODO HANDLE ERROR WHEN THERE IS SOMETHING WRONG WITH THE LOADED
 				console.error(err);
 			} else {
-				console.log(result);
-				//  this._setLibraryErrorMessage(null);
-				//  this._setLibraryLoaded(true);
-				//  if (this.notifyEvent)
-				// 	 this.fire(this.notifyEvent, result);
+				this._fireLoadedEvent();
 			}
 		}
 	}, {
@@ -3360,7 +3726,7 @@ exports.default = Loader;
 customElements.define('nice-loader', Loader);
 
 /***/ }),
-/* 11 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3372,11 +3738,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _niceMap = __webpack_require__(37);
+var _niceMap = __webpack_require__(50);
 
 var _niceMap2 = _interopRequireDefault(_niceMap);
 
-var _niceMap3 = __webpack_require__(36);
+var _niceMap3 = __webpack_require__(49);
 
 var _niceMap4 = _interopRequireDefault(_niceMap3);
 
@@ -3403,6 +3769,30 @@ Object.setPrototypeOf(_CustomElement, HTMLElement);
 
 var templateObj = new _template2.default(_niceMap4.default, _niceMap2.default);
 
+var URL = 'https://maps.googleapis.com/maps/api/js?callback=%%callback%%';
+
+var VERSION = '3.exp';
+
+var DEFAULT_CENTER_MAP = {
+	lat: -12.046374,
+	lng: -77.042793
+};
+
+var DEFAULT_ZOOM = 10;
+
+/**
+ * Map class
+ * Map web component base on google maps API
+ * @attributes:
+ * 		my-location : Flag that indicate that the map will be center at the current position
+ * 		disable-default-ui	: Disable google maps default UI
+ * 		center : Default location base on latitude and longitude, if the my-location flag is set, this attribute will be ignored
+ * @methods:
+ * 		setZoom: Set zoom property
+ *		setCurrentLocation: Set location property
+ * 		addMarker: Add a new marked(object with lat and lng properties as parameter)
+ */
+
 var Map = function (_CustomElement2) {
 	_inherits(Map, _CustomElement2);
 
@@ -3413,8 +3803,7 @@ var Map = function (_CustomElement2) {
 
 		var shadowRoot = _this.attachShadow({ mode: 'open' });
 		shadowRoot.innerHTML = templateObj.template;
-		_this._URL = 'https://maps.googleapis.com/maps/api/js?callback=%%callback%%';
-		_this._version = '3.exp';
+		_this.map = null;
 		_this.initDOMRefs();
 		_this.collectDataAttributes();
 		_this.addListeners();
@@ -3457,7 +3846,138 @@ var Map = function (_CustomElement2) {
 			if (this.attributes['signed_in']) {
 				this.signed_in = this.attributes['signed_in'].nodeValue;
 			}
+
+			if ('my-location' in this.attributes) {
+				this.my_location = true;
+			}
+
+			if ('disable-default-ui' in this.attributes) {
+				this.disableDefaultUI = true;
+			}
+
+			if (this.attributes['center'] && this.attributes['center'].nodeValue) {
+				var center = this.attributes['center'].nodeValue;
+				var coordinates = center.split(",");
+				if (coordinates.length == 2) {
+					this.lng = parseFloat(coordinates[0]);
+					this.lat = parseFloat(coordinates[1]);
+				} else {
+					throw new Error('Invalid center property');
+				}
+			}
 		}
+	}, {
+		key: 'addMarker',
+		value: function addMarker(location) {
+			var marker = new google.maps.Marker({
+				position: location,
+				map: this.map
+			});
+			// this.mapsMarkers.push(marker);
+		}
+
+		/**
+   * setZoom - Set map zoom property
+   *
+   * @param	{integer} zoom Zoom as Integer
+   */
+
+	}, {
+		key: 'setZoom',
+		value: function setZoom(zoom) {
+			if (zoom && !isNan(zoom)) {
+				this.map.setZoom(zoom);
+			} else {
+				throw new Error('Invalid zoom');
+			}
+		}
+
+		/**
+   * setLocation - Set location base on lat and lng properties
+   *
+   * @param	{type} lat description
+   * @param	{type} lng description
+   * @return {type}		 description
+   */
+
+	}, {
+		key: 'setLocation',
+		value: function setLocation(lat, lng) {
+			if (lat && !isNaN(lat) && lng && !isNaN(lng)) {
+				var pos = {
+					lat: lat,
+					lng: lng
+				};
+				this.map.setCenter(pos);
+			}
+		}
+
+		/**
+   * setCurrentLocation - Set the current position base on the location
+   */
+
+	}, {
+		key: 'setCurrentLocation',
+		value: function setCurrentLocation() {
+			var self = this;
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function (position) {
+					self.setLocation(position.coords.latitude, position.coords.longitude);
+				}, function () {
+					self.setLocation(DEFAULT_CENTER_MAP.lat, DEFAULT_CENTER_MAP.lng);
+				});
+			} else {
+				// TODO HANDLE ERROR WHEN BROWSER DOESN'T SUPPORT GEOLOCATION
+			}
+		}
+
+		/**
+   * buildMapObjectConfig - Build the default config object for google maps
+   *
+   * @return {type}	description
+   */
+
+	}, {
+		key: 'buildMapObjectConfig',
+		value: function buildMapObjectConfig() {
+			var obj = {
+				center: DEFAULT_CENTER_MAP,
+				zoom: DEFAULT_ZOOM,
+				disableDefaultUI: false
+			};
+
+			if (this.lat && !isNaN(this.lat) && this.lng && !isNaN(this.lng)) {
+				var lat = this.lat;
+				var lng = this.lng;
+				obj.center = {
+					lat: lat,
+					lng: lng
+				};
+			}
+
+			if (this.zoom && !isNaN(this.zoom)) {
+				var zoom = this.zoom;
+				obj.zoom = zoom;
+			}
+
+			if (this.disableDefaultUI) {
+				obj.disableDefaultUI = true;
+			}
+			return obj;
+		}
+
+		/**
+   * computeUrl - Build the URL with all the arguments
+   *
+   * @param	{string} mapsUrl
+   * @param	{string} version
+   * @param	{string} apiKey
+   * @param	{string} clientId
+   * @param	{string} language
+   * @param	{string} signedIn
+   * @return {string}
+   */
+
 	}, {
 		key: 'computeUrl',
 		value: function computeUrl(mapsUrl, version, apiKey, clientId, language, signedIn) {
@@ -3484,19 +4004,46 @@ var Map = function (_CustomElement2) {
 			return url;
 		}
 	}, {
+		key: 'buildMap',
+		value: function buildMap() {
+			var container = this.shadowRoot.querySelector('#map-container');
+			var mapConfig = this.buildMapObjectConfig();
+			this.map = new google.maps.Map(container, mapConfig);
+			console.log(this.map);
+			// google.maps.event.trigger(this.map,'resize');
+
+
+			if (this.my_location) {
+				this.setCurrentLocation();
+			}
+
+			document.dispatchEvent(new CustomEvent('mapReady', {}));
+
+			// console.log(container.innerHTML);
+		}
+	}, {
 		key: 'connectedCallback',
 		value: function connectedCallback() {
+
 			var self = this;
-			var url = this.computeUrl(this._URL, this._version, this.apikey, this.clientId, this.language, this.signed_in);
+			var container = this.shadowRoot.querySelector('#map-container');
+
+			if (container.innerHTML) {
+				container.innerHTML = "";
+			}
+
+			var url = this.computeUrl(URL, VERSION, this.apikey, this.clientId, this.language, this.signed_in);
 			this.$loaderContainer.setAttribute('url', url);
 
-			var container = this.shadowRoot.querySelector('#map-container');
-			setTimeout(function () {
-				var map = new google.maps.Map(container, {
-					center: { lat: -34.397, lng: 150.644 },
-					zoom: 8
-				});
-			}, 1000);
+			//EVENT WHEN THE LOADER GET THE LIBRARY , GOOGLE MAPS AVAILABLE
+			document.addEventListener("loadedComplete", function (e) {
+				self.buildMap();
+				console.log('ppppp', container.innerHTML);
+			});
+
+			// if (!container.innerHTML ) {
+			// 	this.buildMap();
+			// }
 		}
 	}]);
 
@@ -3509,7 +4056,7 @@ exports.default = Map;
 customElements.define('nice-map', Map);
 
 /***/ }),
-/* 12 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3521,11 +4068,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _niceStep = __webpack_require__(39);
+var _niceStep = __webpack_require__(52);
 
 var _niceStep2 = _interopRequireDefault(_niceStep);
 
-var _niceStep3 = __webpack_require__(38);
+var _niceStep3 = __webpack_require__(51);
 
 var _niceStep4 = _interopRequireDefault(_niceStep3);
 
@@ -3597,7 +4144,7 @@ exports.default = NiceStep;
 customElements.define('nice-step', NiceStep);
 
 /***/ }),
-/* 13 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3609,11 +4156,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _niceStepper = __webpack_require__(41);
+var _niceStepper = __webpack_require__(54);
 
 var _niceStepper2 = _interopRequireDefault(_niceStepper);
 
-var _niceStepper3 = __webpack_require__(40);
+var _niceStepper3 = __webpack_require__(53);
 
 var _niceStepper4 = _interopRequireDefault(_niceStepper3);
 
@@ -3621,7 +4168,7 @@ var _template = __webpack_require__(0);
 
 var _template2 = _interopRequireDefault(_template);
 
-var _paperIcon = __webpack_require__(17);
+var _paperIcon = __webpack_require__(21);
 
 var _paperIcon2 = _interopRequireDefault(_paperIcon);
 
@@ -3830,20 +4377,20 @@ exports.default = Stepper;
 customElements.define('nice-stepper', Stepper);
 
 /***/ }),
-/* 14 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(15);
+__webpack_require__(19);
 
-__webpack_require__(16);
+__webpack_require__(20);
 
-__webpack_require__(18);
+__webpack_require__(22);
 
 /***/ }),
-/* 15 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3859,11 +4406,11 @@ var _template = __webpack_require__(0);
 
 var _template2 = _interopRequireDefault(_template);
 
-var _paperButton = __webpack_require__(43);
+var _paperButton = __webpack_require__(56);
 
 var _paperButton2 = _interopRequireDefault(_paperButton);
 
-var _paperButton3 = __webpack_require__(42);
+var _paperButton3 = __webpack_require__(55);
 
 var _paperButton4 = _interopRequireDefault(_paperButton3);
 
@@ -4012,7 +4559,7 @@ exports.default = PaperButton;
 customElements.define('paper-button', PaperButton, { extends: 'button' });
 
 /***/ }),
-/* 16 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4028,11 +4575,11 @@ var _template = __webpack_require__(0);
 
 var _template2 = _interopRequireDefault(_template);
 
-var _paperChip = __webpack_require__(45);
+var _paperChip = __webpack_require__(58);
 
 var _paperChip2 = _interopRequireDefault(_paperChip);
 
-var _paperChip3 = __webpack_require__(44);
+var _paperChip3 = __webpack_require__(57);
 
 var _paperChip4 = _interopRequireDefault(_paperChip3);
 
@@ -4177,7 +4724,7 @@ try {
 }
 
 /***/ }),
-/* 17 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4193,15 +4740,15 @@ var _template = __webpack_require__(0);
 
 var _template2 = _interopRequireDefault(_template);
 
-var _paperIcon = __webpack_require__(47);
+var _paperIcon = __webpack_require__(60);
 
 var _paperIcon2 = _interopRequireDefault(_paperIcon);
 
-var _paperIcon3 = __webpack_require__(46);
+var _paperIcon3 = __webpack_require__(59);
 
 var _paperIcon4 = _interopRequireDefault(_paperIcon3);
 
-var _underscore = __webpack_require__(1);
+var _underscore = __webpack_require__(3);
 
 var _underscore2 = _interopRequireDefault(_underscore);
 
@@ -4312,7 +4859,7 @@ exports.default = PaperIcon;
 customElements.define('paper-icon', PaperIcon);
 
 /***/ }),
-/* 18 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4328,11 +4875,11 @@ var _template = __webpack_require__(0);
 
 var _template2 = _interopRequireDefault(_template);
 
-var _paperInput = __webpack_require__(49);
+var _paperInput = __webpack_require__(62);
 
 var _paperInput2 = _interopRequireDefault(_paperInput);
 
-var _paperInput3 = __webpack_require__(48);
+var _paperInput3 = __webpack_require__(61);
 
 var _paperInput4 = _interopRequireDefault(_paperInput3);
 
@@ -4452,7 +4999,301 @@ try {
 }
 
 /***/ }),
-/* 19 */
+/* 23 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _template = __webpack_require__(0);
+
+var _template2 = _interopRequireDefault(_template);
+
+var _paperLine = __webpack_require__(64);
+
+var _paperLine2 = _interopRequireDefault(_paperLine);
+
+var _paperLine3 = __webpack_require__(63);
+
+var _paperLine4 = _interopRequireDefault(_paperLine3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _CustomElement() {
+	return Reflect.construct(HTMLElement, [], this.__proto__.constructor);
+}
+
+;
+Object.setPrototypeOf(_CustomElement.prototype, HTMLElement.prototype);
+Object.setPrototypeOf(_CustomElement, HTMLElement);
+
+var templateObj = new _template2.default(_paperLine4.default, _paperLine2.default);
+
+var PaperLine = function (_CustomElement2) {
+	_inherits(PaperLine, _CustomElement2);
+
+	function PaperLine() {
+		_classCallCheck(this, PaperLine);
+
+		var _this = _possibleConstructorReturn(this, (PaperLine.__proto__ || Object.getPrototypeOf(PaperLine)).call(this));
+
+		var shadowRoot = _this.attachShadow({ mode: 'open' });
+		shadowRoot.innerHTML = templateObj.template;
+		_this.initDOMRefs();
+		_this.collectDataAttributes();
+		return _this;
+	}
+
+	_createClass(PaperLine, [{
+		key: 'collectDataAttributes',
+		value: function collectDataAttributes() {}
+	}, {
+		key: 'initDOMRefs',
+		value: function initDOMRefs() {}
+	}, {
+		key: 'connectedCallback',
+		value: function connectedCallback() {}
+	}, {
+		key: 'attributeChangedCallback',
+		value: function attributeChangedCallback(attr, oldValue, newValue) {}
+	}]);
+
+	return PaperLine;
+}(_CustomElement);
+
+exports.default = PaperLine;
+
+
+customElements.define('paper-line', PaperLine, { extends: 'ul' });
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _template = __webpack_require__(0);
+
+var _template2 = _interopRequireDefault(_template);
+
+var _paperListItem = __webpack_require__(66);
+
+var _paperListItem2 = _interopRequireDefault(_paperListItem);
+
+var _paperListItem3 = __webpack_require__(65);
+
+var _paperListItem4 = _interopRequireDefault(_paperListItem3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _CustomElement() {
+	return Reflect.construct(HTMLElement, [], this.__proto__.constructor);
+}
+
+;
+Object.setPrototypeOf(_CustomElement.prototype, HTMLElement.prototype);
+Object.setPrototypeOf(_CustomElement, HTMLElement);
+
+var templateObj = new _template2.default(_paperListItem4.default, _paperListItem2.default);
+
+var PaperListItem = function (_CustomElement2) {
+	_inherits(PaperListItem, _CustomElement2);
+
+	function PaperListItem() {
+		_classCallCheck(this, PaperListItem);
+
+		var _this = _possibleConstructorReturn(this, (PaperListItem.__proto__ || Object.getPrototypeOf(PaperListItem)).call(this));
+
+		var shadowRoot = _this.attachShadow({ mode: 'open' });
+		shadowRoot.innerHTML = templateObj.template;
+		_this.initDOMRefs();
+		_this.collectDataAttributes();
+		return _this;
+	}
+
+	_createClass(PaperListItem, [{
+		key: 'collectDataAttributes',
+		value: function collectDataAttributes() {}
+	}, {
+		key: 'initDOMRefs',
+		value: function initDOMRefs() {
+			this.$primaryTitle = this.shadowRoot.querySelector('.primary-content');
+			this.$secondaryTitle = this.shadowRoot.querySelector('.secondary-content');
+			this.$iconLeft = this.shadowRoot.querySelector('.icon-left');
+			this.$iconRight = this.shadowRoot.querySelector('.icon-right');
+		}
+	}, {
+		key: 'connectedCallback',
+		value: function connectedCallback() {
+			this.render();
+		}
+	}, {
+		key: 'attributeChangedCallback',
+		value: function attributeChangedCallback(attr, oldValue, newValue) {
+			this.render();
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			this.$primaryTitle.innerHTML = this.primaryTitle;
+			this.$secondaryTitle.innerHTML = this.secondaryTitle;
+			this.$iconLeft.innerHTML = this.iconLeft;
+			this.$iconRight.innerHTML = this.iconRight;
+		}
+	}, {
+		key: 'primaryTitle',
+		set: function set(val) {
+			this.setAttribute('primary-title', val || '');
+		},
+		get: function get() {
+			return this.getAttribute('primary-title');
+		}
+	}, {
+		key: 'secondaryTitle',
+		set: function set(val) {
+			this.setAttribute('secondary-title', val || '');
+		},
+		get: function get() {
+			return this.getAttribute('secondary-title');
+		}
+	}, {
+		key: 'iconLeft',
+		set: function set(val) {
+			this.setAttribute('icon-left', val || '');
+		},
+		get: function get() {
+			return this.getAttribute('icon-left');
+		}
+	}, {
+		key: 'iconRight',
+		set: function set(val) {
+			this.setAttribute('icon-right', val || '');
+		},
+		get: function get() {
+			return this.getAttribute('icon-right');
+		}
+	}], [{
+		key: 'observedAttributes',
+		get: function get() {
+			return ['primaryTitle', 'secondaryTitle', 'iconLeft', 'iconRight'];
+		}
+	}]);
+
+	return PaperListItem;
+}(_CustomElement);
+
+exports.default = PaperListItem;
+
+
+customElements.define('paper-list-item', PaperListItem);
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _template = __webpack_require__(0);
+
+var _template2 = _interopRequireDefault(_template);
+
+var _paperList = __webpack_require__(68);
+
+var _paperList2 = _interopRequireDefault(_paperList);
+
+var _paperList3 = __webpack_require__(67);
+
+var _paperList4 = _interopRequireDefault(_paperList3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+function _CustomElement() {
+	return Reflect.construct(HTMLElement, [], this.__proto__.constructor);
+}
+
+;
+Object.setPrototypeOf(_CustomElement.prototype, HTMLElement.prototype);
+Object.setPrototypeOf(_CustomElement, HTMLElement);
+
+var templateObj = new _template2.default(_paperList4.default, _paperList2.default);
+
+var PaperList = function (_CustomElement2) {
+	_inherits(PaperList, _CustomElement2);
+
+	function PaperList() {
+		_classCallCheck(this, PaperList);
+
+		var _this = _possibleConstructorReturn(this, (PaperList.__proto__ || Object.getPrototypeOf(PaperList)).call(this));
+
+		var shadowRoot = _this.attachShadow({ mode: 'open' });
+		shadowRoot.innerHTML = templateObj.template;
+		_this.initDOMRefs();
+		_this.collectDataAttributes();
+		return _this;
+	}
+
+	_createClass(PaperList, [{
+		key: 'collectDataAttributes',
+		value: function collectDataAttributes() {}
+	}, {
+		key: 'initDOMRefs',
+		value: function initDOMRefs() {}
+	}, {
+		key: 'connectedCallback',
+		value: function connectedCallback() {}
+	}, {
+		key: 'attributeChangedCallback',
+		value: function attributeChangedCallback(attr, oldValue, newValue) {}
+	}]);
+
+	return PaperList;
+}(_CustomElement);
+
+exports.default = PaperList;
+
+
+customElements.define('paper-list', PaperList, { extends: 'ul' });
+
+/***/ }),
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {
@@ -4504,10 +5345,10 @@ function CustomEvent (type, params) {
   return e;
 }
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(50)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(69)))
 
 /***/ }),
-/* 20 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -5394,181 +6235,253 @@ return /******/ (function(modules) { // webpackBootstrap
 ;
 
 /***/ }),
-/* 21 */
-/***/ (function(module, exports) {
-
-module.exports = ".slider {\r\n    position: relative;\r\n    width: 100%;\r\n    max-width: 790px;\r\n    margin: 0 auto 40px;\r\n    -webkit-user-select: none;\r\n    -khtml-user-select: none;\r\n    -moz-user-select: -moz-none;\r\n    -o-user-select: none;\r\n    user-select: none;\r\n}\r\n\r\n.frame,\r\n.events_log {\r\n    position: relative;\r\n    width: 100%;\r\n    margin: 0 auto;\r\n    font-size: 0;\r\n    line-height: 0;\r\n    overflow: hidden;\r\n    white-space: nowrap;\r\n}\r\n\r\n.frame li {\r\n    position: relative;\r\n    display: inline-block;\r\n    font-family: 'Source Sans Pro', sans-serif;\r\n    text-align: center;\r\n    font-size: 15px;\r\n    line-height: 30px;\r\n\r\n    color: #fff;\r\n}\r\n\r\n.slides {\r\n    display: inline-block;\r\n}\r\n\r\n.simple > .frame li,\r\n.rewind > .frame li,\r\n.events > .frame li {\r\n    width: 270px;\r\n    margin-right: 10px;\r\n}\r\n\r\n\r\n"
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports) {
-
-module.exports = "<div class=\"slider js_multislides multislides\">\r\n    <div class=\"frame js_frame\">\r\n        <ul class=\"slides js_slides\">\r\n            <li class=\"js_slide\" style=\"width:125px;\">\r\n                <paper-chip id=\"pad\" label=\"Padron\" icon=\"face\"></paper-chip>\r\n            </li>\r\n            <li class=\"js_slide\" style=\"width:150px;\">\r\n                <paper-chip id=\"inv\" label=\"Inventario\" icon=\"device_hub\"></paper-chip>\r\n            </li>\r\n            <li class=\"js_slide\" style=\"width:110px;\">\r\n                <paper-chip id=\"pcr\" label=\"PCR\" icon=\"local_florist\"></paper-chip>\r\n            </li>\r\n            <li class=\"js_slide\" style=\"width:110px;\">\r\n                <paper-chip id=\"pda\" label=\"PDA\" icon=\"texture\"></paper-chip>\r\n            </li>\r\n            <li class=\"js_slide\" style=\"width:130px;\">\r\n                <paper-chip id=\"tar\" label=\"Tarifas\" icon=\"attach_money\"></paper-chip>\r\n            </li>\r\n            <li class=\"js_slide\" style=\"width:160px;\">\r\n                <paper-chip id=\"hid\" label=\"Hidrometria\" icon=\"timeline\"></paper-chip>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n    \r\n</div>\r\n"
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports) {
-
-module.exports = "<custom-style>\r\n\t<style>\r\n\t\t:host{\r\n\t\t\t\twidth: 100%;\r\n\t\t\t\theight: 100%;\r\n\t\t}\r\n\t\t#app{\r\n\t\t\t\theight: 100%;\r\n\t\t\t\twidth: 100%;\r\n\t\t}\r\n\t</style>\r\n</custom-style>\r\n<div id=\"app\">\r\n\t<app-router mode=\"hash\">\r\n\t\t<app-route path=\"/\"\telement=\"app-splash\"></app-route>\r\n\t\t<app-route path=\"/login\"\telement=\"app-login\"></app-route>\r\n\t\t<app-route path=\"/main\"\telement=\"app-main\"></app-route>\r\n\t\t<app-route path=\"/profile\"\telement=\"app-profile\"></app-route>\r\n\t\t<app-route path=\"/map\"\telement=\"app-map\"></app-route>\r\n\t</app-router>\r\n</diV>\r\n"
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports) {
-
-module.exports = ":host{\r\n    @apply --layout-center-center;\r\n    @apply --layout-vertical;\r\n   \t@apply --background-app;\r\n    height: 100%;\r\n    color:white;\r\n    padding: 0 40px 0px 40px;\r\n    font-family: 'Advent Pro', sans-serif;\r\n}\r\n#logo{\r\n    width:200px;\r\n    height:200px;\r\n}\r\n\r\niron-icon {\r\n    height: 200px;\r\n    width: 200px;\r\n}\r\niron-icon:nth-of-type(1) {\r\n    fill: white;\r\n    transition: .3s ease-in-out;\r\n    animation: changeColor 5s infinite alternate;\r\n}\r\n@keyframes changeColor {\r\n    0% {\r\n        fill: white;\r\n    }\r\n    100% {\r\n        fill: white;\r\n    }\r\n}\r\n:root{\r\n    --input-text-color:{\r\n        color:red;\r\n    }\r\n}\r\n\r\nh1{\r\n    font-family: 'Advent Pro', sans-serif;\r\n    width: 200px;\r\n    text-align: center;\r\n    margin: 0;\r\n    padding: 0;\r\n    font-size: 50px;\r\n    font-weight: 100;\r\n}\r\nh3{\r\n    font-family: 'Baloo', cursive;\r\n    text-align: center;\r\n    display: block;\r\n    width: 200px;\r\n    margin: 0;\r\n    padding-left: 60px;\r\n    font-size: 24px;\r\n}\r\n\r\nh5{\r\n    font-size: 16px;\r\n    font-family: Roboto;\r\n    font-weight: 100;\r\n    text-align: center;\r\n    margin: 0;\r\n    margin-top: 10px;\r\n}\r\n\r\n#container{\r\n    width: 100%;\r\n    max-width: 350px;\r\n}\r\n\r\n"
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports) {
-
-module.exports = "<img id=\"logo\" src=\"./images/logo.svg\">\r\n<h1>SIGMA</h1>\r\n<h3>CLOUD</h3>\r\n<div id=\"container\">\r\n\t<h5>Ingrese su nombre de usuario y contraseña para iniciar sesión</h5>\r\n\t<paper-input id=\"txtUser\" color=\"white\" floating-label=\"Usuario\"></paper-input>\r\n\t<paper-input id=\"txtPassword\" type=\"password\"  color=\"white\" floating-label=\"Contraseña\"></paper-input>\r\n\t<paper-button id=\"btnLogin\" raised fullwidth=\"true\" bgcolor=\"#2196f3\">Entrar</paper-button>\r\n</div>\r\n"
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports) {
-
-module.exports = "nice-map{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\npaper-chip{\r\n    opacity:0.8;\r\n}\r\n\r\ninput:focus{\r\n    outline: none;\r\n}\r\n\r\n:host{\r\n    @apply --layout-center-center;\r\n    @apply --layout-vertical;\r\n   \t@apply --background-app;\r\n    @apply --paper-font-common-base;\r\n    height: 100%;\r\n    color:black;\r\n    padding: 0 ;\r\n    font-family: 'Advent Pro', sans-serif;\r\n}\r\n\r\n\r\n.row{\r\n    @apply --layout-horizontal;\r\n}\r\n .flexchild {\r\n      @apply --layout-flex;\r\n}\r\n\r\n\r\n.input-container{\r\n\tposition: absolute;\r\n\tmargin: auto;\r\n    top: 20px;\r\n    left:20px;\r\n    right: 20px;\r\n    background-color: white;\r\n    @apply  --shadow-elevation-2dp;\r\n    padding: 5px;\r\n}\r\n\r\n\r\n.input-container > div > div > input{\r\n    width: 100%;\r\n    border:0;\r\n    padding: 10px;\r\n    font-size: 14px;\r\n}\r\n\r\n.chip-container{\r\n    position: absolute;\r\n    top: 75px;\r\n}\r\n.footer-container{\r\n    width: 100%;\r\n    bottom: 0;\r\n    height: 120px;\r\n    background-color: white;\r\n    @apply --layout-center;\r\n    @apply --layout-vertical;\r\n    @apply --layout-fixed-bottom;\r\n\r\n    transition:all 0.3s ease-in-out;\r\n}\r\n.footer-container.hidden{\r\n    bottom: -160px;\r\n    transition:all 0.3s ease-in-out;\r\n}\r\n\r\n.footer-container .footer-title{\r\n    font-size: 20px;\r\n    @apply --layout-center-center;\r\n    @apply --paper-font-common-base;\r\n    display: block;\r\n}\r\n.footer-container .footer-description{\r\n    font-size: 13px;\r\n    display: block;\r\n    text-align: justify;\r\n    margin-left: 10px;\r\n    margin-right: 10px;\r\n}\r\n\r\n.footer-container .footer-logo{\r\n    height: 80px;\r\n    width: 80px;\r\n    background-color: green;\r\n    border-radius: 40px;\r\n    margin-top: -40px;\r\n}"
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports) {
-
-module.exports = "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css\">\r\n<nice-loader api-key=\"AIzaSyBLF11XmoFl4VedETvlRVo5hJBkICgzTIc\"></nice-loader>\r\n<nice-map api-key=\"AIzaSyBLF11XmoFl4VedETvlRVo5hJBkICgzTIc\"></nice-map>\r\n<div class=\"input-container\">\r\n\t<div class=\"row\">\r\n\t\t<div>\r\n\t\t\t<paper-icon>menu</paper-icon>\r\n\t\t</div>\r\n\t\t<div class=\"flexchild\">\r\n\t\t\t<input type=\"text\" placeholder=\"Busca un predio\"/>\r\n\t\t\t</div>\r\n\t\t<div>\r\n\t\t\t<paper-icon>more_vert</paper-icon>\r\n\t\t</div>\r\n\t</div>\r\n\r\n</div>\r\n<div class=\"chip-container\"  style=\"width:100%\">\r\n\t\t<app-carousel-chips></app-carousel-chips>\r\n</div>\r\n\r\n<div class=\"footer-container hidden\">\r\n\t<div class=\"footer-logo\"></div>\r\n\t<div class=\"footer-title\"></div>\r\n\t<div class=\"footer-description\"></div>\r\n\t\t\r\n</div>"
-
-/***/ }),
 /* 28 */
 /***/ (function(module, exports) {
 
-module.exports = ":host{\r\n\t@apply --layout-center-center;\r\n\t@apply --layout-vertical;\r\n \t@apply --background-app;\r\n\theight: 100%;\r\n\tcolor:white;\r\n\tpadding: 0 40px 0px 40px;\r\n\tfont-family: 'Advent Pro', sans-serif;\r\n}\r\n\r\n\r\n.map {\r\n\theight: 300px;\r\n\twidth: 300px;\r\n}\r\n"
+module.exports = ":host{\r\n        width: 100%;\r\n        position: relative;\r\n}\r\n.slider {\r\n    position: relative;\r\n    width: 100%;\r\n    max-width: 790px;\r\n    margin: 0 auto;\r\n    -webkit-user-select: none;\r\n    -khtml-user-select: none;\r\n    -moz-user-select: -moz-none;\r\n    -o-user-select: none;\r\n    user-select: none;\r\n}\r\n\r\n.frame,\r\n.events_log {\r\n    position: relative;\r\n    width: 100%;\r\n    margin: 0 auto;\r\n    font-size: 0;\r\n    line-height: 0;\r\n    overflow: hidden;\r\n    white-space: nowrap;\r\n}\r\n\r\n.frame li {\r\n    position: relative;\r\n    display: inline-block;\r\n    font-family: 'Source Sans Pro', sans-serif;\r\n    text-align: center;\r\n    font-size: 15px;\r\n    line-height: 30px;\r\n\r\n    color: #fff;\r\n}\r\n\r\n.slides {\r\n    display: inline-block;\r\n}\r\n\r\n.simple > .frame li,\r\n.rewind > .frame li,\r\n.events > .frame li {\r\n    width: 270px;\r\n    margin-right: 10px;\r\n}\r\n\r\n\r\n"
 
 /***/ }),
 /* 29 */
 /***/ (function(module, exports) {
 
-module.exports = "<h2> THIS IS THE MAP COMPONENT</h2>\r\n<div class=\"map\">\r\n  <nice-map></nice-map>\r\n</div>\r\n"
+module.exports = "<div class=\"slider js_multislides multislides\">\r\n    <div class=\"frame js_frame\">\r\n        <ul class=\"slides js_slides\">\r\n            <li class=\"js_slide\" style=\"width:125px;\">\r\n                <paper-chip id=\"pad\" label=\"Padron\" icon=\"face\"></paper-chip>\r\n            </li>\r\n            <li class=\"js_slide\" style=\"width:150px;\">\r\n                <paper-chip id=\"inv\" label=\"Inventario\" icon=\"device_hub\"></paper-chip>\r\n            </li>\r\n            <li class=\"js_slide\" style=\"width:110px;\">\r\n                <paper-chip id=\"pcr\" label=\"PCR\" icon=\"local_florist\"></paper-chip>\r\n            </li>\r\n            <li class=\"js_slide\" style=\"width:110px;\">\r\n                <paper-chip id=\"pda\" label=\"PDA\" icon=\"texture\"></paper-chip>\r\n            </li>\r\n            <li class=\"js_slide\" style=\"width:130px;\">\r\n                <paper-chip id=\"tar\" label=\"Tarifas\" icon=\"attach_money\"></paper-chip>\r\n            </li>\r\n            <li class=\"js_slide\" style=\"width:160px;\">\r\n                <paper-chip id=\"hid\" label=\"Hidrometria\" icon=\"timeline\"></paper-chip>\r\n            </li>\r\n        </ul>\r\n    </div>\r\n    \r\n</div>\r\n"
 
 /***/ }),
 /* 30 */
 /***/ (function(module, exports) {
 
-module.exports = "<h1>SIGMA</h1>\r\n<h3>CLOUD</h3>\r\n<h5>Profile</h5>\r\n<h2> THIS IS THE STEPPER COMPONENT</h2>\r\n<nice-stepper data-selected-color=\"red\">\r\n\t<nice-step>\r\n\t\t<h3>Form1</h3>\r\n\t\t<form>\r\n\t\t\t<paper-input id=\"txtUser\" color=\"white\" floating-label=\"Nombre\"></paper-input>\r\n\t\t\t<paper-input id=\"txtUser\" color=\"white\" floating-label=\"Apellido\"></paper-input>\r\n\t\t</form>\r\n\t</nice-step>\r\n\t<nice-step>\r\n\t\t<h3>Form2 </h3>\r\n\t\t<form>\r\n\t\t\t<paper-input id=\"txtUser\" color=\"white\" floating-label=\"Username\"></paper-input>\r\n\t\t\t<paper-input id=\"txtUser\" color=\"white\" floating-label=\"Email\"></paper-input>\r\n\t\t</form>\r\n\t</nice-step>\r\n\t<nice-step>\r\n\t\t<h3>Form3 </h3>\r\n\t\t<form>\r\n\t\t\t<paper-input id=\"txtUser\" color=\"white\" floating-label=\"Tlf\"></paper-input>\r\n\t\t\t<paper-input id=\"txtUser\" color=\"white\" floating-label=\"Direccion\"></paper-input>\r\n\t\t</form>\r\n\t</nice-step>\r\n</nice-stepper>\r\n"
+module.exports = "<custom-style>\r\n\t<style>\r\n\t\t:host{\r\n\t\t\t\twidth: 100%;\r\n\t\t\t\theight: 100%;\r\n\t\t}\r\n\t\t#app{\r\n\t\t\t\theight: 100%;\r\n\t\t\t\twidth: 100%;\r\n\t\t}\r\n\t</style>\r\n</custom-style>\r\n<div id=\"app\">\r\n\t<app-router mode=\"hash\">\r\n\t\t<app-route path=\"/\"\telement=\"app-splash\"></app-route>\r\n\t\t<app-route path=\"/login\"\telement=\"app-login\"></app-route>\r\n\t\t<app-route path=\"/main\"\telement=\"app-main\"></app-route>\r\n\t\t<app-route path=\"/profile\"\telement=\"app-profile\"></app-route>\r\n\t\t<app-route path=\"/map\"\telement=\"app-map\"></app-route>\r\n\t</app-router>\r\n</diV>\r\n"
 
 /***/ }),
 /* 31 */
 /***/ (function(module, exports) {
 
-module.exports = ":host{\r\n\t@apply --layout-center-center;\r\n\t@apply --layout-vertical;\r\n \t@apply --background-app;\r\n\theight: 100%;\r\n\tcolor:white;\r\n\tpadding: 0 40px 0px 40px;\r\n\tfont-family: 'Advent Pro', sans-serif;\r\n}\r\n"
+module.exports = ":host{\r\n    @apply --layout-center-center;\r\n    @apply --layout-vertical;\r\n   \t@apply --background-app;\r\n    height: 100%;\r\n    color:white;\r\n    padding: 0 40px 0px 40px;\r\n    font-family: 'Advent Pro', sans-serif;\r\n}\r\n#logo{\r\n    width:200px;\r\n    height:200px;\r\n}\r\n\r\niron-icon {\r\n    height: 200px;\r\n    width: 200px;\r\n}\r\niron-icon:nth-of-type(1) {\r\n    fill: white;\r\n    transition: .3s ease-in-out;\r\n    animation: changeColor 5s infinite alternate;\r\n}\r\n@keyframes changeColor {\r\n    0% {\r\n        fill: white;\r\n    }\r\n    100% {\r\n        fill: white;\r\n    }\r\n}\r\n:root{\r\n    --input-text-color:{\r\n        color:red;\r\n    }\r\n}\r\n\r\nh1{\r\n    font-family: 'Advent Pro', sans-serif;\r\n    width: 200px;\r\n    text-align: center;\r\n    margin: 0;\r\n    padding: 0;\r\n    font-size: 50px;\r\n    font-weight: 100;\r\n}\r\nh3{\r\n    font-family: 'Baloo', cursive;\r\n    text-align: center;\r\n    display: block;\r\n    width: 200px;\r\n    margin: 0;\r\n    padding-left: 60px;\r\n    font-size: 24px;\r\n}\r\n\r\nh5{\r\n    font-size: 16px;\r\n    font-family: Roboto;\r\n    font-weight: 100;\r\n    text-align: center;\r\n    margin: 0;\r\n    margin-top: 10px;\r\n}\r\n\r\n#container{\r\n    width: 100%;\r\n    max-width: 350px;\r\n}\r\n\r\n"
 
 /***/ }),
 /* 32 */
 /***/ (function(module, exports) {
 
-module.exports = ":host{\r\n    @apply --layout-center-center;\r\n    @apply --layout-vertical;\r\n   \t@apply --background-app;\r\n    height: 100%;\r\n    color:white;\r\n    padding: 0 40px 0px 40px;\r\n    font-family: 'Advent Pro', sans-serif;\r\n}\r\n#logo{\r\n    width:200px;\r\n    height:200px;\r\n}\r\n\r\niron-icon {\r\n    height: 200px;\r\n    width: 200px;\r\n}\r\niron-icon:nth-of-type(1) {\r\n    fill: white;\r\n    transition: .3s ease-in-out;\r\n    animation: changeColor 5s infinite alternate;\r\n}\r\n@keyframes changeColor {\r\n    0% {\r\n        fill: white;\r\n    }\r\n    100% {\r\n        fill: white;\r\n    }\r\n}\r\n\r\n\r\nh1{\r\n    font-family: 'Advent Pro', sans-serif;\r\n    width: 200px;\r\n    text-align: center;\r\n    margin: 0;\r\n    padding: 0;\r\n    font-size: 50px;\r\n    font-weight: 100;\r\n}\r\nh3{\r\n    font-family: 'Baloo', cursive;\r\n    text-align: center;\r\n    display: block;\r\n    width: 200px;\r\n    margin: 0;\r\n    padding-left: 60px;\r\n    font-size: 24px;\r\n}\r\n\r\nh5{\r\n    font-size: 16px;\r\n    font-family: Roboto;\r\n    font-weight: 100;\r\n    text-align: center;\r\n}"
+module.exports = "<img id=\"logo\" src=\"./images/logo.svg\">\r\n<h1>SIGMA</h1>\r\n<h3>CLOUD</h3>\r\n<div id=\"container\">\r\n\t<h5>Ingrese su nombre de usuario y contraseña para iniciar sesión</h5>\r\n\t<paper-input id=\"txtUser\" color=\"white\" floating-label=\"Usuario\"></paper-input>\r\n\t<paper-input id=\"txtPassword\" type=\"password\"  color=\"white\" floating-label=\"Contraseña\"></paper-input>\r\n\t<paper-button id=\"btnLogin\" raised fullwidth=\"true\" bgcolor=\"#2196f3\">Entrar</paper-button>\r\n</div>\r\n"
 
 /***/ }),
 /* 33 */
 /***/ (function(module, exports) {
 
-module.exports = "<img id=\"logo\" src=\"./images/logo.svg\">\r\n<h1>SIGMA</h1>\r\n<h3>CLOUD</h3>\r\n<h5>Sistema Integral de Gestión y Manejo del Agua</h5>"
+module.exports = "nice-map{\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\npaper-chip{\r\n    opacity:0.8;\r\n}\r\n\r\ninput:focus{\r\n    outline: none;\r\n}\r\n\r\n:host{\r\n    @apply --layout-center-center;\r\n    @apply --layout-vertical;\r\n   \t@apply --background-app;\r\n    @apply --paper-font-common-base;\r\n    height: 100%;\r\n    width: 100%;\r\n    overflow: hidden;\r\n    color:black;\r\n    padding: 0 ;\r\n    font-family: 'Advent Pro', sans-serif;\r\n}\r\n\r\n\r\n.row{\r\n    @apply --layout-horizontal;\r\n}\r\n .flexchild {\r\n      @apply --layout-flex;\r\n}\r\n\r\n\r\n.input-container{\r\n\tposition: absolute;\r\n\tmargin: auto;\r\n    top: 20px;\r\n    left:20px;\r\n    right: 20px;\r\n    background-color: white;\r\n    @apply  --shadow-elevation-2dp;\r\n}\r\n\r\n\r\n.input-container > div > div > input{\r\n    width: 100%;\r\n    border:0;\r\n    padding: 0;\r\n    font-size: 14px;\r\n    height: 100%;\r\n}\r\n\r\n.chip-container{\r\n    position: absolute;\r\n    top: 75px;\r\n}\r\n.footer-container{\r\n    width: 100%;\r\n    bottom: 0;\r\n    height: 120px;\r\n    background-color: white;\r\n    @apply --layout-center;\r\n    @apply --layout-vertical;\r\n    @apply --layout-fixed-bottom;\r\n\r\n    transition:all 0.3s ease-in-out;\r\n}\r\n.footer-container.hidden{\r\n    bottom: -160px;\r\n    transition:all 0.3s ease-in-out;\r\n}\r\n\r\n.footer-container .subview-header .footer-title{\r\n    font-size: 20px;\r\n    @apply --layout-center-center;\r\n    @apply --paper-font-common-base;\r\n    display: block;\r\n}\r\n.footer-container .subview-header .footer-description{\r\n    font-size: 13px;\r\n    display: block;\r\n    text-align: justify;\r\n    margin-left: 10px;\r\n    margin-right: 10px;\r\n}\r\n\r\n.footer-container .subview-header .footer-logo{\r\n    height: 80px;\r\n    width: 80px;\r\n    background-color: #9C27B0;\r\n    border-radius: 40px;\r\n    margin-top: -40px;\r\n    cursor: pointer; \r\n    cursor: hand; \r\n  \r\n}\r\n\r\n\r\n.img-round{\r\n    height: 74px;\r\n    width: 74px;\r\n    border: 0;\r\n    padding: 0;\r\n    margin: 3px;\r\n    border-radius: 37px;\r\n    overflow: hidden;\r\n    @apply --layout-center-center;\r\n    cursor: pointer; \r\n    cursor: hand; \r\n}\r\n\r\n.subview-header{\r\n    width: 100%;\r\n    bottom: 0;\r\n    height: 120px;\r\n    background-color: white;\r\n    @apply --layout-center;\r\n    @apply --layout-vertical;\r\n}\r\n\r\n.footer-container.showAll{\r\n    height: calc(100% - 100px);\r\n    transition:all 0.5s ease-in-out;\r\n}\r\n\r\n.subview-content{\r\n    width: 100%;\r\n    visibility: visible;\r\n    height:100%;\r\n    position: relative;\r\n    opacity: 1;\r\n    transition:all 2s ease-in-out;\r\n    \r\n}\r\n.subview-content.hidden{\r\n    visibility: hidden;\r\n    height: 0;\r\n    transition:all 0.3s ease-in-out;\r\n    opacity: 0;\r\n}\r\n\r\n"
 
 /***/ }),
 /* 34 */
 /***/ (function(module, exports) {
 
-module.exports = ":host{\r\n  display: none;\r\n}\r\n"
+module.exports = "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css\">\r\n<nice-map id=\"main-map\" api-key=\"AIzaSyBLF11XmoFl4VedETvlRVo5hJBkICgzTIc\" my-location  disable-default-ui center=\"-8.783195,34.508523\"></nice-map>\r\n<div class=\"input-container\">\r\n\t<div class=\"row\">\r\n\t\t<div>\r\n\t\t\t<paper-button icon>\r\n\t\t\t<paper-icon>menu</paper-icon>\r\n\t\t\t</paper-button>\r\n\t\t</div>\r\n\t\t<div class=\"flexchild\">\r\n\t\t\t<input type=\"text\" placeholder=\"Busca un predio\"/>\r\n\t\t\t</div>\r\n\t\t<div>\r\n\t\t\t<paper-button icon>\r\n\t\t\t<paper-icon>more_vert</paper-icon>\r\n\t\t\t</paper-button>\r\n\t\t</div>\r\n\t</div>\r\n\r\n</div>\r\n<div class=\"chip-container\"  style=\"width:100%\">\r\n\t\t<app-carousel-chips></app-carousel-chips>\r\n</div>\r\n\r\n<div class=\"footer-container hidden\">\r\n\t<div class=\"subview-header\">\r\n\t\t<div class=\"footer-logo\">\r\n\t\t\t<img id=\"footer-img\" src=\"./images/modules/module_inv.png\" class=\"img-round\"/>\r\n\t\t</div>\r\n\t\t<div class=\"footer-title\"></div>\r\n\t\t<div class=\"footer-description\"></div>\r\n\t</div>\r\n\t<div class=\"subview-content hidden\">\r\n\t</div>\r\n</div>"
 
 /***/ }),
 /* 35 */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"loader-container\">\r\n</div>\r\n"
+module.exports = ":host{\r\n\t@apply --layout-center-center;\r\n\t@apply --layout-vertical;\r\n \t@apply --background-app;\r\n\theight: 100%;\r\n\tcolor:white;\r\n\tpadding: 0 40px 0px 40px;\r\n\tfont-family: 'Advent Pro', sans-serif;\r\n}\r\n\r\n\r\n.map {\r\n\theight: 300px;\r\n\twidth: 300px;\r\n}\r\n"
 
 /***/ }),
 /* 36 */
 /***/ (function(module, exports) {
 
-module.exports = ":host{\r\n\tcolor:white;\r\n\tfont-family: 'Advent Pro', sans-serif;\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n\r\n#map-container{\r\n\twidth: inherit;\r\n\theight: inherit;\r\n}\r\n"
+module.exports = "<h2> THIS IS THE MAP COMPONENT</h2>\r\n<div class=\"map\">\r\n  <nice-map></nice-map>\r\n</div>\r\n"
 
 /***/ }),
 /* 37 */
 /***/ (function(module, exports) {
 
-module.exports = "<nice-loader url=\"\" id=\"loader-container\"></nice-loader>\r\n<div id=\"map-container\" >\r\n</div>\r\n"
+module.exports = ""
 
 /***/ }),
 /* 38 */
 /***/ (function(module, exports) {
 
-module.exports = ":host{\r\n\theight: 100%;\r\n\tcolor:white;\r\n\tpadding: 0 10px 0px 10px;\r\n\tfont-family: 'Advent Pro', sans-serif;\r\n}\r\n"
+module.exports = "<app-carousel-chips></app-carousel-chips>\r\n<paper-list>\r\n    <paper-list-item primary-title=\"Inventario de Canales\" secondary-title=\"Conozca el padron electoral de usuarios\" icon-left=\"menu\" icon-right=\"star\"></paper-list-item>\r\n    <paper-line></paper-line>\r\n    <paper-list-item primary-title=\"Canales por Comision\" secondary-title=\"Whats Up...\" icon-left=\"menu\" icon-right=\"star\"></paper-list-item>\r\n    <paper-line></paper-line>\r\n    <paper-list-item primary-title=\"Drenes\" secondary-title=\"Whats Up...\" icon-left=\"menu\" icon-right=\"star\"></paper-list-item>\r\n    <paper-line></paper-line>\r\n    <paper-list-item primary-title=\"Bloques de Riego\" secondary-title=\"Resumen total de predios por comisión de usuarios\" icon-left=\"menu\" icon-right=\"star\"></paper-list-item>\r\n\r\n</paper-list>"
 
 /***/ }),
 /* 39 */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"step-container\">\r\n  \r\n</div>\r\n"
+module.exports = ":host{\r\n    width: 100%;\r\n    height: 100%;\r\n    position: relative;\r\n}\r\n\r\napp-carousel-chips{\r\n    width: 100%;\r\n}"
 
 /***/ }),
 /* 40 */
 /***/ (function(module, exports) {
 
-module.exports = ":host{\r\n\t/*@apply --layout-center-center;\r\n\t@apply --layout-vertical;\r\n \t@apply --background-app;*/\r\n\t/*height: 100%;*/\r\n\tcolor:white;\r\n\t/*padding: 0 40px 0px 40px;*/\r\n\tfont-family: 'Advent Pro', sans-serif;\r\n}\r\n\r\n#step-label-container{\r\n\tdisplay: inherit;\r\n}\r\n\r\n#step-label-container{\r\n\ttext-align: center;\r\n\tmargin-top: 10px;\r\n}\r\n\r\n#stepper-container span {\r\n\tdisplay: inherit;\r\n\ttext-align: center;\r\n}\r\n\r\n.hide{\r\n\tdisplay: none;\r\n}\r\n"
+module.exports = "<app-carousel-chips></app-carousel-chips>\r\n<paper-list>\r\n    <paper-list-item primary-title=\"Padron Electoral\" secondary-title=\"Conozca el padron electoral de usuarios\" icon-left=\"menu\" icon-right=\"star\"></paper-list-item>\r\n    <paper-line></paper-line>\r\n    <paper-list-item primary-title=\"Predios Agrícolas\" secondary-title=\"Whats Up...\" icon-left=\"menu\" icon-right=\"star\"></paper-list-item>\r\n    <paper-line></paper-line>\r\n    <paper-list-item primary-title=\"Predios por Canal\" secondary-title=\"Whats Up...\" icon-left=\"menu\" icon-right=\"star\"></paper-list-item>\r\n    <paper-line></paper-line>\r\n    <paper-list-item primary-title=\"Predios por Comisión\" secondary-title=\"Resumen total de predios por comisión de usuarios\" icon-left=\"menu\" icon-right=\"star\"></paper-list-item>\r\n\r\n</paper-list>"
 
 /***/ }),
 /* 41 */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"stepper-container\">\r\n\t<span id=\"label\"></span>\r\n\t<div id=\"step-label-container\">\r\n\t</div>\r\n\t<div id=\"step-container\">\r\n\t\tbody\r\n\t</div>\r\n\t<paper-button\r\n\t\tid=\"btnStep\" raised fullwidth=\"true\"\r\n\t\tbgcolor=\"#2196f3\">\r\n\t\tSiguiente\r\n\t</paper-button>\r\n</div>\r\n\r\n<script id=\"steps-label-template\" type=\"text/template\">\r\n\t<% _.each(data, function(elem, index){ %>\r\n\t\t<paper-icon data-class=\"tiny\" data-index=\"<%=(index +1) %>\">\r\n\t\t\tbrightness_1\r\n\t\t</paper-icon>\r\n\t<% }); %>\r\n</script>\r\n"
+module.exports = ":host{\r\n    width: 100%;\r\n    height: 100%;\r\n    position: relative;\r\n}\r\n\r\napp-carousel-chips{\r\n    width: 100%;\r\n}"
 
 /***/ }),
 /* 42 */
 /***/ (function(module, exports) {
 
-module.exports = ":host {\r\n    @apply --layout-inline;\r\n    @apply --layout-center-center;\r\n    box-sizing: border-box;\r\n    margin: 0 0.29em;\r\n    font: inherit;\r\n    text-transform: uppercase;\r\n    outline-width:0;\r\n    border-radius: 3px;\r\n    -moz-user-select: none;\r\n    -ms-user-select:none;\r\n    -webkit-user-select:none;\r\n    user-select:none;\r\n    cursor:pointer;\r\n    padding: 0.7em 0.57em;\r\n    transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);\r\n    display: inline-block;\r\n    overflow:hidden;\r\n    position:relative;\r\n    contain: content;\r\n    @apply --paper-font-common-base;\r\n    contain: content;\r\n    opacity: 0.7;\r\n    text-align: center;\r\n}\r\n:host(:hover){\r\n    opacity:1;\r\n}\r\n:host([hidden]) {\r\n    display: none !important;\r\n}\r\n:host([raised]:not([disabled])){\r\n    @apply --shadow-elevation-2dp;\r\n}\r\n\r\n:host([disabled]) {\r\n    background: #eaeaea;\r\n    color: #a8a8a8;\r\n    cursor: auto;\r\n    pointer-events: none;\r\n    box-shadow:none;\r\n    @apply --paper-button-disabled;\r\n}\r\n\r\n:host([color]){\r\n    color: var(--paper-button-color,'green');\r\n}\r\n\r\n:host:not([disabled]):focus{\r\n    font-weight: 500;\r\n}\r\n:host([animated]) {\r\n    @apply --shadow-transition;\r\n}\r\n#paper-button .ripple{\r\n    position:absolute;\r\n    transform: scale3d(0,0,0);\r\n    opacity:1;\r\n    transition: all 800ms cubic-bezier(0.4,0,0.2,1);\r\n    border-radius: 50%;\r\n    width:150px;\r\n    height:150px;\r\n    will-change: opacity transform;\r\n    contain: content;\r\n    z-index:-1;\r\n}\r\n\r\n#paper-button .ripple.run{\r\n    opacity: 0;\r\n    transform:none;\r\n}"
+module.exports = "<app-carousel-chips></app-carousel-chips>\r\n<paper-list>\r\n    <paper-list-item primary-title=\"Declaración de Intensión de Siembra\" secondary-title=\"Conozca el padron electoral de usuarios\" icon-left=\"menu\" icon-right=\"star\"></paper-list-item>\r\n    <paper-line></paper-line>\r\n    <paper-list-item primary-title=\"Avance de la DIS\" secondary-title=\"Whats Up...\" icon-left=\"menu\" icon-right=\"star\"></paper-list-item>\r\n    <paper-line></paper-line>\r\n    <paper-list-item primary-title=\"Balance Hídrico\" secondary-title=\"Whats Up...\" icon-left=\"menu\" icon-right=\"star\"></paper-list-item>\r\n    <paper-line></paper-line>\r\n    <paper-list-item primary-title=\"Resumen PCR\" secondary-title=\"Resumen total de predios por comisión de usuarios\" icon-left=\"menu\" icon-right=\"star\"></paper-list-item>\r\n\r\n</paper-list>"
 
 /***/ }),
 /* 43 */
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"paper-button\">\r\n\t<slot>\r\n\t<span>My Paper Button</span>\r\n\t</slot>\r\n</div>"
+module.exports = "<h1>SIGMA</h1>\r\n<h3>CLOUD</h3>\r\n<h5>Profile</h5>\r\n<h2> THIS IS THE STEPPER COMPONENT</h2>\r\n<nice-stepper data-selected-color=\"red\">\r\n\t<nice-step>\r\n\t\t<h3>Form1</h3>\r\n\t\t<form>\r\n\t\t\t<paper-input id=\"txtUser\" color=\"white\" floating-label=\"Nombre\"></paper-input>\r\n\t\t\t<paper-input id=\"txtUser\" color=\"white\" floating-label=\"Apellido\"></paper-input>\r\n\t\t</form>\r\n\t</nice-step>\r\n\t<nice-step>\r\n\t\t<h3>Form2 </h3>\r\n\t\t<form>\r\n\t\t\t<paper-input id=\"txtUser\" color=\"white\" floating-label=\"Username\"></paper-input>\r\n\t\t\t<paper-input id=\"txtUser\" color=\"white\" floating-label=\"Email\"></paper-input>\r\n\t\t</form>\r\n\t</nice-step>\r\n\t<nice-step>\r\n\t\t<h3>Form3 </h3>\r\n\t\t<form>\r\n\t\t\t<paper-input id=\"txtUser\" color=\"white\" floating-label=\"Tlf\"></paper-input>\r\n\t\t\t<paper-input id=\"txtUser\" color=\"white\" floating-label=\"Direccion\"></paper-input>\r\n\t\t</form>\r\n\t</nice-step>\r\n</nice-stepper>\r\n"
 
 /***/ }),
 /* 44 */
 /***/ (function(module, exports) {
 
-module.exports = ":host{\r\n        @apply --paper-font-common-base;\r\n        font-size: 11px;\r\n      display: inline-block;\r\n      border-radius: 40px;\r\n      padding: 0;\r\n      height: 40px;\r\n\r\n}\r\n.md-chip {\r\n  display: inline-block;\r\n  border-radius: 40px;\r\n  padding: 0;\r\n  height: 40px;\r\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);\r\n  -webkit-transition: .2s ease-out;\r\n          transition: .2s ease-out;\r\n}\r\n\r\n.md-chip:hover {\r\n  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);\r\n  cursor: pointer;\r\n}\r\n\r\n.md-chip-img {\r\n  border-radius: 50%;\r\n  width: 40px;\r\n  height: 40px;\r\n  overflow: hidden;\r\n  float: left;\r\n}\r\n\r\n.md-chip-img .md-chip-span {\r\n  display: block;\r\n  height: 40px;\r\n  display: flex;\r\n\t@apply  --layout-center-center;\r\n  color: black;\r\n}\r\n\r\n.md-chip-img img {\r\n  -webkit-transform: translate(-50%);\r\n  margin-left: 21px;\r\n  height: 40px;\r\n}\r\n\r\n.md-chip-text {\r\n  display: inline-block;\r\n  font-weight: 400;\r\n  font-size: 14px;\r\n  height: 40px;\r\n  float: left;\r\n  padding:6px 18px 6px 10px;\r\n  color: rgba(255, 255, 255, .87);\r\n}\r\n\r\n/* Colors */\r\n.grey{\r\n  background-color: var(--paper-grey-300);\r\n}\r\n.pink {\r\n  background-color: #E91E63;\r\n}\r\n\r\n.orange {\r\n  background-color: #ff9800;\r\n}\r\n\r\n.indigo {\r\n  background-color: #3f51b5;\r\n}\r\n\r\n.teal {\r\n  background-color: #009688;\r\n}\r\n\r\n.purple {\r\n  background-color: #9C27B0;\r\n}\r\n\r\n.deep-purple {\r\n  background-color: #512DA8;\r\n}\r\n\r\n.white {\r\n  background-color: #fff;\r\n}\r\n\r\n.white .md-chip-text {\r\n  color: rgba(0, 0, 0, .87);\r\n}\r\n\r\n.red {\r\n  background-color: #f44336;\r\n}\r\n\r\n.blue {\r\n  background-color: #2196f3\r\n}\r\n\r\n.green {\r\n  background-color: #4caf50\r\n}\r\n\r\n\r\n\r\n.white{\r\n  background-color: #fff;\r\n}\r\n.white .md-chip-img .md-chip-span{\r\n  background-color: var(--paper-grey-300);\r\n}\r\n.white .md-chip-img .md-chip-span paper-icon{\r\n    color: var(--paper-grey-700);\r\n}\r\n.white .md-chip-text{\r\n  color: var(--paper-grey-700);\r\n}\r\n\r\n.purple{\r\n  background-color: var(--paper-purple-500);\r\n}\r\n.purple .md-chip-img .md-chip-span{\r\n  background-color: var(--paper-purple-700);\r\n  color:white;\r\n}\r\n.purple .md-chip-img .md-chip-span paper-icon{\r\n    color: white;\r\n}\r\n.purple .md-chip-text{\r\n  color: white;\r\n}"
+module.exports = ":host{\r\n\t@apply --layout-center-center;\r\n\t@apply --layout-vertical;\r\n \t@apply --background-app;\r\n\theight: 100%;\r\n\tcolor:white;\r\n\tpadding: 0 40px 0px 40px;\r\n\tfont-family: 'Advent Pro', sans-serif;\r\n}\r\n"
 
 /***/ }),
 /* 45 */
 /***/ (function(module, exports) {
 
-module.exports = "  <div class=\"md-chip\">\r\n    <div class=\"md-chip-img\">\r\n      <span class=\"md-chip-span\">\r\n        <paper-icon id=\"icon\"></paper-icon>\r\n      </span>\r\n    </div>\r\n    <span class=\"md-chip-text\">Material Design Chip</span>\r\n  </div>"
+module.exports = ":host{\r\n    @apply --layout-center-center;\r\n    @apply --layout-vertical;\r\n   \t@apply --background-app;\r\n    height: 100%;\r\n    color:white;\r\n    padding: 0 40px 0px 40px;\r\n    font-family: 'Advent Pro', sans-serif;\r\n}\r\n#logo{\r\n    width:200px;\r\n    height:200px;\r\n}\r\n\r\niron-icon {\r\n    height: 200px;\r\n    width: 200px;\r\n}\r\niron-icon:nth-of-type(1) {\r\n    fill: white;\r\n    transition: .3s ease-in-out;\r\n    animation: changeColor 5s infinite alternate;\r\n}\r\n@keyframes changeColor {\r\n    0% {\r\n        fill: white;\r\n    }\r\n    100% {\r\n        fill: white;\r\n    }\r\n}\r\n\r\n\r\nh1{\r\n    font-family: 'Advent Pro', sans-serif;\r\n    width: 200px;\r\n    text-align: center;\r\n    margin: 0;\r\n    padding: 0;\r\n    font-size: 50px;\r\n    font-weight: 100;\r\n}\r\nh3{\r\n    font-family: 'Baloo', cursive;\r\n    text-align: center;\r\n    display: block;\r\n    width: 200px;\r\n    margin: 0;\r\n    padding-left: 60px;\r\n    font-size: 24px;\r\n}\r\n\r\nh5{\r\n    font-size: 16px;\r\n    font-family: Roboto;\r\n    font-weight: 100;\r\n    text-align: center;\r\n}"
 
 /***/ }),
 /* 46 */
 /***/ (function(module, exports) {
 
-module.exports = ":host{\r\n\tdisplay: inline-block;\r\n\tpadding: 4px;\r\n\tdisplay: flex;\r\n\t@apply  --layout-center-center;\r\n}\r\n\r\n@font-face {\r\n\tfont-family: 'Material Icons';\r\n\tfont-style: normal;\r\n\tfont-weight: 400;\r\n\tsrc: local('Material Icons'), local('MaterialIcons-Regular'), url(https://fonts.gstatic.com/s/materialicons/v21/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');\r\n}\r\n\r\n.material-icons {\r\n\tfont-family: 'Material Icons';\r\n\tfont-weight: normal;\r\n\tfont-style: normal;\r\n\tfont-size: 24px;\r\n\tline-height: 1;\r\n\tletter-spacing: normal;\r\n\ttext-transform: none;\r\n\tdisplay: inline-block;\r\n\twhite-space: nowrap;\r\n\tword-wrap: normal;\r\n\tdirection: ltr;\r\n\t-webkit-font-feature-settings: 'liga';\r\n\t-webkit-font-smoothing: antialiased;\r\n}\r\n\r\n.large {\r\n\tfont-size: 6rem;\r\n}\r\n.tiny{\r\n\tfont-size: 1rem;\r\n}\r\n.small{\r\n\tfont-size: 2rem;\r\n}\r\n.medium{\r\n\tfont-size: 4rem;\r\n}\r\n"
+module.exports = "<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css\">\r\n<img id=\"logo\" src=\"./images/logo.svg\">\r\n<h1>SIGMA</h1>\r\n<h3>CLOUD</h3>\r\n<h5>Sistema Integral de Gestión y Manejo del Agua</h5>"
 
 /***/ }),
 /* 47 */
 /***/ (function(module, exports) {
 
-module.exports = "<i id=\"icon\" class=\"material-icons\">\r\n    <slot></slot>\r\n</i>"
+module.exports = ":host{\r\n  display: none;\r\n}\r\n"
 
 /***/ }),
 /* 48 */
 /***/ (function(module, exports) {
 
-module.exports = "* { box-sizing:border-box; }\r\n:host{\r\n    display: block;\r\n    padding-top: 20px;\r\n}\r\n/* form starting stylings ------------------------------- */\r\n.group{ \r\n  position:relative; \r\n  margin-bottom:10px; \r\n}\r\n.group.valid{\r\n    color:green;\r\n}\r\n.group.invalid label{\r\n    color:red!important;\r\n}\r\n\r\ninput \t\t\t\t{\r\n  font-size:14px;\r\n  padding:5px;\r\n  display:block;\r\n  width:100%;\r\n  border:none;\r\n  border-bottom:1px solid #757575;\r\n  background-color: transparent;\r\n  color: black;\r\n  @apply --paper-font-common-base;\r\n}\r\ninput:focus \t\t{ outline:none; }\r\n\r\n/* LABEL ======================================= */\r\nlabel \t\t\t\t {\r\n  color:#999; \r\n  font-size:14px;\r\n  font-weight:normal;\r\n  position:absolute;\r\n  pointer-events:none;\r\n  left:5px;\r\n  top:5px;\r\n  transition:0.2s ease all; \r\n  -moz-transition:0.2s ease all; \r\n  -webkit-transition:0.2s ease all;\r\n   @apply --paper-font-common-base;\r\n}\r\n\r\n/* active state */\r\ninput:focus ~ label, input:valid ~ label \t\t{\r\n  top:-20px;\r\n  font-size:14px;\r\n  color:#5264AE;\r\n}\r\n\r\n/* BOTTOM BARS ================================= */\r\n.bar \t{ position:relative; display:block; width:100%; }\r\n.bar:before, .bar:after \t{\r\n  content:'';\r\n  height:2px; \r\n  width:0;\r\n  bottom:1px; \r\n  position:absolute;\r\n  background:#5264AE; \r\n  transition:0.2s ease all; \r\n  -moz-transition:0.2s ease all; \r\n  -webkit-transition:0.2s ease all;\r\n}\r\n.bar:before {\r\n  left:50%;\r\n}\r\n.bar:after {\r\n  right:50%; \r\n}\r\n\r\n/* active state */\r\ninput:focus ~ .bar:before, input:focus ~ .bar:after {\r\n  width:50%;\r\n}\r\n\r\n/* HIGHLIGHTER ================================== */\r\n.highlight {\r\n  position:absolute;\r\n  height:60%; \r\n  width:100px; \r\n  top:25%; \r\n  left:0;\r\n  pointer-events:none;\r\n  opacity:0.5;\r\n}\r\n\r\n/* active state */\r\ninput:focus ~ .highlight {\r\n  -webkit-animation:inputHighlighter 0.3s ease;\r\n  -moz-animation:inputHighlighter 0.3s ease;\r\n  animation:inputHighlighter 0.3s ease;\r\n}\r\n\r\n/* ANIMATIONS ================ */\r\n@-webkit-keyframes inputHighlighter {\r\n\tfrom { background:#5264AE; }\r\n  to \t{ width:0; background:transparent; }\r\n}\r\n@-moz-keyframes inputHighlighter {\r\n\tfrom { background:#5264AE; }\r\n  to \t{ width:0; background:transparent; }\r\n}\r\n@keyframes inputHighlighter {\r\n\tfrom { background:#5264AE; }\r\n  to \t{ width:0; background:transparent; }\r\n}"
+module.exports = "<div id=\"loader-container\">\r\n</div>\r\n"
 
 /***/ }),
 /* 49 */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"group\">      \r\n      <input type=\"text\" required>\r\n      <span class=\"highlight\"></span>\r\n      <span class=\"bar\"></span>\r\n      <label>Undefined</label>\r\n</div>"
+module.exports = ":host{\r\n\tcolor:white;\r\n\tfont-family: 'Advent Pro', sans-serif;\r\n  width: 100%;\r\n  height: 100%;\r\n}\r\n\r\n\r\n#map-container{\r\n\twidth: inherit;\r\n\theight: inherit;\r\n}\r\n"
 
 /***/ }),
 /* 50 */
+/***/ (function(module, exports) {
+
+module.exports = "<nice-loader url=\"\" id=\"loader-container\"></nice-loader>\r\n<div id=\"map-container\" >\r\n</div>\r\n"
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports) {
+
+module.exports = ":host{\r\n\theight: 100%;\r\n\tcolor:white;\r\n\tpadding: 0 10px 0px 10px;\r\n\tfont-family: 'Advent Pro', sans-serif;\r\n}\r\n"
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"step-container\">\r\n  \r\n</div>\r\n"
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports) {
+
+module.exports = ":host{\r\n\t/*@apply --layout-center-center;\r\n\t@apply --layout-vertical;\r\n \t@apply --background-app;*/\r\n\t/*height: 100%;*/\r\n\tcolor:white;\r\n\t/*padding: 0 40px 0px 40px;*/\r\n\tfont-family: 'Advent Pro', sans-serif;\r\n}\r\n\r\n#step-label-container{\r\n\tdisplay: inherit;\r\n}\r\n\r\n#step-label-container{\r\n\ttext-align: center;\r\n\tmargin-top: 10px;\r\n}\r\n\r\n#stepper-container span {\r\n\tdisplay: inherit;\r\n\ttext-align: center;\r\n}\r\n\r\n.hide{\r\n\tdisplay: none;\r\n}\r\n"
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"stepper-container\">\r\n\t<span id=\"label\"></span>\r\n\t<div id=\"step-label-container\">\r\n\t</div>\r\n\t<div id=\"step-container\">\r\n\t\tbody\r\n\t</div>\r\n\t<paper-button\r\n\t\tid=\"btnStep\" raised fullwidth=\"true\"\r\n\t\tbgcolor=\"#2196f3\">\r\n\t\tSiguiente\r\n\t</paper-button>\r\n</div>\r\n\r\n<script id=\"steps-label-template\" type=\"text/template\">\r\n\t<% _.each(data, function(elem, index){ %>\r\n\t\t<paper-icon data-class=\"tiny\" data-index=\"<%=(index +1) %>\">\r\n\t\t\tbrightness_1\r\n\t\t</paper-icon>\r\n\t<% }); %>\r\n</script>\r\n"
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports) {
+
+module.exports = ":host {\r\n    @apply --layout-inline;\r\n    @apply --layout-center-center;\r\n    box-sizing: border-box;\r\n    margin: 0 0.29em;\r\n    font: inherit;\r\n    text-transform: uppercase;\r\n    outline-width:0;\r\n    border-radius: 3px;\r\n    -moz-user-select: none;\r\n    -ms-user-select:none;\r\n    -webkit-user-select:none;\r\n    user-select:none;\r\n    cursor:pointer;\r\n    padding: 0.57em 0.57em;\r\n    transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);\r\n    display: inline-block;\r\n    overflow:hidden;\r\n    position:relative;\r\n    contain: content;\r\n    @apply --paper-font-common-base;\r\n    contain: content;\r\n    opacity: 0.7;\r\n    text-align: center;\r\n    \r\n}\r\n:host([icon]){\r\n    border-radius: 50%;\r\n}\r\n:host(:hover){\r\n    opacity:1;\r\n}\r\n:host([hidden]) {\r\n    display: none !important;\r\n}\r\n:host([raised]:not([disabled])){\r\n    @apply --shadow-elevation-2dp;\r\n}\r\n\r\n:host([disabled]) {\r\n    background: #eaeaea;\r\n    color: #a8a8a8;\r\n    cursor: auto;\r\n    pointer-events: none;\r\n    box-shadow:none;\r\n    @apply --paper-button-disabled;\r\n}\r\n\r\n:host([color]){\r\n    color: var(--paper-button-color,'green');\r\n}\r\n\r\n:host:not([disabled]):focus{\r\n    font-weight: 500;\r\n}\r\n:host([animated]) {\r\n    @apply --shadow-transition;\r\n}\r\n#paper-button .ripple{\r\n    position:absolute;\r\n    transform: scale3d(0,0,0);\r\n    opacity:1;\r\n    transition: all 800ms cubic-bezier(0.4,0,0.2,1);\r\n    border-radius: 50%;\r\n    width:150px;\r\n    height:150px;\r\n    will-change: opacity transform;\r\n    contain: content;\r\n    z-index:-1;\r\n}\r\n\r\n#paper-button .ripple.run{\r\n    opacity: 0;\r\n    transform:none;\r\n}"
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"paper-button\">\r\n\t<slot>\r\n\t<span>My Paper Button</span>\r\n\t</slot>\r\n</div>"
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports) {
+
+module.exports = ":host{\r\n        @apply --paper-font-common-base;\r\n        font-size: 11px;\r\n      display: inline-block;\r\n      border-radius: 40px;\r\n      padding: 0;\r\n      height: 40px;\r\n\r\n}\r\n.md-chip {\r\n  display: inline-block;\r\n  border-radius: 40px;\r\n  padding: 0;\r\n  height: 40px;\r\n  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);\r\n  -webkit-transition: .2s ease-out;\r\n          transition: .2s ease-out;\r\n}\r\n\r\n.md-chip:hover {\r\n  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);\r\n  cursor: pointer;\r\n}\r\n\r\n.md-chip-img {\r\n  border-radius: 50%;\r\n  width: 40px;\r\n  height: 40px;\r\n  overflow: hidden;\r\n  float: left;\r\n}\r\n\r\n.md-chip-img .md-chip-span {\r\n  display: block;\r\n  height: 40px;\r\n  display: flex;\r\n\t@apply  --layout-center-center;\r\n  color: black;\r\n}\r\n\r\n.md-chip-img img {\r\n  -webkit-transform: translate(-50%);\r\n  margin-left: 21px;\r\n  height: 40px;\r\n}\r\n\r\n.md-chip-text {\r\n  display: inline-block;\r\n  font-weight: 400;\r\n  font-size: 14px;\r\n  height: 40px;\r\n  float: left;\r\n  padding:6px 18px 6px 10px;\r\n  color: rgba(255, 255, 255, .87);\r\n}\r\n\r\n/* Colors */\r\n.grey{\r\n  background-color: var(--paper-grey-300);\r\n}\r\n.pink {\r\n  background-color: #E91E63;\r\n}\r\n\r\n.orange {\r\n  background-color: #ff9800;\r\n}\r\n\r\n.indigo {\r\n  background-color: #3f51b5;\r\n}\r\n\r\n.teal {\r\n  background-color: #009688;\r\n}\r\n\r\n.purple {\r\n  background-color: #9C27B0;\r\n}\r\n\r\n.deep-purple {\r\n  background-color: #512DA8;\r\n}\r\n\r\n.white {\r\n  background-color: #fff;\r\n}\r\n\r\n.white .md-chip-text {\r\n  color: rgba(0, 0, 0, .87);\r\n}\r\n\r\n.red {\r\n  background-color: #f44336;\r\n}\r\n\r\n.blue {\r\n  background-color: #2196f3\r\n}\r\n\r\n.green {\r\n  background-color: #4caf50\r\n}\r\n\r\n\r\n\r\n.white{\r\n  background-color: #fff;\r\n}\r\n.white .md-chip-img .md-chip-span{\r\n  background-color: var(--paper-grey-300);\r\n}\r\n.white .md-chip-img .md-chip-span paper-icon{\r\n    color: var(--paper-grey-700);\r\n}\r\n.white .md-chip-text{\r\n  color: var(--paper-grey-700);\r\n}\r\n\r\n.purple{\r\n  background-color: var(--paper-purple-500);\r\n}\r\n.purple .md-chip-img .md-chip-span{\r\n  background-color: var(--paper-purple-700);\r\n  color:white;\r\n}\r\n.purple .md-chip-img .md-chip-span paper-icon{\r\n    color: white;\r\n}\r\n.purple .md-chip-text{\r\n  color: white;\r\n}"
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports) {
+
+module.exports = "  <div class=\"md-chip\">\r\n    <div class=\"md-chip-img\">\r\n      <span class=\"md-chip-span\">\r\n        <paper-icon id=\"icon\"></paper-icon>\r\n      </span>\r\n    </div>\r\n    <span class=\"md-chip-text\">Material Design Chip</span>\r\n  </div>"
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports) {
+
+module.exports = "\r\n@font-face {\r\n\tfont-family: 'Material Icons';\r\n\tfont-style: normal;\r\n\tfont-weight: 400;\r\n\tsrc: local('Material Icons'), local('MaterialIcons-Regular'), url(https://fonts.gstatic.com/s/materialicons/v21/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');\r\n}\r\n\r\n:host{\r\n\tfont-family: 'Material Icons';\r\n\tfont-weight: normal;\r\n\tfont-style: normal;\r\n\tfont-size: 24px;\r\n\tline-height: 1;\r\n\tletter-spacing: normal;\r\n\ttext-transform: none;\r\n\tdisplay: inline-block;\r\n\twhite-space: nowrap;\r\n\tword-wrap: normal;\r\n\tdirection: ltr;\r\n\t-webkit-font-feature-settings: 'liga';\r\n\t-webkit-font-smoothing: antialiased;\r\n}\r\n\r\n.large {\r\n\tfont-size: 6rem;\r\n}\r\n.tiny{\r\n\tfont-size: 1rem;\r\n}\r\n.small{\r\n\tfont-size: 2rem;\r\n}\r\n.medium{\r\n\tfont-size: 4rem;\r\n}\r\n"
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports) {
+
+module.exports = "<slot></slot>\r\n"
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports) {
+
+module.exports = "* { box-sizing:border-box; }\r\n:host{\r\n    display: block;\r\n    padding-top: 20px;\r\n}\r\n/* form starting stylings ------------------------------- */\r\n.group{ \r\n  position:relative; \r\n  margin-bottom:10px; \r\n}\r\n.group.valid{\r\n    color:green;\r\n}\r\n.group.invalid label{\r\n    color:red!important;\r\n}\r\n\r\ninput \t\t\t\t{\r\n  font-size:14px;\r\n  padding:5px;\r\n  display:block;\r\n  width:100%;\r\n  border:none;\r\n  border-bottom:1px solid #757575;\r\n  background-color: transparent;\r\n  color: black;\r\n  @apply --paper-font-common-base;\r\n}\r\ninput:focus \t\t{ outline:none; }\r\n\r\n/* LABEL ======================================= */\r\nlabel \t\t\t\t {\r\n  color:#999; \r\n  font-size:14px;\r\n  font-weight:normal;\r\n  position:absolute;\r\n  pointer-events:none;\r\n  left:5px;\r\n  top:5px;\r\n  transition:0.2s ease all; \r\n  -moz-transition:0.2s ease all; \r\n  -webkit-transition:0.2s ease all;\r\n   @apply --paper-font-common-base;\r\n}\r\n\r\n/* active state */\r\ninput:focus ~ label, input:valid ~ label \t\t{\r\n  top:-20px;\r\n  font-size:14px;\r\n  color:#5264AE;\r\n}\r\n\r\n/* BOTTOM BARS ================================= */\r\n.bar \t{ position:relative; display:block; width:100%; }\r\n.bar:before, .bar:after \t{\r\n  content:'';\r\n  height:2px; \r\n  width:0;\r\n  bottom:1px; \r\n  position:absolute;\r\n  background:#5264AE; \r\n  transition:0.2s ease all; \r\n  -moz-transition:0.2s ease all; \r\n  -webkit-transition:0.2s ease all;\r\n}\r\n.bar:before {\r\n  left:50%;\r\n}\r\n.bar:after {\r\n  right:50%; \r\n}\r\n\r\n/* active state */\r\ninput:focus ~ .bar:before, input:focus ~ .bar:after {\r\n  width:50%;\r\n}\r\n\r\n/* HIGHLIGHTER ================================== */\r\n.highlight {\r\n  position:absolute;\r\n  height:60%; \r\n  width:100px; \r\n  top:25%; \r\n  left:0;\r\n  pointer-events:none;\r\n  opacity:0.5;\r\n}\r\n\r\n/* active state */\r\ninput:focus ~ .highlight {\r\n  -webkit-animation:inputHighlighter 0.3s ease;\r\n  -moz-animation:inputHighlighter 0.3s ease;\r\n  animation:inputHighlighter 0.3s ease;\r\n}\r\n\r\n/* ANIMATIONS ================ */\r\n@-webkit-keyframes inputHighlighter {\r\n\tfrom { background:#5264AE; }\r\n  to \t{ width:0; background:transparent; }\r\n}\r\n@-moz-keyframes inputHighlighter {\r\n\tfrom { background:#5264AE; }\r\n  to \t{ width:0; background:transparent; }\r\n}\r\n@keyframes inputHighlighter {\r\n\tfrom { background:#5264AE; }\r\n  to \t{ width:0; background:transparent; }\r\n}"
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"group\">      \r\n      <input type=\"text\" required>\r\n      <span class=\"highlight\"></span>\r\n      <span class=\"bar\"></span>\r\n      <label>Undefined</label>\r\n</div>"
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports) {
+
+module.exports = "hr{\r\n    margin: -1px 0px 0px 72px;\r\n    height: 1px;\r\n    border: none;\r\n    background-color: rgb(224, 224, 224);\r\n }\r\n"
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports) {
+
+module.exports = "<hr/>"
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports) {
+
+module.exports = ":host{\r\n    border: 10px;\r\n    box-sizing: border-box;\r\n    display: block;\r\n    font-family: Roboto, sans-serif;\r\n    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);\r\n    cursor: pointer;\r\n    text-decoration: none;\r\n    margin: 0px;\r\n    padding: 0px;\r\n    outline: none;\r\n    font-size: 16px;\r\n    font-weight: inherit;\r\n    position: relative;\r\n    z-index: 1;\r\n    color: rgba(0, 0, 0, 0.870588);\r\n    line-height: 16px;\r\n    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;\r\n    background: none;\r\n}\r\n\r\n.item{\r\n    margin-left: 0px;\r\n    padding: 20px 56px 16px 72px;\r\n    position: relative;\r\n    display: block;\r\n    text-decoration: none;\r\n    height: 100%;\r\n    color: rgba(0, 0, 0, 0.870588);\r\n}\r\n\r\n.item:hover{\r\n    background-color: #e8e8e8;\r\n}\r\n\r\n.icon-right{\r\n    display: block;\r\n    color: rgba(0, 0, 0, 0.870588);\r\n    fill: rgb(117, 117, 117);\r\n    height: 24px;\r\n    width: 24px;\r\n    user-select: none;\r\n    transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;\r\n    position: absolute;\r\n    top: 12px;\r\n    margin: 12px;\r\n    right: 4px;\r\n}\r\n.icon-left{\r\n    color: rgb(255, 255, 255);\r\n    background-color: rgb(188, 188, 188);\r\n    user-select: none;\r\n    display: inline-flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    font-size: 20px;\r\n    border-radius: 50%;\r\n    height: 40px;\r\n    width: 40px;\r\n    position: absolute;\r\n    top: 16px;\r\n    left: 16px;\r\n}\r\n\r\n.secondary-content{\r\n        font-size: 14px;\r\n    line-height: 16px;\r\n    height: 16px;\r\n    margin: 4px 0px 0px;\r\n    color: rgba(0, 0, 0, 0.541176);\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n    white-space: nowrap;\r\n}"
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports) {
+
+module.exports = "<div class=\"item\">\r\n    <paper-icon class=\"icon-left\"></paper-icon>\r\n    <paper-icon class=\"icon-right\"></paper-icon>\r\n    <div class=\"primary-content\"></div>\r\n    <div class=\"secondary-content\"></div>\r\n</div>\r\n"
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports) {
+
+module.exports = ":host {\r\n    display: block;\r\n    padding: 8px 0;\r\n    list-style: none;\r\n}\r\n\r\nul, ol {\r\n    font-size: 14px;\r\n    line-height: 24px;\r\n}\r\n\r\naddress, ul, ol {\r\n    font-weight: 400;\r\n    letter-spacing: 0;\r\n}"
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports) {
+
+module.exports = "<slot></slot>\r\n"
+
+/***/ }),
+/* 69 */
 /***/ (function(module, exports) {
 
 var g;
@@ -5595,13 +6508,13 @@ module.exports = g;
 
 
 /***/ }),
-/* 51 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(2);
+__webpack_require__(4);
 
 /***/ })
 /******/ ]);
