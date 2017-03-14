@@ -9,14 +9,14 @@ import '../module-inv/module-inv';
 import '../module-pcr/module-pcr';
 export default class AppMain extends HTMLElement{
 		constructor(){
-				super();
-				let shadowRoot = this.attachShadow({mode: 'open'});
-				shadowRoot.innerHTML = templateObj.template;
-				this.initDOMRefs();
-				this.addListerners();
-				this.showSubView=false;
-
+			super();
+			let shadowRoot = this.attachShadow({mode: 'open'});
+			shadowRoot.innerHTML = templateObj.template;
+			this.initDOMRefs();
+			this.addListerners();
+			this.showSubView=false;
 		}
+
 		initDOMRefs(){
 			this.$chips = this.shadowRoot.querySelector('app-carousel-chips');
 			this.$footer = this.shadowRoot.querySelector('.footer-container');
@@ -30,11 +30,10 @@ export default class AppMain extends HTMLElement{
 		}
 
 		addListerners(){
-
 			this.$chips.addEventListener('changed-chip',this.showFooter.bind(this));
 			this.$footerLogo.addEventListener('click',this.showSubView.bind(this));
-
 		}
+
 		showFooter(e){
 			console.log("changed-chip",e);
 			if(e.detail.active){
@@ -105,7 +104,6 @@ export default class AppMain extends HTMLElement{
 		render(){
 			this.$footerTitle.innerHTML=this.footerTitle;
 			this.$footerDescription.innerHTML=this.footerDescription;
-
 		}
 
 }

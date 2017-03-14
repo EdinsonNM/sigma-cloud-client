@@ -37,6 +37,9 @@ export default class Map extends HTMLElement {
 		this.initDOMRefs();
 		this.collectDataAttributes();
 		this.addListeners();
+		// console.log(this.$mapContainer);
+		this.flag = false
+		// this.id = Math.random();
 	}
 
 	initDOMRefs(){
@@ -221,34 +224,26 @@ export default class Map extends HTMLElement {
 	}
 
 	buildMap(){
+		const self = this;
 		let container = this.shadowRoot.querySelector('#map-container');
 		let mapConfig = this.buildMapObjectConfig();
 		this.map = new google.maps.Map(
 			container,
 			mapConfig
 		);
-		console.log(this.map);
-		// google.maps.event.trigger(this.map,'resize');
-
 
 		if ( this.my_location ) {
 			this.setCurrentLocation();
 		}
 
-		document.dispatchEvent(new CustomEvent('mapReady',{}));
+		this.flag = true;
 
-		// console.log(container.innerHTML);
+		document.dispatchEvent(new CustomEvent('mapReady',{}));
 	}
 
 	connectedCallback(){
-
 		const self = this;
 		let container = this.shadowRoot.querySelector('#map-container');
-
-		if ( container.innerHTML ) {
-			container.innerHTML = "";
-		}
-
 		let url = this.computeUrl(
 			URL,
 			VERSION,
@@ -261,13 +256,17 @@ export default class Map extends HTMLElement {
 
 		//EVENT WHEN THE LOADER GET THE LIBRARY , GOOGLE MAPS AVAILABLE
 		document.addEventListener("loadedComplete", function(e) {
-			self.buildMap();
-			console.log('ppppp', container.innerHTML);
+			console.log(self.flag);
+			if ( self.flag ) {
+				console.log('---flag');
+				google.maps.event.trigger(self.map,'resize');
+				console.log(self.map);
+			} else {
+				self.buildMap();
+			}
+			// console.log('ppppp', container.innerHTML);
 		});
 
-		// if (!container.innerHTML ) {
-		// 	this.buildMap();
-		// }
 	}
 }
 
