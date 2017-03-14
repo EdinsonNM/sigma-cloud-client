@@ -242,6 +242,7 @@ export default class Map extends HTMLElement {
 	}
 
 	connectedCallback(){
+		console.log("LOAD MAPA...")
 		const self = this;
 		let container = this.shadowRoot.querySelector('#map-container');
 		let url = this.computeUrl(
@@ -254,8 +255,19 @@ export default class Map extends HTMLElement {
 		);
 		this.$loaderContainer.setAttribute('url', url);
 
+		var buildmapFn = function(){
+			if(typeof google !== "undefined"){
+				self.buildMap();
+				google.maps.event.trigger(self.map,'resize');
+			}else{
+				setTimeout(buildmapFn,500)
+			}
+
+		};
+		buildmapFn();
 		//EVENT WHEN THE LOADER GET THE LIBRARY , GOOGLE MAPS AVAILABLE
-		document.addEventListener("loadedComplete", function(e) {
+		
+		/*document.addEventListener("loadedComplete", function(e) {
 			console.log(self.flag);
 			if ( self.flag ) {
 				console.log('---flag');
@@ -265,7 +277,7 @@ export default class Map extends HTMLElement {
 				self.buildMap();
 			}
 			// console.log('ppppp', container.innerHTML);
-		});
+		});*/
 
 	}
 }
