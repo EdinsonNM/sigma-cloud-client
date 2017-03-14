@@ -40,15 +40,15 @@ input:focus{
     right: 20px;
     background-color: white;
     @apply  --shadow-elevation-2dp;
-    padding: 5px;
 }
 
 
 .input-container > div > div > input{
     width: 100%;
     border:0;
-    padding: 10px;
+    padding: 0;
     font-size: 14px;
+    height: 100%;
 }
 
 .chip-container{
@@ -120,7 +120,7 @@ input:focus{
 }
 
 .footer-container.showAll{
-    height: calc(100% - 50px);
+    height: calc(100% - 100px);
     transition:all 0.5s ease-in-out;
 }
 
@@ -129,13 +129,14 @@ input:focus{
     visibility: visible;
     height:100%;
     position: relative;
+    opacity: 1;
+    transition:all 2s ease-in-out;
+    
 }
 .subview-content.hidden{
     visibility: hidden;
     height: 0;
-    display: none;
+    transition:all 0.3s ease-in-out;
+    opacity: 0;
 }
 
-module-pad{
-    width: 100%;
-}

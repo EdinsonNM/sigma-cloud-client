@@ -4,8 +4,9 @@ import html from './main.html';
 import css from './main.css';
 let templateObj = new Template(css,html);
 
-import ModulePad from '../module-pad/module-pad';
-import ModuleInv from '../module-inv/module-inv';
+import '../module-pad/module-pad';
+import '../module-inv/module-inv';
+import '../module-pcr/module-pcr';
 export default class AppMain extends HTMLElement{
 		constructor(){
 				super();

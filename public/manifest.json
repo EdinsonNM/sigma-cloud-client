@@ -4,7 +4,7 @@
   "start_url": "/",
   "display": "standalone",
   "theme_color": "purple",
-  "background_color": "purple",
+  "background_color": "white",
   "icons": [
     {
       "src": "images/manifest/icon-48.png",

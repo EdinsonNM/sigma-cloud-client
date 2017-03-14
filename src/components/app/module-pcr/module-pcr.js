@@ -1,10 +1,10 @@
 import AppCarouselChips from '../app-carousel-chips/app-carousel-chips';
 import '../../common/paper-material/paper-list';
 import Template from '../../../libs/template';
-import html from './module-pad.html';
-import css from './module-pad.css';
+import html from './module-pcr.html';
+import css from './module-pcr.css';
 let templateObj = new Template(css,html);
-export default class ModulePad extends HTMLElement{
+export default class ModulePcr extends HTMLElement{
 		constructor(){
 				super();
 				let shadowRoot = this.attachShadow({mode: 'open'});
@@ -33,8 +33,8 @@ export default class ModulePad extends HTMLElement{
 }
 
 
-const nameWebComponent="module-pad";
-const component=ModulePad;
+const nameWebComponent="module-pcr";
+const component=ModulePcr;
 
 customElements.define(nameWebComponent,component);
 customElements.whenDefined(nameWebComponent).then(() => {

@@ -27,7 +27,8 @@ export default class AppCarouselChips extends HTMLElement{
             pcr:{
                 title:'Plan de Cultivo y Riego',
                 description:'Realiza consultas sobre la campaña agrícola, cultivos y declaraciones de intensión de siembra',
-                logo:'./images/modules/module_pcr.png'
+                logo:'./images/modules/module_pcr.png',
+                module:'module-pcr'
             },
             pda:{
                 title:'Plan de Distribución del Agua',

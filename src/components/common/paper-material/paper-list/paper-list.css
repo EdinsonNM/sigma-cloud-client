@@ -1,0 +1,15 @@
+:host {
+    display: block;
+    padding: 8px 0;
+    list-style: none;
+}
+
+ul, ol {
+    font-size: 14px;
+    line-height: 24px;
+}
+
+address, ul, ol {
+    font-weight: 400;
+    letter-spacing: 0;
+}

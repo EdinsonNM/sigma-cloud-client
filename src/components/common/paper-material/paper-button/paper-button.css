@@ -12,7 +12,7 @@
     -webkit-user-select:none;
     user-select:none;
     cursor:pointer;
-    padding: 0.7em 0.57em;
+    padding: 0.57em 0.57em;
     transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
     display: inline-block;
     overflow:hidden;
@@ -22,6 +22,10 @@
     contain: content;
     opacity: 0.7;
     text-align: center;
+    
+}
+:host([icon]){
+    border-radius: 50%;
 }
 :host(:hover){
     opacity:1;

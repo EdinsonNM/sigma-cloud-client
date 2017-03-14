@@ -44,6 +44,7 @@ export default class PaperButton extends HTMLElement {
 		 this.color = this.getAttribute('color');
 		 this.fullwidth= this.getAttribute('fullwidth');
 		 this.bgcolor= this.getAttribute('bgcolor');
+
 	}
 	disconnectedCallback() {}
 	attributeChangedCallback(attrName, oldVal, newVal) {}
@@ -94,6 +95,7 @@ export default class PaperButton extends HTMLElement {
 		return this.hasAttribute('bgcolor');
 	}
 
+	
 }
 
 customElements.define('paper-button',PaperButton,{extends:'button'});
