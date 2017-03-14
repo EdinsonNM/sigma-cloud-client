@@ -8,13 +8,32 @@ const URL = 'https://maps.googleapis.com/maps/api/js?callback=%%callback%%';
 
 const VERSION = '3.exp';
 
+const DEFAULT_CENTER_MAP = {
+	lat:	-12.046374,
+	lng: -77.042793
+};
+
+const DEFAULT_ZOOM = 10;
+
+/**
+ * Map class
+ * Map web component base on google maps API
+ * @attributes:
+ * 		my-location : Flag that indicate that the map will be center at the current position
+ * 		disable-default-ui	: Disable google maps default UI
+ * 		center : Default location base on latitude and longitude, if the my-location flag is set, this attribute will be ignored
+ * @methods:
+ * 		setZoom: Set zoom property
+ *		setCurrentLocation: Set location property
+ * 		addMarker: Add a new marked(object with lat and lng properties as parameter)
+ */
 export default class Map extends HTMLElement {
 
 	constructor(){
 		super();
 		let shadowRoot = this.attachShadow({mode: 'open'});
 		shadowRoot.innerHTML = templateObj.template;
-		this._map = null;
+		this.map = null;
 		this.initDOMRefs();
 		this.collectDataAttributes();
 		this.addListeners();
@@ -53,19 +72,126 @@ export default class Map extends HTMLElement {
 			this.signed_in = this.attributes['signed_in'].nodeValue;
 		}
 
+		if ( 'my-location' in this.attributes) {
+			this.my_location = true;
+		}
 
+		if ( 'disable-default-ui' in this.attributes) {
+			this.disableDefaultUI = true;
+		}
+
+		if ( this.attributes['center'] &&	this.attributes['center'].nodeValue) {
+			let center = this.attributes['center'].nodeValue;
+			let coordinates = center.split(",");
+			if (	coordinates.length == 2 ) {
+				this.lng = parseFloat(coordinates[0]);
+				this.lat = parseFloat(coordinates[1]);
+			} else {
+				throw new Error('Invalid center property');
+			}
+		}
+
+	}
+
+	addMarker(location){
+		let marker = new google.maps.Marker({
+			position: location,
+			map: this.map,
+		});
+		// this.mapsMarkers.push(marker);
+	}
+
+
+	/**
+	 * setZoom - Set map zoom property
+	 *
+	 * @param	{integer} zoom Zoom as Integer
+	 */
+	setZoom(zoom){
+		if ( zoom && !isNan(zoom)) {
+			this.map.setZoom(zoom)
+		} else {
+			throw new Error('Invalid zoom');
+		}
+	}
+
+
+	/**
+	 * setLocation - Set location base on lat and lng properties
+	 *
+	 * @param	{type} lat description
+	 * @param	{type} lng description
+	 * @return {type}		 description
+	 */
+	setLocation(lat, lng) {
+		if ( lat && !isNaN(lat) && lng && !isNaN(lng)){
+			let pos = {
+				lat: lat,
+				lng: lng
+			};
+			this.map.setCenter(pos);
+		}
+	}
+
+	/**
+	 * setCurrentLocation - Set the current position base on the location
+	 */
+	setCurrentLocation(){
+		const self = this;
+		if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(function(position) {
+					self.setLocation(position.coords.latitude, position.coords.longitude)
+				}, function() {
+					self.setLocation(DEFAULT_CENTER_MAP.lat , DEFAULT_CENTER_MAP.lng)
+				});
+		} else {
+			// TODO HANDLE ERROR WHEN BROWSER DOESN'T SUPPORT GEOLOCATION
+		}
+	}
+
+
+	/**
+	 * buildMapObjectConfig - Build the default config object for google maps
+	 *
+	 * @return {type}	description
+	 */
+	buildMapObjectConfig() {
+		let obj = {
+			center: DEFAULT_CENTER_MAP,
+			zoom: DEFAULT_ZOOM,
+			disableDefaultUI: false
+		}
+
+		if( this.lat && !isNaN(this.lat) && this.lng && !isNaN(this.lng) ) {
+			let lat = this.lat;
+			let lng = this.lng;
+			obj.center = {
+				lat:	lat,
+				lng: lng
+			}
+		}
+
+		if ( this.zoom && !isNaN(this.zoom)){
+			let zoom = this.zoom;
+			obj.zoom= zoom;
+		}
+
+		if ( this.disableDefaultUI ) {
+			obj.disableDefaultUI = true;
+		}
+		return obj;
 	}
 
 
 	/**
 	 * computeUrl - Build the URL with all the arguments
 	 *
-	 * @param  {string} mapsUrl
-	 * @param  {string} version
-	 * @param  {string} apiKey
-	 * @param  {string} clientId
-	 * @param  {string} language
-	 * @param  {string} signedIn
+	 * @param	{string} mapsUrl
+	 * @param	{string} version
+	 * @param	{string} apiKey
+	 * @param	{string} clientId
+	 * @param	{string} language
+	 * @param	{string} signedIn
 	 * @return {string}
 	 */
 	computeUrl(mapsUrl, version, apiKey, clientId, language, signedIn) {
@@ -94,9 +220,35 @@ export default class Map extends HTMLElement {
 		return url;
 	}
 
-	connectedCallback(){
-		let self = this;
+	buildMap(){
 		let container = this.shadowRoot.querySelector('#map-container');
+		let mapConfig = this.buildMapObjectConfig();
+		this.map = new google.maps.Map(
+			container,
+			mapConfig
+		);
+		console.log(this.map);
+		// google.maps.event.trigger(this.map,'resize');
+
+
+		if ( this.my_location ) {
+			this.setCurrentLocation();
+		}
+
+		document.dispatchEvent(new CustomEvent('mapReady',{}));
+
+		// console.log(container.innerHTML);
+	}
+
+	connectedCallback(){
+
+		const self = this;
+		let container = this.shadowRoot.querySelector('#map-container');
+
+		if ( container.innerHTML ) {
+			container.innerHTML = "";
+		}
+
 		let url = this.computeUrl(
 			URL,
 			VERSION,
@@ -106,16 +258,16 @@ export default class Map extends HTMLElement {
 			this.signed_in,
 		);
 		this.$loaderContainer.setAttribute('url', url);
+
 		//EVENT WHEN THE LOADER GET THE LIBRARY , GOOGLE MAPS AVAILABLE
 		document.addEventListener("loadedComplete", function(e) {
-			self.map = new google.maps.Map(
-				container,
-				{
-			 		center: {lat: -34.397, lng: 150.644},
-			 		zoom: 8
-				}
-			);
+			self.buildMap();
+			console.log('ppppp', container.innerHTML);
 		});
+
+		// if (!container.innerHTML ) {
+		// 	this.buildMap();
+		// }
 	}
 }
 

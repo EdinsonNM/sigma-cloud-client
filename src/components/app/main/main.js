@@ -12,9 +12,9 @@ export default class AppMain extends HTMLElement{
 				super();
 				let shadowRoot = this.attachShadow({mode: 'open'});
 				shadowRoot.innerHTML = templateObj.template;
-				this.initDOMRefs();	
-				this.addListerners();	
-				this.showSubView=false;	
+				this.initDOMRefs();
+				this.addListerners();
+				this.showSubView=false;
 
 		}
 		initDOMRefs(){
@@ -26,22 +26,25 @@ export default class AppMain extends HTMLElement{
 			this.$footerImg = this.shadowRoot.querySelector('#footer-img');
 			this.$inputContainer = this.shadowRoot.querySelector('.input-container');
 			this.$subviewContent = this.shadowRoot.querySelector('.subview-content');
+			this.$map = this.shadowRoot.querySelector('#main-map');
 		}
-		
+
 		addListerners(){
+
 			this.$chips.addEventListener('changed-chip',this.showFooter.bind(this));
 			this.$footerLogo.addEventListener('click',this.showSubView.bind(this));
+
 		}
 		showFooter(e){
 			console.log("changed-chip",e);
 			if(e.detail.active){
 				this.$footer.classList.remove('hidden');
-			
+
 				animate(this.$footerLogo,'animated','zoomIn');
 
 			}else{
 				this.$footer.classList.add('hidden');
-				
+
 				animate(this.$footerLogo,'animated','zoomOut');
 			}
 			this.footerTitle=e.detail.data.title;
@@ -77,15 +80,32 @@ export default class AppMain extends HTMLElement{
 				animate(this.$footerLogo,'animated','rubberBand');
 				this.$subviewContent.classList.add('hidden');
 			}
-			
+
 		}
 		connectedCallback(){
-				
+			const self = this;
+			document.addEventListener("mapReady", function(e) {
+				self.$map.addMarker(
+					{
+						lat: -12.1417 ,
+						lng: -77.0167
+					}
+				);
+
+				self.$map.addMarker(
+					{
+						lat: -12.117880,
+						lng: -77.033043,
+					}
+				)
+			});
 		}
+
+
 		render(){
 			this.$footerTitle.innerHTML=this.footerTitle;
 			this.$footerDescription.innerHTML=this.footerDescription;
-			
+
 		}
 
 }
