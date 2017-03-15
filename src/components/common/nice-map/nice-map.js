@@ -25,7 +25,7 @@ const DEFAULT_ZOOM = 10;
  * @methods:
  * 		setZoom: Set zoom property
  *		setCurrentLocation: Set location property
- * 		addMarker: Add a new marked(object with lat and lng properties as parameter)
+ * 		addMarker: Add a new marker(object with lat and lng properties as parameter)
  */
 export default class Map extends HTMLElement {
 

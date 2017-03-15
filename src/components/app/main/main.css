@@ -63,7 +63,7 @@ input:focus{
     @apply --layout-center;
     @apply --layout-vertical;
     @apply --layout-fixed-bottom;
-
+    @apply --shadow-elevation-2dp;
     transition:all 0.3s ease-in-out;
 }
 .footer-container.hidden{

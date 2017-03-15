@@ -7,3 +7,17 @@
 app-carousel-chips{
     width: 100%;
 }
+
+.module-options{
+    width: 100%;
+    text-align: center;
+}
+
+paper-button.active{
+    background-color: purple;
+    color: white;
+}
+
+paper-button paper-icon{
+    font-size: 32px;
+}

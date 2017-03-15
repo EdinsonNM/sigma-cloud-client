@@ -12,9 +12,30 @@ export default class PaperListItem extends HTMLElement {
 		shadowRoot.innerHTML = templateObj.template;
 		this.initDOMRefs();
 		this.collectDataAttributes();
+
+		this.addEventListener('click',e => {
+			if(this.disabled){
+				e.preventDefault();
+				e.stopPropagation();
+			}else{
+							console.log('click item..');
+
+				this.drawRipple(e.offsetX, e.offsetY);
+			}
+		});
+	}
+	drawRipple(x, y) {
+		let div = document.createElement('div');
+		div.classList.add('ripple');
+		this.$container.appendChild(div);
+		div.style.top = `${y - div.clientHeight/2}px`;
+		div.style.left = `${x - div.clientWidth/2}px`;
+		div.style.backgroundColor = getComputedStyle(this).color;
+		div.classList.add('run');
+		div.addEventListener('transitionend', e => div.remove());
 	}
 	static get observedAttributes() {
-		return ['primaryTitle','secondaryTitle','iconLeft','iconRight'];
+		return ['primaryTitle','secondaryTitle','iconLeft','iconRight','disabled'];
 	}
 
 	collectDataAttributes(){
@@ -23,6 +44,7 @@ export default class PaperListItem extends HTMLElement {
 	}
 
 	initDOMRefs(){
+		this.$container = this.shadowRoot.querySelector('.item');
 		this.$primaryTitle = this.shadowRoot.querySelector('.primary-content');
 		this.$secondaryTitle = this.shadowRoot.querySelector('.secondary-content');
 		this.$iconLeft = this.shadowRoot.querySelector('.icon-left');
@@ -60,6 +82,16 @@ export default class PaperListItem extends HTMLElement {
 	}
 	set iconRight(val){
 		this.setAttribute('icon-right',val||'');
+	}
+	get iconRight(){
+		return this.getAttribute('icon-right');
+	}
+	set disabled(val){
+		if(val) this.setAttribute('disabled','');
+		else this.removeAttribute('disabled');
+	}
+	get disabled(){
+		return this.hasAttribute('disabled');
 	}
 	get iconRight(){
 		return this.getAttribute('icon-right');

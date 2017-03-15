@@ -27,6 +27,7 @@
   "dependencies": {
     "custom-event": "^1.0.1",
     "lory.js": "^2.2.1",
+    "restful.js": "^0.9.6",
     "underscore": "^1.8.3"
   }
 }

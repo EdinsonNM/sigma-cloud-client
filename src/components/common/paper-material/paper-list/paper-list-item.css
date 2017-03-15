@@ -27,11 +27,10 @@
     text-decoration: none;
     height: 100%;
     color: rgba(0, 0, 0, 0.870588);
+    overflow: hidden;
 }
 
-.item:hover{
-    background-color: #e8e8e8;
-}
+
 
 .icon-right{
     display: block;
@@ -71,4 +70,22 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.item .ripple{
+    position:absolute;
+    transform: scale3d(0,0,0);
+    opacity:1;
+    transition: all 800ms cubic-bezier(0.4,0,0.2,1);
+    border-radius: 50%;
+    width:1000px;
+    height:1000px;
+    will-change: opacity transform;
+    contain: content;
+    z-index:-1;
+}
+
+.item .ripple.run{
+    opacity: 0;
+    transform:none;
 }

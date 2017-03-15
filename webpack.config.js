@@ -1,4 +1,5 @@
-var path = require('path'),
+var webpack = require('webpack'),
+path = require('path'),
 HtmlWebpackPlugin = require('html-webpack-plugin'),
 CopyWebpackPlugin = require('copy-webpack-plugin')
 fs = require('fs');
@@ -52,7 +53,8 @@ module.exports={
 			{from: 'public/images', to: 'images' },
 			{from: 'public/js', to: 'js' },
       {from: 'public/manifest.json', to: 'manifest.json' }
-		])
+		]),
+    
 	],
 	devtool: "source-map"
 };

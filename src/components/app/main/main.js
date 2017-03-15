@@ -7,6 +7,7 @@ let templateObj = new Template(css,html);
 import '../module-pad/module-pad';
 import '../module-inv/module-inv';
 import '../module-pcr/module-pcr';
+import Predio from '../../../models/predio';
 export default class AppMain extends HTMLElement{
 		constructor(){
 			super();
@@ -27,11 +28,35 @@ export default class AppMain extends HTMLElement{
 			this.$inputContainer = this.shadowRoot.querySelector('.input-container');
 			this.$subviewContent = this.shadowRoot.querySelector('.subview-content');
 			this.$map = this.shadowRoot.querySelector('#main-map');
+			this.$inputSearch = this.shadowRoot.querySelector('#txtSearch');
 		}
 
 		addListerners(){
 			this.$chips.addEventListener('changed-chip',this.showFooter.bind(this));
 			this.$footerLogo.addEventListener('click',this.showSubView.bind(this));
+			this.$inputSearch.addEventListener('keyup',this.searchPredio.bind(this));
+		}
+
+		searchPredio(e){
+			let self = this;
+			var key = e.keyCode;
+			if (key === 13) {
+				let predioService = new Predio();
+				predioService.getAll({filter:e.currentTarget.value},(err,data)=>{
+					console.log(err,data);
+					debugger;
+					//document.addEventListener("mapReady", function(e) {
+						console.log('add dinamic markers...')
+						data.forEach((item)=>{
+
+							self.$map.addMarker({
+								lat:parseFloat(item.latitude),
+								lng:parseFloat(item.longitude)
+							});
+						});
+					//});
+				});
+			}
 		}
 
 		showFooter(e){

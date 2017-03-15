@@ -24,8 +24,12 @@
     text-align: center;
     
 }
+
 :host([icon]){
     border-radius: 50%;
+    outline:none;
+    outline-style: none; 
+
 }
 :host(:hover){
     opacity:1;
@@ -72,4 +76,9 @@
 #paper-button .ripple.run{
     opacity: 0;
     transform:none;
+}
+:host{
+     -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
 }
