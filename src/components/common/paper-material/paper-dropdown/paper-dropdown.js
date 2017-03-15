@@ -28,6 +28,7 @@ export default class PaperDropDown extends HTMLElement {
 	}
 
 	addListeners(){
+		const self = this;
 		this.$button.addEventListener("click",(e)=>{
 			if ( this.active ) {
 				this.active = false;
@@ -37,6 +38,12 @@ export default class PaperDropDown extends HTMLElement {
 				this.$list.className += " mui--is-open"
 			}
 		})
+
+		document.addEventListener('dropOptionChanged', (e)=> {
+			self.	changeLabel(e.detail.label);
+			self.active = false;
+			self.$list.classList.remove("mui--is-open");
+		});
 	}
 
 	initDOMRefs(){
@@ -44,20 +51,23 @@ export default class PaperDropDown extends HTMLElement {
 		this.$list = this.shadowRoot.querySelector("#list");
 	}
 
-	connectedCallback(){
-		if ( this.bgColor ) {
-			this.$button.style = "background-color: " + this.bgColor;
-		}
-
-		if ( this.label ) {
+	changeLabel(label) {
+		if ( label ) {
 			let span = document.createElement('span');
-			let text = document.createTextNode(this.label+ ' ');
+			let text = document.createTextNode(label + ' ');
 			span.setAttribute('class', 'mui-caret');
 			this.$button.innerHTML = "";
 			this.$button.appendChild(text);
 			this.$button.appendChild(span);
 		}
+	}
 
+	connectedCallback(){
+		if ( this.bgColor ) {
+			this.$button.style = "background-color: " + this.bgColor;
+		}
+
+		this.changeLabel(this.label);
 	}
 
 }
