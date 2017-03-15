@@ -242,7 +242,6 @@ export default class Map extends HTMLElement {
 	}
 
 	connectedCallback(){
-		console.log("LOAD MAPA...")
 		const self = this;
 		let container = this.shadowRoot.querySelector('#map-container');
 		let url = this.computeUrl(
@@ -265,20 +264,6 @@ export default class Map extends HTMLElement {
 
 		};
 		buildmapFn();
-		//EVENT WHEN THE LOADER GET THE LIBRARY , GOOGLE MAPS AVAILABLE
-		
-		/*document.addEventListener("loadedComplete", function(e) {
-			console.log(self.flag);
-			if ( self.flag ) {
-				console.log('---flag');
-				google.maps.event.trigger(self.map,'resize');
-				console.log(self.map);
-			} else {
-				self.buildMap();
-			}
-			// console.log('ppppp', container.innerHTML);
-		});*/
-
 	}
 }
 
