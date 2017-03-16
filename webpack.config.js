@@ -52,7 +52,8 @@ module.exports={
 			{from: 'public/css', to: 'css' },
 			{from: 'public/images', to: 'images' },
 			{from: 'public/js', to: 'js' },
-      {from: 'public/manifest.json', to: 'manifest.json' }
+      {from: 'public/manifest.json', to: 'manifest.json' },
+      {from: 'public/sw.js', to: 'sw.js' }
 		]),
     
 	],

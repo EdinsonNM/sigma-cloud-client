@@ -131,6 +131,8 @@ input:focus{
     position: relative;
     opacity: 1;
     transition:all 2s ease-in-out;
+    display: flex;
+    flex-direction: column;
     
 }
 .subview-content.hidden{
@@ -140,3 +142,6 @@ input:focus{
     opacity: 0;
 }
 
+module-pad,module-inv{
+    width: 100%
+}

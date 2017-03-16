@@ -33,7 +33,12 @@ export default class AppMain extends HTMLElement{
 
 		addListerners(){
 			this.$chips.addEventListener('changed-chip',this.showFooter.bind(this));
-			this.$footerLogo.addEventListener('click',this.showSubView.bind(this));
+			document.querySelector('body').addEventListener('module-options-changed',(e)=>{
+				this.showFooter(e);
+				this.showSubView = false;
+				this.renderSubView();
+			});
+			this.$footerLogo.addEventListener('click',this.renderSubView.bind(this));
 			this.$inputSearch.addEventListener('keyup',this.searchPredio.bind(this));
 		}
 
@@ -87,7 +92,7 @@ export default class AppMain extends HTMLElement{
 			}
 		}
 
-		showSubView(){
+		renderSubView(){
 			//document.location.hash="/main/padron"
 			this.showSubView=!this.showSubView;
 			if(this.showSubView){

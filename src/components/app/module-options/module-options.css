@@ -1,0 +1,14 @@
+
+:host{
+    text-align: center;
+    margin: 10px;
+}
+
+paper-button.active{
+    background-color: purple;
+    color: white;
+}
+
+paper-button paper-icon{
+    font-size: 32px;
+}

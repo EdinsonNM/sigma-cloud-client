@@ -1,4 +1,4 @@
-import AppCarouselChips from '../app-carousel-chips/app-carousel-chips';
+import Options from '../module-options/module-options';
 import '../../common/paper-material/paper-list';
 import Template from '../../../libs/template';
 import html from './module-pad.html';
