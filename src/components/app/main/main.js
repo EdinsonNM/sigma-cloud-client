@@ -53,7 +53,10 @@ export default class AppMain extends HTMLElement{
 			});
 			this.$inputSearch.addEventListener('keyup',this.searchPredio.bind(this));
 
-			window.addEventListener("hashchange", ()=>{
+			window.addEventListener("hashchange", this.ChangeSubView.bind(this), false);
+		}
+
+		ChangeSubView(){
 				var path = document.location.hash.split('/');
 				if(path.length===3){
 					var name = path.pop();
@@ -63,7 +66,6 @@ export default class AppMain extends HTMLElement{
 				}
 
 				this.render();
-			}, false);
 		}
 
 
@@ -130,15 +132,7 @@ export default class AppMain extends HTMLElement{
             this.render();
         }
 		connectedCallback(){
-			var path = document.location.hash.split('/');
-			if(path.length===3){
-				var name = path.pop();
-				if(Modules.hasOwnProperty(name)){
-					this.moduleInit = name;
-				}
-			}
-
-			this.render();
+			this.ChangeSubView();
 		}
 
 		set moduleInit(val){
