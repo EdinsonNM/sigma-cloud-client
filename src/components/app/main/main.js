@@ -38,7 +38,7 @@ export default class AppMain extends HTMLElement{
 		addListerners(){
 			this.$chips.addEventListener('changed-chip',e=>{
 				this.module = e.detail;
-				this.state.showFooter = true;
+				this.state.showFooter = e.detail.active;
 				this.render();
 			});
 			this.$footerLogo.addEventListener('click',e=>{
@@ -50,6 +50,7 @@ export default class AppMain extends HTMLElement{
 				this.state.showFooter = true;
 				this.state.showFooterAll = true;
 				this.render();
+				//this.$chips.selectedIndex = this.module.data.index;
 			});
 			this.$inputSearch.addEventListener('keyup',this.searchPredio.bind(this));
 
@@ -62,6 +63,11 @@ export default class AppMain extends HTMLElement{
 					var name = path.pop();
 					if(Modules.hasOwnProperty(name)){
 						this.moduleInit = name;
+					}else{
+						//this.$chips.unSelectAll();
+						if(this.module){
+							this.$chips.selectedIndex = this.module.data.index;
+						}
 					}
 				}
 
@@ -143,9 +149,12 @@ export default class AppMain extends HTMLElement{
 				this.module = {name:val,data:Modules[val],active:true};
 			}else{
 				this.setAttribute('moduleInit','app');
-				this.state.showFooter=false;
-				this.state.showFooterAll=false;		
+				if(this.module){
+					this.state.showFooter=true;
+					this.state.showFooterAll=false;		
 				
+				}
+
 			}
 		}
 		get moduleInit(){

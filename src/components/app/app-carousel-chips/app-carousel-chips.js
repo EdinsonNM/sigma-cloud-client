@@ -16,14 +16,34 @@ export default class AppCarouselChips extends HTMLElement{
         this.modules = Modules;
     }
     initDOMRefs(){
-        
+        this.$paperChips=this._shadowRoot.querySelectorAll("paper-chip");
+    }
+    unSelectAll(){
+        this.$paperChips.forEach(function(chip) {
+            chip.active=false;
+        });
+    }
+
+    static get observedAttributes() {
+        return ['selectedIndex'];
+    }
+
+    set selectedIndex(val){
+        this.setAttribute('selectedIndex',val);
+        this.render();
+
+    }
+    get selectedIndex(){
+        return this.getAttribute('selectedIndex');
+    }
+    attributeChangedCallback() {
+        this.render();
     }
     addListeners(){
-        let paperChips=this._shadowRoot.querySelectorAll("paper-chip");
-        paperChips.forEach(function(chip) {
+        this.$paperChips.forEach(function(chip) {
             chip.addEventListener('click',(e)=>{
                 let active= e.currentTarget.active
-                paperChips.forEach(function(chip) {
+                this.$paperChips.forEach(function(chip) {
                     chip.active=false;
                 });
                 e.currentTarget.active=!active;
@@ -42,7 +62,7 @@ export default class AppCarouselChips extends HTMLElement{
     }
 
     connectedCallback(){
-        
+        this.selectedIndex=-1;
         console.log('loaded carousel chips');
         var multiSlides = this.shadowRoot.querySelector('.js_multislides');
         lory(multiSlides, {
@@ -52,6 +72,15 @@ export default class AppCarouselChips extends HTMLElement{
             slidesToScroll: 1
         });
 
+    }
+    render(){
+          this.$paperChips.forEach((chip,index)=>{
+            if(index==this.selectedIndex){
+                chip.active = true;
+            }else{
+                chip.active = false;
+            }
+          });
     }
     
 
