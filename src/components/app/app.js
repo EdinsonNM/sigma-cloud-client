@@ -14,7 +14,10 @@ export default class App extends HTMLElement{
 		super();
 		let shadowRoot = this.attachShadow({mode: 'open'});
 		shadowRoot.innerHTML = template;
-
+		this.addListernes();
+	}
+	addListernes(){
+		
 	}
 
 }

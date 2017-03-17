@@ -32,7 +32,7 @@ export default class AppLogin extends HTMLElement {
 			let user = this.$user.value;
 			let password = this.$password.value;
 			//alert("Hola Mundo");
-			document.location.hash="#/main";
+			document.location.hash="#/main/app";
 			console.log(user,password);
 		}
 

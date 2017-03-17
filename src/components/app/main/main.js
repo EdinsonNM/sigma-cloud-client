@@ -8,6 +8,7 @@ import '../module-pad/module-pad';
 import '../module-inv/module-inv';
 import '../module-pcr/module-pcr';
 import Predio from '../../../models/predio';
+import Modules from '../../../libs/modules';
 export default class AppMain extends HTMLElement{
 		constructor(){
 			super();
@@ -15,7 +16,10 @@ export default class AppMain extends HTMLElement{
 			shadowRoot.innerHTML = templateObj.template;
 			this.initDOMRefs();
 			this.addListerners();
-			this.showSubView=false;
+			this.state={
+				showFooter:false,
+				showFooterAll:false,
+			};
 		}
 
 		initDOMRefs(){
@@ -32,14 +36,70 @@ export default class AppMain extends HTMLElement{
 		}
 
 		addListerners(){
-			this.$chips.addEventListener('changed-chip',this.showFooter.bind(this));
-			document.querySelector('body').addEventListener('module-options-changed',(e)=>{
-				this.showFooter(e);
-				this.showSubView = false;
-				this.renderSubView();
+			this.$chips.addEventListener('changed-chip',e=>{
+				this.module = e.detail;
+				this.state.showFooter = true;
+				this.render();
 			});
-			this.$footerLogo.addEventListener('click',this.renderSubView.bind(this));
+			this.$footerLogo.addEventListener('click',e=>{
+				this.state.showFooterAll = !this.state.showFooterAll;
+				this.render();
+			});
+			document.querySelector('body').addEventListener('module-options-changed',(e)=>{
+				this.module = e.detail;
+				this.state.showFooter = true;
+				this.state.showFooterAll = true;
+				this.render();
+			});
 			this.$inputSearch.addEventListener('keyup',this.searchPredio.bind(this));
+
+			window.addEventListener("hashchange", ()=>{
+				var path = document.location.hash.split('/');
+				if(path.length===3){
+					var name = path.pop();
+					if(Modules.hasOwnProperty(name)){
+						this.moduleInit = name;
+					}
+				}
+
+				this.render();
+			}, false);
+		}
+
+
+		render(){
+			if(this.state.showFooter){
+				this.$footer.classList.remove('hidden');
+				animate(this.$footerLogo,'animated','zoomIn');
+				this.$footerImg.setAttribute("src",this.module.data.logo);
+				this.$footerTitle.innerHTML=this.module.data.title;
+				this.$footerDescription.innerHTML=this.module.data.description;
+
+			}else{
+				this.$footer.classList.add('hidden');
+				animate(this.$footerLogo,'animated','zoomOut');
+			}
+
+			if(this.state.showFooterAll){
+				
+				this.$footer.classList.add('showAll');
+				this.$chips.style.visibility='hidden';
+				this.$inputContainer.style.visibility='hidden';
+				this.$subviewContent.innerHTML='';
+				let moduleApp = document.createElement(this.module.data.module);
+				this.$subviewContent.appendChild(moduleApp);
+				this.$subviewContent.classList.remove('hidden');
+				document.location.hash = `/main/${this.module.name}`;
+
+			}else{
+				this.$footer.classList.remove('showAll');
+				this.$chips.style.visibility='visible';
+				this.$inputContainer.style.visibility='visible';
+				this.$subviewContent.classList.add('hidden');
+				document.location.hash = `/main/app`;
+	
+			}
+			
 		}
 
 		searchPredio(e){
@@ -49,7 +109,6 @@ export default class AppMain extends HTMLElement{
 				let predioService = new Predio();
 				predioService.getAll({filter:e.currentTarget.value},(err,data)=>{
 					console.log(err,data);
-					debugger;
 					//document.addEventListener("mapReady", function(e) {
 						console.log('add dinamic markers...')
 						data.forEach((item)=>{
@@ -64,77 +123,44 @@ export default class AppMain extends HTMLElement{
 			}
 		}
 
-		showFooter(e){
-			console.log("changed-chip",e);
-			if(e.detail.active){
-				this.$footer.classList.remove('hidden');
-
-				animate(this.$footerLogo,'animated','zoomIn');
-
-			}else{
-				this.$footer.classList.add('hidden');
-
-				animate(this.$footerLogo,'animated','zoomOut');
+		static get observedAttributes() {
+            return ['selectedIndex'];
+        }
+		attributeChangedCallback() {
+            this.render();
+        }
+		connectedCallback(){
+			var path = document.location.hash.split('/');
+			if(path.length===3){
+				var name = path.pop();
+				if(Modules.hasOwnProperty(name)){
+					this.moduleInit = name;
+				}
 			}
-			this.footerTitle=e.detail.data.title;
-			this.footerDescription=e.detail.data.description;
-			this.$footerImg.setAttribute("src",e.detail.data.logo);
-			this.moduleName=e.detail.data.module;
+
 			this.render();
 		}
-		showMainElements(val){
-			if(!val){
-				this.$chips.style.visibility='hidden';
-				this.$inputContainer.style.visibility='hidden';
+
+		set moduleInit(val){
+			if(Modules.hasOwnProperty(val)){
+				this.setAttribute('moduleInit',val);
+				this.state.showFooter=true;
+				this.state.showFooterAll=true;		
+				this.module = {name:val,data:Modules[val],active:true};
 			}else{
-				this.$chips.style.visibility='visible';
-				this.$inputContainer.style.visibility='visible';
+				this.setAttribute('moduleInit','app');
+				this.state.showFooter=false;
+				this.state.showFooterAll=false;		
+				
 			}
 		}
-
-		renderSubView(){
-			//document.location.hash="/main/padron"
-			this.showSubView=!this.showSubView;
-			if(this.showSubView){
-				this.$footer.classList.add('showAll');
-				this.showMainElements(false);
-				this.$subviewContent.classList.remove('hidden');
-				animate(this.$footerLogo,'animated','rubberBand');
-				let module = document.createElement(this.moduleName);
-				this.$subviewContent.innerHTML='';
-				this.$subviewContent.appendChild(module);
-			}else{
-				this.$footer.classList.remove('showAll');
-				this.showMainElements(true);
-				animate(this.$footerLogo,'animated','rubberBand');
-				this.$subviewContent.classList.add('hidden');
-			}
-
-		}
-		connectedCallback(){
-			const self = this;
-			document.addEventListener("mapReady", function(e) {
-				self.$map.addMarker(
-					{
-						lat: -12.1417 ,
-						lng: -77.0167
-					}
-				);
-
-				self.$map.addMarker(
-					{
-						lat: -12.117880,
-						lng: -77.033043,
-					}
-				)
-			});
+		get moduleInit(){
+			this.getAttribute('moduleInit');
 		}
 
+	
+	
 
-		render(){
-			this.$footerTitle.innerHTML=this.footerTitle;
-			this.$footerDescription.innerHTML=this.footerDescription;
-		}
 
 }
 
