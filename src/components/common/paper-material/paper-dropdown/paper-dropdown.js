@@ -35,7 +35,7 @@ export default class PaperDropDown extends HTMLElement {
 	addListeners(){
 		const self = this;
 
-		this.$list.addEventListener('animationend', ()=>{
+		/*this.$list.addEventListener('animationend', ()=>{
 			if ( this.active ) {
 				this.active = false;
 				this.$list.classList.remove('animated', 'fadeOutUp');
@@ -45,15 +45,15 @@ export default class PaperDropDown extends HTMLElement {
 				this.$list.classList.remove('animated', 'fadeInDown');
 				this.$list.style.display = '';
 			}
-		});
+		});*/
 
 		this.$button.addEventListener("click",(e)=>{
 			if ( this.active ) {
-				this.$list.classList.add('animated', 'fadeOutUp');
+				this.$list.classList.add('hidden');
 			} else {
-				this.$list.style.display = '';
-				this.$list.classList.add('animated', 'fadeInDown');
+				this.$list.classList.remove('hidden');
 			}
+			 this.active = ! this.active;
 		});
 
 		// document.addEventListener('dropOptionChanged', (e)=> {
