@@ -25,12 +25,21 @@ export default class PaperDropOption extends HTMLElement {
 		}
 	}
 
+	setSelected(){
+		this.$link.classList.add('selected');
+	}
+
+	unsetSelected(){
+		this.$link.classList.remove('selected');
+	}
+
 	clickedOption(event){
 		event.preventDefault();
 		document.dispatchEvent(new CustomEvent('dropOptionChanged',{
 			detail: {
 				label: this.innerText,
-				value: this.value
+				value: this.value,
+				target: this
 			}
 		}));
 	}

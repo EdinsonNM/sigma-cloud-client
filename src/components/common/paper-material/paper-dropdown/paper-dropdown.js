@@ -16,6 +16,7 @@ export default class PaperDropDown extends HTMLElement {
 		this.collectDataAttributes();
 		this.addListeners();
 		this.calculateHeight();
+		this.previousOption = null;
 		this.active = false;
 	}
 
@@ -48,7 +49,11 @@ export default class PaperDropDown extends HTMLElement {
 		});
 
 		document.addEventListener("dropOptionChanged", (e)=>{
-			console.log(e.detail);
+			if ( this.previousOption ) {
+				this.previousOption.unsetSelected();
+			}
+			this.previousOption = e.detail.target;
+			this.previousOption.setSelected();
 			self.changeValue(e.detail.value, e.detail.label);
 		});
 	}
