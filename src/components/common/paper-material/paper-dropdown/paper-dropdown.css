@@ -43,7 +43,8 @@
 		opacity: 1;
 		transition:all 0.7s linear;
 		overflow-y: auto;
-		height: 150px;
+		max-height: 150px;
+		/*height: 100px;*/
 }
 
 
@@ -54,4 +55,3 @@
 	opacity: 0;
 	transition:all 0.7s linear;
 }
-
