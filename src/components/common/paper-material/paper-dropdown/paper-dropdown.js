@@ -38,21 +38,21 @@ export default class PaperDropDown extends HTMLElement {
 		this.$list.addEventListener('animationend', ()=>{
 			if ( this.active ) {
 				this.active = false;
-				this.$list.classList.remove('animated', 'fadeOut');
+				this.$list.classList.remove('animated', 'fadeOutUp');
 				this.$list.style.display = 'none';
 			} else  {
 				this.active = true;
-				this.$list.classList.remove('animated', 'fadeIn');
+				this.$list.classList.remove('animated', 'fadeInDown');
 				this.$list.style.display = '';
 			}
 		});
 
 		this.$button.addEventListener("click",(e)=>{
 			if ( this.active ) {
-				this.$list.classList.add('animated', 'fadeOut');
+				this.$list.classList.add('animated', 'fadeOutUp');
 			} else {
 				this.$list.style.display = '';
-				this.$list.classList.add('animated', 'fadeIn');
+				this.$list.classList.add('animated', 'fadeInDown');
 			}
 		});
 
