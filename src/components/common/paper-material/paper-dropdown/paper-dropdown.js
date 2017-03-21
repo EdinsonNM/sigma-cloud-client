@@ -21,7 +21,6 @@ export default class PaperDropDown extends HTMLElement {
 	}
 
 	countOptions(){
-		console.log(this.innerHTML);
 		this.countOptions = (this.innerHTML.match(/<\/paper-dropoption>/g) || []).length;
 	}
 
