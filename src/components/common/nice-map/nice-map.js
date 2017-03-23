@@ -1,8 +1,12 @@
 import html from './nice-map.html'
 import css from './nice-map.css'
 import Template from '../../../libs/template';
+import htmlWindow from './window-template.html';
+import _ from 'underscore';
 
 let templateObj = new Template(css,html);
+
+
 
 const URL = 'https://maps.googleapis.com/maps/api/js?callback=%%callback%%';
 
@@ -37,7 +41,7 @@ export default class Map extends HTMLElement {
 		this.initDOMRefs();
 		this.collectDataAttributes();
 		this.addListeners();
-		// console.log(this.$mapContainer);
+		this.markers = [];
 		this.flag = false
 		// this.id = Math.random();
 	}
@@ -96,12 +100,47 @@ export default class Map extends HTMLElement {
 
 	}
 
-	addMarker(location){
+
+	/**
+	 * addMarker - Add new marker to the map
+	 * item - Info window item
+	 *
+	 * @param	{object} location Position object
+	 */
+	addMarker(location, item){
+		const self = this;
 		let marker = new google.maps.Marker({
 			position: location,
 			map: this.map,
+			title: item.vNombre
 		});
-		// this.mapsMarkers.push(marker);
+		this.markers.push(marker);
+
+
+		if ( item ) {
+			let pretemplate = _.template(htmlWindow);
+			let template = pretemplate({data: item});
+			let infowindow = new google.maps.InfoWindow({
+				content: template
+			});
+
+			marker.addListener('click', function() {
+				infowindow.open(self.map, marker);
+			});
+		}
+	}
+
+
+	/**
+	 * fitBounds - Fit the marker and the zoom on the map
+	 *
+	 */
+	fitBounds(){
+		var bounds = new google.maps.LatLngBounds();
+		for (var i = 0; i < this.markers.length; i++) {
+		 bounds.extend(this.markers[i].getPosition());
+		}
+		this.map.fitBounds(bounds);
 	}
 
 

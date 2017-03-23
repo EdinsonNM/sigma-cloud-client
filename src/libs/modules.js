@@ -37,5 +37,11 @@ export default {
         title:'Hidrometria',
         description:'Realiza el registro de las mediciones de...',
         logo:'./images/modules/module_hid.png'
+    },
+    srh:{
+      index: 6,
+      title: 'Busqueda',
+      description: 'Se han encontrado <b>__COUNT__</b> resultados',
+      logo: './images/modules/module_search.jpg'
     }
 }

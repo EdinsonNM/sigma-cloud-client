@@ -77,7 +77,7 @@ export default class AppMain extends HTMLElement{
 					}
 				}
 
-				
+
 		}
 
 
@@ -95,7 +95,7 @@ export default class AppMain extends HTMLElement{
 			}
 
 			if(this.state.showFooterAll){
-				
+
 				this.$footer.classList.add('showAll');
 				this.$chips.style.visibility='hidden';
 				this.$inputContainer.style.visibility='hidden';
@@ -111,28 +111,39 @@ export default class AppMain extends HTMLElement{
 				this.$inputContainer.style.visibility='visible';
 				this.$subviewContent.classList.add('hidden');
 				document.location.hash = `/main/app`;
-	
+
 			}
-			
+
 		}
 
 		searchPredio(e){
-			let self = this;
-			var key = e.keyCode;
+			const self = this;
+			const key = e.keyCode;
 			if (key === 13) {
 				let predioService = new Predio();
 				predioService.getAll({filter:e.currentTarget.value},(err,data)=>{
 					console.log(err,data);
-					//document.addEventListener("mapReady", function(e) {
-						console.log('add dinamic markers...')
-						data.forEach((item)=>{
+					console.log('add dinamic markers...');
+					const count = data.length;
+					data.forEach((item)=>{
 
-							self.$map.addMarker({
-								lat:parseFloat(item.latitude),
-								lng:parseFloat(item.longitude)
-							});
-						});
-					//});
+						self.$map.addMarker({
+							lat:parseFloat(item.latitude),
+							lng:parseFloat(item.longitude)
+						}, item);
+					});
+					//EXTEND MAP BASE ON RESULTS
+					self.$map.fitBounds();
+					//CHANGE COUNT LABEL FOR RESULTS 
+					let moduleData = Modules['srh'];
+					moduleData.description = moduleData.description.replace('__COUNT__', count);
+					self.$chips.dispatchEvent(new CustomEvent('changed-chip',{
+							detail:{
+									name: 'Busqueda',
+									active:true,
+									data: moduleData
+							}
+					}));
 				});
 			}
 		}
@@ -151,14 +162,14 @@ export default class AppMain extends HTMLElement{
 			if(Modules.hasOwnProperty(val)){
 				this.setAttribute('moduleInit',val);
 				this.state.showFooter=true;
-				this.state.showFooterAll=true;		
+				this.state.showFooterAll=true;
 				this.module = {name:val,data:Modules[val],active:true};
 			}else{
 				this.setAttribute('moduleInit','app');
 				if(this.module){
 					this.state.showFooter=true;
-					this.state.showFooterAll=false;		
-				
+					this.state.showFooterAll=false;
+
 				}
 
 			}
@@ -167,8 +178,8 @@ export default class AppMain extends HTMLElement{
 			this.getAttribute('moduleInit');
 		}
 
-	
-	
+
+
 
 
 }
