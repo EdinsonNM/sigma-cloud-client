@@ -160,7 +160,6 @@ export default class Loader extends HTMLElement {
 	attributeChangedCallback(attr, oldValue, newValue) {
 		if (attr == 'url') {
 			if ( newValue ) {
-				console.log(newValue);
 				this._url = newValue;
 				this._loadLibrary(newValue);
 			}

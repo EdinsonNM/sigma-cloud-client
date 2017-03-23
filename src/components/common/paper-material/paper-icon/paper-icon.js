@@ -1,7 +1,6 @@
 import Template from '../../../../libs/template';
 import html from './paper-icon.html'
 import css from './paper-icon.css'
-import _ from 'underscore';
 let templateObj = new Template(css,html);
 
 /**
@@ -42,30 +41,30 @@ export default class PaperIcon extends HTMLElement {
 	}
 
 	initDOMRefs(){
-		this.$icon = this.shadowRoot.querySelector('#icon');
+		// this.$icon = this.shadowRoot.querySelector('#icon');
 	}
-	
+
 
 	connectedCallback(){
 		//SET CLASS
 		if ( this.iconClass ) {
-			this.$icon.className += " " + this.iconClass;
+			this.className += " " + this.iconClass;
 		}
 
 		//SET SIZE
 		if ( this.iconSize ) {
-			this.$icon.style['font-size'] = this.iconSize;
+			this.style['font-size'] = this.iconSize;
 		}
 
 		//SET COLOR
 		if ( this.iconColor ) {
-			this.$icon.style['color'] = this.iconColor;
+			this.style['color'] = this.iconColor;
 		}
 	}
 
 	attributeChangedCallback(attr, oldValue, newValue) {
 		if (attr == 'data-color') {
-			this.$icon.style['color'] = newValue;
+			this.style['color'] = newValue;
 		}
 	}
 

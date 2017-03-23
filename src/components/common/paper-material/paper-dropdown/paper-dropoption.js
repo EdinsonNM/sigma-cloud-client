@@ -10,6 +10,7 @@ export default class PaperDropOption extends HTMLElement {
 		super();
 		let shadowRoot = this.attachShadow({mode: 'open'});
 		shadowRoot.innerHTML = templateObj.template;
+		this.collectDataAttributes();
 		this.initDOMRefs();
 		this.addListeners();
 	}
@@ -18,11 +19,27 @@ export default class PaperDropOption extends HTMLElement {
 		this.$link.addEventListener('click', this.clickedOption.bind(this));
 	}
 
+	collectDataAttributes(){
+		if ( this.attributes['value'] ) {
+			this.value = this.attributes['value'].nodeValue;
+		}
+	}
+
+	setSelected(){
+		this.$link.classList.add('selected');
+	}
+
+	unsetSelected(){
+		this.$link.classList.remove('selected');
+	}
+
 	clickedOption(event){
 		event.preventDefault();
 		document.dispatchEvent(new CustomEvent('dropOptionChanged',{
 			detail: {
-				label: this.innerText
+				label: this.innerText,
+				value: this.value,
+				target: this
 			}
 		}));
 	}

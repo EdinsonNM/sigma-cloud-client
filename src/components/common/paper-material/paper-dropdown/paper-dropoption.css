@@ -12,3 +12,7 @@ li > a {
 	text-decoration: none;
 	white-space: nowrap;
 }
+
+.selected {
+	color: rgb(255, 64, 129);
+}

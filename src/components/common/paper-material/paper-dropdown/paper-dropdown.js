@@ -11,18 +11,21 @@ export default class PaperDropDown extends HTMLElement {
 		super();
 		let shadowRoot = this.attachShadow({mode: 'open'});
 		shadowRoot.innerHTML = templateObj.template;
+		this.countOptions();
 		this.initDOMRefs();
 		this.collectDataAttributes();
 		this.addListeners();
+		this.calculateHeight();
+		this.previousOption = null;
 		this.active = false;
 	}
 
+	countOptions(){
+		this.countOptions = (this.innerHTML.match(/<\/paper-dropoption>/g) || []).length;
+	}
+
 	collectDataAttributes(){
-		// if ( this.attributes['bg-color'] ) {
-		// 	this.bgColor = this.attributes['bg-color'].nodeValue;
-		// }
-		//
-		//
+
 		if ( this.attributes['label'] ) {
 			this.label = this.attributes['label'].nodeValue;
 		}
@@ -35,18 +38,6 @@ export default class PaperDropDown extends HTMLElement {
 	addListeners(){
 		const self = this;
 
-		/*this.$list.addEventListener('animationend', ()=>{
-			if ( this.active ) {
-				this.active = false;
-				this.$list.classList.remove('animated', 'fadeOutUp');
-				this.$list.style.display = 'none';
-			} else  {
-				this.active = true;
-				this.$list.classList.remove('animated', 'fadeInDown');
-				this.$list.style.display = '';
-			}
-		});*/
-
 		this.$button.addEventListener("click",(e)=>{
 			if ( this.active ) {
 				this.$list.classList.add('hidden');
@@ -56,18 +47,21 @@ export default class PaperDropDown extends HTMLElement {
 			 this.active = ! this.active;
 		});
 
-		// document.addEventListener('dropOptionChanged', (e)=> {
-		// 	self.	changeLabel(e.detail.label);
-		// 	self.active = false;
-		// 	self.$list.classList.remove("mui--is-open");
-		// });
+		document.addEventListener("dropOptionChanged", (e)=>{
+			if ( this.previousOption ) {
+				this.previousOption.unsetSelected();
+			}
+			this.previousOption = e.detail.target;
+			this.previousOption.setSelected();
+			self.changeValue(e.detail.value, e.detail.label);
+		});
 	}
 
 	initDOMRefs(){
 		this.$button = this.shadowRoot.querySelector("#button");
 		this.$list = this.shadowRoot.querySelector("#list");
 		this.$label = this.shadowRoot.querySelector("#label");
-		this.$value = this.shadowRoot.querySelector("#value-container");
+		this.$valueLabel = this.shadowRoot.querySelector("#value-container");
 	}
 
 	changeLabel(label) {
@@ -76,13 +70,26 @@ export default class PaperDropDown extends HTMLElement {
 		}
 	}
 
-	changeValue(value) {
+	changeValue(value, label) {
 		if ( value ) {
-			this.$value.innerText = value;
+			this.value = value;
+		}
+		if ( label ) {
+			this.$valueLabel.innerText = label;
 		}
 	}
 
-	connectedCallback(){
+	calculateHeight() {
+		if ( this.countOptions && ! isNaN(this.countOptions)){
+			this.$list.style.height = (this.countOptions * 25) + 'px';
+		}
+	}
+
+	getValue(){
+		return this.value;
+	}
+
+	connectedCallback() {
 		this.changeLabel(this.label);
 		this.changeValue(this.defaultValue);
 	}
