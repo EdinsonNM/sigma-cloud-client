@@ -9,6 +9,7 @@ import '../module-inv/module-inv';
 import '../module-pcr/module-pcr';
 import Predio from '../../../models/predio';
 import Modules from '../../../libs/modules';
+import Modal from '../modal/app-modal';
 export default class AppMain extends HTMLElement{
 		constructor(){
 			super();
@@ -69,9 +70,14 @@ export default class AppMain extends HTMLElement{
 							this.$chips.selectedIndex = this.module.data.index;
 						}
 					}
+					this.render();
+				}else{
+					if(path.length===2){
+						this.render();
+					}
 				}
 
-				this.render();
+				
 		}
 
 

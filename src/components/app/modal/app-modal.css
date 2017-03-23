@@ -1,0 +1,162 @@
+
+.modal{
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    position: fixed;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    overflow: hidden;
+    visibility: hidden;
+    opacity: 0;
+    transition:all 0.5s ease-in-out;
+    
+}
+
+.modal.visible{
+    visibility: visible;
+    opacity: 1;
+    z-index:10000;
+    transition:all 1.5s ease-in-out;
+}
+
+.modal-effect.ripple{
+    animation-name: ripple;
+    animation-duration: 2s;
+}
+
+.modal-effect:before{
+	content:"";
+	display:block;
+	padding-top:100%;
+    float: left; 
+}
+.modal-effect{
+    border-radius: 50%;
+    opacity:0;
+    width:1px;
+    position: absolute;
+    
+}
+
+ @media screen and (orientation:portrait) {
+    .modal-effect.ripple{
+        border-radius: 50%;
+        animation-name: ripplePortrait;
+        animation-duration: 2s;
+    }
+  }
+
+@keyframes ripplePortrait {
+        0%{
+            background-color: black;
+            opacity:0.3;
+            width:20px;
+            left: calc(50% - 10px);
+            top: calc(50% - 10px);
+            position: absolute;
+        }
+        50%  {
+            width: 150vh;
+            left: calc(50% - 75vh);
+            top: calc(50% - 75vh);
+            background-color: white;
+            background-size: cover;
+            margin: auto;
+            opacity:0.7;
+            position: absolute;
+        }
+        90% {
+            background-color: white;
+            opacity:0.2;
+            width:10px;
+            left: calc(50% - 5px);
+            top: calc(50% - 5px);
+            position: absolute;
+        }
+        100% {
+            display: none;
+            background-color: black;
+            opacity: .1;
+        }
+    }
+
+@keyframes ripple {
+    0%{
+        background-color: black;
+        opacity:1;
+        width:20px;
+        left: calc(50% - 10px);
+        top: calc(50% - 10px);
+        position: absolute;
+    }
+    50%  {
+        width: 150vw;
+        left: calc(50% - 75vw);
+        top: calc(50% - 75vw);
+        background-color: black;
+        background-size: cover;
+        margin: auto;
+        opacity:0.3;
+        position: absolute;
+    }
+    90% {
+        background-color: white;
+        opacity:0.2;
+        width:10px;
+        left: calc(50% - 5px);
+        top: calc(50% - 5px);
+        position: absolute;
+    }
+    100% {
+        display: none;
+    }
+}
+
+.modal{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.modal-header{
+    width: 100%;
+    height: 140px;
+    min-height: 140px;
+    text-align: left;
+    align-content: flex-start;
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+
+
+}
+
+
+.modal-content{
+    flex: 1;
+    background-color: white;
+    width: 100%;
+    height: calc(100% - 160px);
+
+}
+
+.content{
+    width: 100%;
+    height: calc(100% - 20px);
+    overflow: auto;
+    flex: 1;
+
+}
+
+.title{
+    height: 20px;
+    font-size: 16px;
+    @apply --layout-center-center;
+    @apply --paper-font-common-base;
+    display: block;
+}

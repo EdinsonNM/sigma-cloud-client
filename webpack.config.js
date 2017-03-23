@@ -50,6 +50,7 @@ module.exports={
 		}),
 		new CopyWebpackPlugin([
 			{from: 'public/css', to: 'css' },
+      {from: 'public/fonts', to: 'fonts' },
 			{from: 'public/images', to: 'images' },
 			{from: 'public/js', to: 'js' },
       {from: 'public/manifest.json', to: 'manifest.json' },

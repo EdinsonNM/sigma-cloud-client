@@ -4,36 +4,32 @@
 		<title>Sigma Cloud Client</title>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic">
-		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700">
-		<link href="https://fonts.googleapis.com/css?family=Advent+Pro" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Baloo" rel="stylesheet">
 		<link rel="import" href="./css/typography.html">
 		<link rel="import" href="./css/color.html">
 		<link rel="import" href="./css/shadow.html">
 		<link rel="import" href="./css/flex-layout.html">
 		<link rel="import" href="./css/common.html">
 		<link rel="import" href="./css/layout-style.html">
-		<link rel="stylesheet" href="./css/app.css">
-		<script src='js/shadydom.min.js'></script>
-		<script src='js/shadycss.min.js'></script>
+		<link rel="stylesheet" href="./css/index.css">
 		<script src='js/utilcss.js'></script>
 		<link rel="manifest" href="manifest.json">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+		<link rel="stylesheet" href="css/animate.css">
+			<script src='js/shadydom.min.js'></script>
+		<script src='js/shadycss.min.js'></script>
 	</head>
 	<body>
 		<my-app></my-app>
 		<script>
 			if ('serviceWorker' in navigator) {
-				window.addEventListener('load', function() {
-					/*navigator.serviceWorker.register('sw.js').then(function(reg) {
+				/*window.addEventListener('load', function() {
+					navigator.serviceWorker.register('sw.js').then(function(reg) {
 						console.log('Yey!', reg);
 					}).catch(function(err) {
 						console.log('Boo!', err);
-					});*/
-				});
+					});
+				});*/
 			}
 		</script>
+
 	</body>
 </html>

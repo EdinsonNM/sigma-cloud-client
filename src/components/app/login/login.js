@@ -1,7 +1,7 @@
 import Template from '../../../libs/template';
 import html from './login.html';
 import css from './login.css';
-
+import '../logo/app-logo';
 let templateObj = new Template(css,html);
 
 export default class AppLogin extends HTMLElement {

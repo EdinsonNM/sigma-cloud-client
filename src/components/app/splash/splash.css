@@ -7,48 +7,7 @@
     padding: 0 40px 0px 40px;
     font-family: 'Advent Pro', sans-serif;
 }
-#logo{
-    width:200px;
-    height:200px;
-}
 
-iron-icon {
-    height: 200px;
-    width: 200px;
-}
-iron-icon:nth-of-type(1) {
-    fill: white;
-    transition: .3s ease-in-out;
-    animation: changeColor 5s infinite alternate;
-}
-@keyframes changeColor {
-    0% {
-        fill: white;
-    }
-    100% {
-        fill: white;
-    }
-}
-
-
-h1{
-    font-family: 'Advent Pro', sans-serif;
-    width: 200px;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-    font-size: 50px;
-    font-weight: 100;
-}
-h3{
-    font-family: 'Baloo', cursive;
-    text-align: center;
-    display: block;
-    width: 200px;
-    margin: 0;
-    padding-left: 60px;
-    font-size: 24px;
-}
 
 h5{
     font-size: 16px;

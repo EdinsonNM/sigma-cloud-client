@@ -12,3 +12,13 @@ paper-button.active{
 paper-button paper-icon{
     font-size: 32px;
 }
+
+@media (max-width: 400px) {
+    :host{
+        margin: 5px;
+    }
+    paper-button paper-icon{
+        font-size: 20px;
+    }
+
+}

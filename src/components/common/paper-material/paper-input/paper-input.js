@@ -5,56 +5,90 @@ let templateObj = new Template(css,html);
 export default class PaperInput extends HTMLElement {
 	constructor(){
 		super();
-		this._shadowRoot = this.attachShadow({mode: 'open'});
-		this._shadowRoot.innerHTML = templateObj.template;
+		let shadowRoot = this.attachShadow({mode: 'open'});
+		shadowRoot.innerHTML = templateObj.template;
 		this.initDOMRefs();
         this.addListeners();
         
 	}
     initDOMRefs(){
-        this.$container= this._shadowRoot.querySelector('.group');
-        this.$input=this._shadowRoot.querySelector('input');
-        this.$label=this._shadowRoot.querySelector('label');
+        this.$container= this.shadowRoot.querySelector('.group');
+        this.$input=this.shadowRoot.querySelector('input');
+        this.$label=this.shadowRoot.querySelector('label');
+        this.$hrBlue=this.shadowRoot.querySelector('.blue');
+        this.$hinText=this.shadowRoot.querySelector('.hinText');
     }
     addListeners(){
         this.$input.addEventListener("input",(e)=>{
-            this.value=e.currentTarget.value
-        })
+            this.value=e.currentTarget.value;
+        });
+        this.$input.addEventListener("focus",(e)=>{
+            this.$label.classList.add('floating');
+            this.$label.classList.add('focus');
+            this.$hrBlue.classList.add('focus');
+            if(this.$input.value==''){
+                this.$hinText.classList.add('focus');
+            }
+            
+        });
+         this.$input.addEventListener("blur",(e)=>{
+            if(this.$input.value==''){
+                this.$label.classList.remove('floating');
+            }
+            this.$label.classList.remove('focus');
+            this.$hrBlue.classList.remove('focus');
+            this.$hinText.classList.remove('focus');
+
+        });
+        this.$input.addEventListener("keyup",(e)=>{
+             if(this.$input.value!==''){
+                 this.$hinText.classList.remove('focus');
+             }else{
+                this.$hinText.classList.add('focus');
+             }
+        });
        
     }
     connectedCallback() {
-		 this.color = this.getAttribute('color');
-         this.floatingLabel = this.getAttribute('floating-label');
-         this.value=this.getAttribute('value');
-         this.type=this.getAttribute('type');
+		 this.floatingLabel = this.getAttribute('floating-label');
 	}
+    static get observedAttributes() {
+		return ['hinText','floating-label','type','value','color'];
+	}
+    attributeChangedCallback(attr, oldValue, newValue) {
+		this.render();
+	}
+    render(){
+        this.$hinText.innerHTML = this.hinText;
+        this.$input.type=this.type;
+        this.$input.value = this.value;
+        this.$input.style.color = this.color;
+        this.$label.innerHTML= this.floatingLabel;
+
+    }
     set color(val) {
-		if (val){
-            this.setAttribute('color', val);
-            this.$input.style.color = val;
-            
-        }else
-            this.removeAttribute('color');
+        this.setAttribute('color', val);
 	}
 	get color() {
-		return this.hasAttribute('color');
+		return this.getAttribute('color');
 	}
     set floatingLabel(val) {
-		if (val){
-            this.setAttribute('floating-label', val);
-            this.$label.innerHTML= val;
-            
-        }else
-            this.removeAttribute('floating-label');
+		 this.setAttribute('floating-label', val||'');
 	}
 	get floatingLabel() {
-		return this.hasAttribute('color');
+		return this.getAttribute('floating-label');
 	}
+
+    set hinText(val){
+        this.setAttribute('hinText',val);
+    }
+    get hinText(){
+        return this.getAttribute('hinText');
+    }
 
     set value(val) {
 		if (val){
             this.setAttribute('value', val);
-            this.$input.value = val;
             
         }else
             this.removeAttribute('value');
@@ -63,16 +97,13 @@ export default class PaperInput extends HTMLElement {
 		return this.getAttribute('value');
 	}
     set type(val) {
-		if (val){
-            this.setAttribute('type', val);
-            this.$input.type=val;
-            
-        }else
-            this.removeAttribute('type');
+		this.setAttribute('type', val||'text');
 	}
 	get type() {
 		return this.getAttribute('type');
 	}
+
+   
 	
 
 }

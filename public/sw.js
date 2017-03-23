@@ -15,7 +15,11 @@ self.addEventListener('fetch', function(evt) {
 function precache() {
   return caches.open(CACHE).then(function (cache) {
     return cache.addAll([
-
+      'fonts/MaterialIcons-Regular.woff2',
+      'fonts/AdventPro-Regular.ttf',
+      'fonts/Roboto-Regular.ttf',
+      'fonts/Roboto-Thin.ttf',
+      'fonts/Baloo-Regular.ttf',
       'css/color.html',
       'css/common.html',
       'css/flex-layout.html',

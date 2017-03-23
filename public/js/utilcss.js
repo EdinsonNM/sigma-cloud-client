@@ -6,7 +6,7 @@ var setDocumentVariable = function(propertyName, value) {
 	document.documentElement.style.setProperty(propertyName, value);
 };
 
-var animate = function(element,...params){
+animate = function(element,...params){
 	for (let i = 0, length = params.length; i < length; i++) {
 		element.classList.add(params[i]);
 	}

@@ -21,6 +21,8 @@ input:focus{
     color:black;
     padding: 0 ;
     font-family: 'Advent Pro', sans-serif;
+    overflow: auto;
+    min-height: 530px;
 }
 
 
@@ -65,6 +67,7 @@ input:focus{
     @apply --layout-fixed-bottom;
     @apply --shadow-elevation-2dp;
     transition:all 0.3s ease-in-out;
+    position: absolute;
 }
 .footer-container.hidden{
     bottom: -160px;
@@ -83,6 +86,7 @@ input:focus{
     text-align: justify;
     margin-left: 10px;
     margin-right: 10px;
+    
 }
 
 .footer-container .subview-header .footer-logo{
@@ -114,9 +118,13 @@ input:focus{
     width: 100%;
     bottom: 0;
     height: 120px;
-    background-color: white;
     @apply --layout-center;
     @apply --layout-vertical;
+    transition:all 0.5s ease-in-out;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .footer-container.showAll{
@@ -133,6 +141,7 @@ input:focus{
     transition:all 2s ease-in-out;
     display: flex;
     flex-direction: column;
+    overflow: auto;
     
 }
 .subview-content.hidden{
@@ -143,5 +152,6 @@ input:focus{
 }
 
 module-pad,module-inv{
-    width: 100%
+    width: 100%;
 }
+

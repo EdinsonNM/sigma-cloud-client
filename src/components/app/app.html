@@ -3,17 +3,19 @@
 		:host{
 				width: 100%;
 				height: 100%;
+
 		}
 		#app{
 				height: 100%;
 				width: 100%;
 		}
+
 	</style>
 </custom-style>
 <div id="app">
-	<app-router id="appRouter" mode="hash">
+	<app-router id="appRouter" mode="hash" >
 		<app-route path="/"	element="app-splash"></app-route>
-		<app-route path="/login"	element="app-login"></app-route>
+		<app-route path="/login"	element="app-login"  ></app-route>
 		<app-route path="/main/:moduleInit"	element="app-main"  onUrlChange="updateModel"></app-route>
 		<app-route path="/profile"	element="app-profile"></app-route>
 		<app-route path="/map"	element="app-map"></app-route>
