@@ -23,6 +23,7 @@ export default class AppMain extends HTMLElement{
 				showFooter:false,
 				showFooterAll:false,
 			};
+			this.results = [];
 		}
 
 		initDOMRefs(){
@@ -102,7 +103,10 @@ export default class AppMain extends HTMLElement{
 				this.$inputContainer.style.visibility='hidden';
 				this.$subviewContent.innerHTML='';
 				let moduleApp = document.createElement(this.module.data.module);
-				//TODO ADD RESULTS TO SEARCH COMPONENT
+				//ADD RESULTS TO SEARCH COMPONENT
+				if ( this.results.length > 0 ) {
+					moduleApp.addResults(this.results);
+				}
 				this.$subviewContent.appendChild(moduleApp);
 				this.$subviewContent.classList.remove('hidden');
 				document.location.hash = `/main/${this.module.name}`;
@@ -129,7 +133,7 @@ export default class AppMain extends HTMLElement{
 					const count = data.length;
 					let moduleData = Modules['search'];
 					data.forEach((item)=>{
-
+						self.results.push(item);
 						self.$map.addMarker({
 							lat:parseFloat(item.latitude),
 							lng:parseFloat(item.longitude)

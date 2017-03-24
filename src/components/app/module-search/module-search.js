@@ -14,8 +14,21 @@ export default class ModuleSearch extends HTMLElement{
 			this.addListerners();
 	}
 
-	initDOMRefs(){
 
+	initDOMRefs(){
+		this.$resultsContainer = this.shadowRoot.querySelector('#results-container');
+	}
+
+	addResults(results){
+		results.forEach( item => {
+			let peperListItem = document.createElement('paper-list-item');
+			peperListItem.setAttribute('primary-title', item.vNombre);
+			peperListItem.setAttribute('secondary-title', `<b>UC:</b> ${item.uc}`);
+			peperListItem.setAttribute('icon-left', 'menu');
+			let paperLine = document.createElement('paper-line');
+			this.$resultsContainer.appendChild(peperListItem);
+			this.$resultsContainer.appendChild(paperLine);
+		});
 	}
 
 	addListerners(){
