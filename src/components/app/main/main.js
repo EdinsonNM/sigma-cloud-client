@@ -2,14 +2,16 @@ import AppCarouselChips from '../app-carousel-chips/app-carousel-chips';
 import Template from '../../../libs/template';
 import html from './main.html';
 import css from './main.css';
-let templateObj = new Template(css,html);
-
 import '../module-pad/module-pad';
 import '../module-inv/module-inv';
 import '../module-pcr/module-pcr';
+import '../module-search/module-search';
 import Predio from '../../../models/predio';
 import Modules from '../../../libs/modules';
 import Modal from '../modal/app-modal';
+
+let templateObj = new Template(css,html);
+
 export default class AppMain extends HTMLElement{
 		constructor(){
 			super();
@@ -95,12 +97,12 @@ export default class AppMain extends HTMLElement{
 			}
 
 			if(this.state.showFooterAll){
-
 				this.$footer.classList.add('showAll');
 				this.$chips.style.visibility='hidden';
 				this.$inputContainer.style.visibility='hidden';
 				this.$subviewContent.innerHTML='';
 				let moduleApp = document.createElement(this.module.data.module);
+				//TODO ADD RESULTS TO SEARCH COMPONENT
 				this.$subviewContent.appendChild(moduleApp);
 				this.$subviewContent.classList.remove('hidden');
 				document.location.hash = `/main/${this.module.name}`;
@@ -125,6 +127,7 @@ export default class AppMain extends HTMLElement{
 					console.log(err,data);
 					console.log('add dinamic markers...');
 					const count = data.length;
+					let moduleData = Modules['search'];
 					data.forEach((item)=>{
 
 						self.$map.addMarker({
@@ -134,26 +137,29 @@ export default class AppMain extends HTMLElement{
 					});
 					//EXTEND MAP BASE ON RESULTS
 					self.$map.fitBounds();
-					//CHANGE COUNT LABEL FOR RESULTS 
-					let moduleData = Modules['srh'];
+					//CHANGE COUNT LABEL FOR RESULTS
+					moduleData.description = "Se han encontrado <b>__COUNT__</b> resultados";
 					moduleData.description = moduleData.description.replace('__COUNT__', count);
+					moduleData.module = 'module-search';
 					self.$chips.dispatchEvent(new CustomEvent('changed-chip',{
-							detail:{
-									name: 'Busqueda',
-									active:true,
-									data: moduleData
-							}
+						detail:{
+							name: 'search',
+							active:true,
+							data: moduleData
+						}
 					}));
 				});
 			}
 		}
 
 		static get observedAttributes() {
-            return ['selectedIndex'];
-        }
+			return ['selectedIndex'];
+		}
+
 		attributeChangedCallback() {
-            this.render();
-        }
+			this.render();
+		}
+
 		connectedCallback(){
 			this.ChangeSubView();
 		}
@@ -174,16 +180,11 @@ export default class AppMain extends HTMLElement{
 
 			}
 		}
+
 		get moduleInit(){
 			this.getAttribute('moduleInit');
 		}
-
-
-
-
-
 }
-
 
 const nameWebComponent="app-main";
 const component=AppMain;

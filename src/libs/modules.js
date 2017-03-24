@@ -38,10 +38,10 @@ export default {
         description:'Realiza el registro de las mediciones de...',
         logo:'./images/modules/module_hid.png'
     },
-    srh:{
+    search:{
       index: 6,
       title: 'Busqueda',
-      description: 'Se han encontrado <b>__COUNT__</b> resultados',
+      description: 'No se han encontrado resultados para esta busqueda',
       logo: './images/modules/module_search.jpg'
     }
 }
