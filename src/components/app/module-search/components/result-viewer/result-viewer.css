@@ -1,0 +1,8 @@
+:host{
+	@apply --layout-center-center;
+	@apply --layout-vertical;
+	height: 100%;
+	color:white;
+	padding: 0 10px 0px 10px;
+	font-family: 'Advent Pro', sans-serif;
+}

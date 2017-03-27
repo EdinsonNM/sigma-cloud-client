@@ -88,7 +88,7 @@ export default class AppMain extends HTMLElement{
 			if(this.state.showFooter){
 				this.$footer.classList.remove('hidden');
 				animate(this.$footerLogo,'animated','zoomIn');
-				this.$footerImg.setAttribute("src",this.module.data.logo);
+				this.$footerImg.setAttribute("src", this.module.data.logo);
 				this.$footerTitle.innerHTML=this.module.data.title;
 				this.$footerDescription.innerHTML=this.module.data.description;
 
@@ -117,13 +117,13 @@ export default class AppMain extends HTMLElement{
 				this.$inputContainer.style.visibility='visible';
 				this.$subviewContent.classList.add('hidden');
 				document.location.hash = `/main/app`;
-
 			}
 
 		}
 
 		searchPredio(e){
 			const self = this;
+			this.results = [];
 			const key = e.keyCode;
 			if (key === 13) {
 				let predioService = new Predio();
